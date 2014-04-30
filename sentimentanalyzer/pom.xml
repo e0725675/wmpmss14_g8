@@ -31,6 +31,30 @@
 			<version>${junit.version}</version>
 			<scope>test</scope>
 		</dependency>
+    	<dependency>
+     	   <groupId>org.springframework</groupId>
+    	    <artifactId>spring-context</artifactId>
+   	    	<version>4.0.3.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>4.0.3.RELEASE</version>
+		</dependency>
+		
+		
+		
+		<!-- CAMEL-->
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-core</artifactId>
+			<version>2.13.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-spring</artifactId>
+			<version>2.13.0</version>
+		</dependency>
 		
 	</dependencies>
 	
