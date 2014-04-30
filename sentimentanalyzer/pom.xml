@@ -42,9 +42,19 @@
 			<version>4.0.3.RELEASE</version>
 		</dependency>
 		
+		<!-- LOGGING -->
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
+		</dependency>
+        <dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.7.7</version>
+		</dependency>
 		
-		
-		<!-- CAMEL-->
+		<!-- CAMEL -->
 		<dependency>
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-core</artifactId>
@@ -55,7 +65,11 @@
 			<artifactId>camel-spring</artifactId>
 			<version>2.13.0</version>
 		</dependency>
-		
+		<dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-servlet</artifactId>
+			<version>2.13.0</version>
+        </dependency>
 	</dependencies>
 	
 	<build>

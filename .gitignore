@@ -13,3 +13,5 @@ hs_err_pid*
 sentimentanalyzer/target
 *.classpath
 *.project
+sentimentanalyzer/.settings
+/sentimentanalyzer/togf.bat
