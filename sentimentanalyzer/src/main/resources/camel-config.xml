@@ -2,6 +2,7 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:camel="http://camel.apache.org/schema/spring"
        xsi:schemaLocation="
        http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
@@ -21,6 +22,8 @@
 					<!-- yes so return back a message to the user -->
 					<transform>
 						<simple>Hello ${header.name} how are you?</simple>
+						
+						
 					</transform>
 				</when>
 				<otherwise>
@@ -30,9 +33,14 @@
 					</transform>
 				</otherwise>
 			</choice>
+			<to uri="smtps://smtp.gmail.com:465?password=wmpmSS2014&amp;username=workflow@applepublic.tv">
+			</to>
 		</route>
-	
-	
 	</camelContext>
+	<camel:sslContextParameters id="sslContextParameters">
+		<camel:trustManagers>
+			<camel:keyStore resource="/users/home/server/truststore.jks" password="keystorePassword"/>
+		</camel:trustManagers>
+	</camel:sslContextParameters>
 	<bean id="testProcessor" class="at.tuwien.sentimentanalyzer.sample.TestProcessor"/>
 </beans>
