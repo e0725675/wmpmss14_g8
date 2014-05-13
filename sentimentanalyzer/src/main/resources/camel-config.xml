@@ -12,6 +12,7 @@
        http://camel.apache.org/schema/spring/camel-spring.xsd">
  
 	<camelContext xmlns="http://camel.apache.org/schema/spring">
+		<!-- incoming requests from the servlet is routed <routeContextRef ref="TwitterRoutes"/>-->
 		<route>
 			<!-- incoming requests from the servlet is routed -->
 			<from uri="servlet:///hello"/>
@@ -36,11 +37,14 @@
 			<to uri="smtps://smtp.gmail.com:465?password=wmpmSS2014&amp;username=workflow@applepublic.tv">
 			</to>
 		</route>
+		
 	</camelContext>
+			
 	<camel:sslContextParameters id="sslContextParameters">
 		<camel:trustManagers>
 			<camel:keyStore resource="/users/home/server/truststore.jks" password="keystorePassword"/>
 		</camel:trustManagers>
 	</camel:sslContextParameters>
 	<bean id="testProcessor" class="at.tuwien.sentimentanalyzer.sample.TestProcessor"/>
+	
 </beans>
