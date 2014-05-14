@@ -5,7 +5,7 @@
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
     ">
  
-    <!-- this is an included XML file where we include only the routeContext -->
+    <!-- this is the included XML file where we include only the routeContext -->
     <routeContext id="TwitterRoutes" xmlns="http://camel.apache.org/schema/spring">
         <!-- we can have a route -->
         <route id="cool">
