@@ -87,7 +87,7 @@
 		<route id="generateFoo-route">
 			<from uri="timer:foo?period=20s"/>
 			<transform>
-			<method ref="fooBean" method="generateFoo"/>
+				<method ref="fooBean" method="generateFoo"/>
 			</transform>
 			<to uri="hibernate:at.tuwien.sentimentanalyzer.entities.Foo"/>
 			<log message="Inserted new foo ${body.id}"/>
