@@ -9,8 +9,10 @@
     <routeContext id="TwitterRoutes" xmlns="http://camel.apache.org/schema/spring">
         <!-- we can have a route -->
         <route id="twitterSearchPlachutta">
-			<from uri="twitter://search?type=direct&amp;keywords=plachutta&amp;consumerKey=hEnR5kZzziT64SMb1IZjmJw9f&amp;consumerSecret=LZc6bLhihxVCicn9JBi28EHC73C6u1llQ2PjA9W6uEUastACrv&amp;accessToken=2493103232-0ath7kWee8wC98OryubP1TvLa0SmDQM3sfm8jlU&amp;accessTokenSecret=m4PwikkabfFBgagebNZW1h8qYG25cks8K6uyNvOX89AAE" />
-            <to uri="smtps://smtp.gmail.com:465?password=wmpmSS2014&amp;username=workflow@applepublic.tv" />
+			<from uri="timer://timerTP?period=60000" />
+			<from uri="twitter://search?type=polling&amp;numberOfPages=30&amp;delay=30&amp;keywords=share&amp;consumerKey=hEnR5kZzziT64SMb1IZjmJw9f&amp;consumerSecret=LZc6bLhihxVCicn9JBi28EHC73C6u1llQ2PjA9W6uEUastACrv&amp;accessToken=2493103232-0ath7kWee8wC98OryubP1TvLa0SmDQM3sfm8jlU&amp;accessTokenSecret=m4PwikkabfFBgagebNZW1h8qYG25cks8K6uyNvOX89AAE" />
+			<to uri="log:tweet" />
+            <!--<to uri="smtps://smtp.gmail.com:465?password=wmpmSS2014&amp;username=workflow@applepublic.tv&amp;subject=TwitterIn" />-->
          
         </route>
 	
