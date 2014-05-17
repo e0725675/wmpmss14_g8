@@ -8,7 +8,7 @@
     <!-- This routeContext only contains experiments and testing stuff -->
     <routeContext id="TestRoutes" xmlns="http://camel.apache.org/schema/spring">
         <route>
-			<!-- Just for testing. if you open .../sentimentanalyzer/hello?name=<something> a message will be sent to
+			<!-- Just for testing. if you open .../sentimentanalyzer/hello?name=<something> a message will be sent TOTOTO
 				workflow@applepublic.tv -->
 			<from uri="servlet:///hello"/>
 			<choice>
