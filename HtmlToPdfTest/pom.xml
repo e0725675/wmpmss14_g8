@@ -18,15 +18,15 @@
 			<groupId>com.itextpdf</groupId>
 			<artifactId>itextpdf</artifactId>
 			<version>5.4.4</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/itext-5.4.4/itextpdf-5.4.4.jar</systemPath>
+			<!--<scope>system</scope>
+			<systemPath>${project.basedir}/lib/itext-5.4.4/itextpdf-5.4.4.jar</systemPath>-->
 		</dependency>
 		<dependency>
 			<groupId>com.itextpdf.tool</groupId>
 			<artifactId>xmlworker</artifactId>
 			<version>5.4.4</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/xmlworker-5.4.4/xmlworker-5.4.4.jar</systemPath>
+			<!--<scope>system</scope>
+			<systemPath>${project.basedir}/lib/xmlworker-5.4.4/xmlworker-5.4.4.jar</systemPath>-->
 		</dependency>
 	</dependencies>
 	<build>
