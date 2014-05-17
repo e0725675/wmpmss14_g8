@@ -15,8 +15,9 @@
 	http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
 	
 	<!-- import the routes from another XML file -->
+	<import resource="TestContext.xml"/>
 	<import resource="TwitterContext.xml"/>
-	<!--<import resource="FacebookContext.xml"/>-->
+	<import resource="FacebookContext.xml"/>
 	
 	<!-- this is the JDBC data source which uses an in-memory only Apache Derby database -->
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
@@ -69,59 +70,14 @@
 	<tx:annotation-driven />
 	
 	<camelContext xmlns="http://camel.apache.org/schema/spring">
-		<!-- incoming requests from the servlet is routed -->
+		<!-- references to other routeContexts - dont forget to link the file aswell!!! -->
 		<!--<routeContextRef ref="TwitterRoutes"/>-->
 		<!--<routeContextRef ref="FacebookRoutes"/>-->
+		<routeContextRef ref="TestRoutes"/>
 		
-		<route>
-			<!-- incoming requests from the servlet is routed -->
-			<from uri="servlet:///hello"/>
-			<choice>
-				<when>
-					<!-- is there a header with the key name? -->
-					<header>name</header>
-					<!-- yes so return back a message to the user -->
-					<transform>
-						<simple>Hello ${header.name} how are you?</simple>
-						
-						
-					</transform>
-				</when>
-				<otherwise>
-					<!-- if no name parameter then output a syntax to the user -->
-					<transform>
-						<constant>Add a name parameter to uri, eg ?name=foo</constant>
-					</transform>
-				</otherwise>
-			</choice>
-			<to uri="smtps://smtp.gmail.com:465?password=wmpmSS2014&amp;username=workflow@applepublic.tv">
-			</to>
-		</route>
-
-		<route id="generateFoo-route">
-			<from uri="timer:foo?period=20s"/>
-			<transform>
-				<method ref="fooBean" method="generateFoo"/>
-			</transform>
-			<to uri="hibernate:at.tuwien.sentimentanalyzer.entities.Foo"/>
-			<log message="Inserted new foo ${body.id}"/>
-		</route>
-
-		<!-- route that process the foos by picking up new rows from the database
-		and when done processing then update the row to mark it as processed -->
-		<route id="processFoo-route">
-			<from uri="hibernate:at.tuwien.sentimentanalyzer.entities.Foo?delay=1s"/>
-			<to uri="bean:fooBean?method=processFoo"/>
-			<log message="${body}"/>
-		</route>
 		
-		<route id="facebookSearchPlachutta">
-			<from uri="timer:foo?period=20s"/>
-			<!--<to uri="https://graph.facebook.com/v2.0//me?fields=id,name&amp;access_token=CAAErrkh9eZCIBAEulU3syZARyzRcBZCwZBUChxyVDXrJ6etyXtgM16lvxF23sT62sdhzE3FGbEYQCWuBAt5xHOq00WdHN2Kt5RvpGOW1ZB8Azpd3ZC5i2uJ9488fZBnUgfkGOGdcEZCVripEMXjSvbK6L8ZADbXUUwYY6ryibVTYHuawx5swa4NJajEGMTCBSPuwZD" />-->
-			<to uri="https://graph.facebook.com/v2.0//123939137654782/feed?access_token=CAAErrkh9eZCIBAEulU3syZARyzRcBZCwZBUChxyVDXrJ6etyXtgM16lvxF23sT62sdhzE3FGbEYQCWuBAt5xHOq00WdHN2Kt5RvpGOW1ZB8Azpd3ZC5i2uJ9488fZBnUgfkGOGdcEZCVripEMXjSvbK6L8ZADbXUUwYY6ryibVTYHuawx5swa4NJajEGMTCBSPuwZD" />
-			<convertBodyTo type="java.lang.String" />
-			<to uri="log:facebook" /> 		        
-        </route>
+		
+		
 
 
 	</camelContext>
