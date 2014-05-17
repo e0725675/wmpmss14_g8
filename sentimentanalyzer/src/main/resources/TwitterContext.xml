@@ -7,10 +7,13 @@
  
     <!-- this is the included XML file where we include only the routeContext -->
     <routeContext id="TwitterRoutes" xmlns="http://camel.apache.org/schema/spring">
-        <!-- searches for the keyword "share" every 60 seconds on twitter and returns the tweets -->
+        <!-- searches for the keyword "share" on twitter and returns the tweets -->
         <route id="twitterSearchPlachutta">
-			<from uri="timer://timerTP?period=60000" />
+			<from uri="servlet:///twitter" />
+
 			<from uri="twitter://search?type=polling&amp;numberOfPages=30&amp;delay=30&amp;keywords=share&amp;consumerKey=hEnR5kZzziT64SMb1IZjmJw9f&amp;consumerSecret=LZc6bLhihxVCicn9JBi28EHC73C6u1llQ2PjA9W6uEUastACrv&amp;accessToken=2493103232-0ath7kWee8wC98OryubP1TvLa0SmDQM3sfm8jlU&amp;accessTokenSecret=m4PwikkabfFBgagebNZW1h8qYG25cks8K6uyNvOX89AAE" />
+			<to uri="log:tweet1" />			
+			<convertBodyTo type="at.tuwien.sentimentanalyzer.connectors.Message" />
 			<to uri="log:tweet" />
             <!--<to uri="smtps://smtp.gmail.com:465?password=wmpmSS2014&amp;username=workflow@applepublic.tv&amp;subject=TwitterIn" />-->
          

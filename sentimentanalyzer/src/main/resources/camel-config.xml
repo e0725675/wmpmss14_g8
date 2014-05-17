@@ -71,7 +71,7 @@
 	
 	<camelContext xmlns="http://camel.apache.org/schema/spring">
 		<!-- references to other routeContexts - dont forget to link the file aswell!!! -->
-		<!--<routeContextRef ref="TwitterRoutes"/>-->
+		<routeContextRef ref="TwitterRoutes"/>
 		<!--<routeContextRef ref="FacebookRoutes"/>-->
 		<routeContextRef ref="TestRoutes"/>
 		

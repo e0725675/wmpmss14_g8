@@ -1,14 +1,6 @@
 package at.tuwien.sentimentanalyzer.connectors;
 
-import static javax.persistence.GenerationType.AUTO;
-
 import java.util.Date;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
 
 /**
  * All messages, tweets, posts, whatever, will be aggregated to this format
