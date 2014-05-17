@@ -21,8 +21,8 @@ public class TwitterConverter {
 	//twitter4j.internal.json.StatusJSONImpl
 	@Converter
 	public static Message toMessage(Status string) {
-		log.info("StatusToMessage")
-		return new Message;
+		log.info("StatusToMessage");
+		return new Message();
 		
 	}
 	@Converter

@@ -8,7 +8,7 @@
     <!-- This routeContext only contains experiments and testing stuff -->
     <routeContext id="TestRoutes" xmlns="http://camel.apache.org/schema/spring">
         <route>
-			<!-- Just for testing. if you open .../sentimentanalyzer/hello?name=<something> a message will be sent TOTOTO
+			<!-- Just for testing. if you open .../sentimentanalyzer/hello?name=<something> a message will be sent to
 				workflow@applepublic.tv -->
 			<from uri="servlet:///hello"/>
 			<choice>
@@ -47,6 +47,7 @@
 		<route id="processFoo-route">
 			<from uri="hibernate:at.tuwien.sentimentanalyzer.entities.Foo?delay=1s"/>
 			<to uri="bean:fooBean?method=processFoo"/>
+			<to uri="smtps://smtp.gmail.com:465?password=wmpmSS2014&amp;username=workflow@applepublic.tv" />
 			<log message="${body}"/>
 		</route>
     </routeContext>
