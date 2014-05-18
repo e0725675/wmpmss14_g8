@@ -18,3 +18,4 @@ sentimentanalyzer/.settings
 /HtmlToPdfTest/test.html.pdf
 *.log
 .settings
+/sentimentanalyzer/log.txt
