@@ -20,8 +20,10 @@ public class Foo {
 	@GeneratedValue(strategy = AUTO)
 	@Column
 	private long id;
+	
 	@Column(length = 200, nullable = true)
 	private String description;
+	
 	public Foo() {
 
 	}

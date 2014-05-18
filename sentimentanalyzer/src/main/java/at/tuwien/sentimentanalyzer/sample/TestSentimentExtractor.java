@@ -1,6 +1,5 @@
 package at.tuwien.sentimentanalyzer.sample;
 
-import java.awt.List;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;

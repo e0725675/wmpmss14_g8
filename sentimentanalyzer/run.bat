@@ -1,1 +1,1 @@
-mvn compile exec:java -Dexec.mainClass="at.tuwien.sentimentanalyzer.Main"
+mvn clean compile exec:java -Dexec.mainClass="at.tuwien.sentimentanalyzer.Main"

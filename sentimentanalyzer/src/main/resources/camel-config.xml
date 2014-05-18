@@ -18,23 +18,20 @@
 	<import resource="TestContext.xml"/>
 	<import resource="TwitterContext.xml"/>
 	<import resource="FacebookContext.xml"/>
-	
-	<!-- this is the JDBC data source which uses an in-memory only Apache Derby database -->
+
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 		<property name="driverClassName" value="org.apache.derby.jdbc.EmbeddedDriver"/>
 		<property name="url" value="jdbc:derby:memory:orders;create=true"/>
 		<property name="username" value=""/>
 		<property name="password" value=""/>
 	</bean>
-	
-	<!-- setup the Camel hibernate component -->
+
 	<bean id="hibernate" class="org.apacheextras.camel.component.hibernate.HibernateComponent">
 		<property name="sessionFactory" ref="sessionFactory"/>
 		<property name="transactionStrategy" ref="springTransactionStrategy"/>
 	</bean>
 
-	<!-- setup hibernate and spring to use transaction -->
-		<bean id="springTransactionStrategy" class="org.apacheextras.camel.component.hibernate.SpringTransactionStrategy">
+	<bean id="springTransactionStrategy" class="org.apacheextras.camel.component.hibernate.SpringTransactionStrategy">
 		<constructor-arg ref="sessionFactory"/>
 		<constructor-arg ref="transactionTemplate"/>
 	</bean>
@@ -46,47 +43,36 @@
 	<bean id="transactionTemplate" class="org.springframework.transaction.support.TransactionTemplate">
 		<property name="transactionManager" ref="transactionManager"/>
 	</bean>
-	
-	<bean id="fooBean" class="at.tuwien.sentimentanalyzer.beans.FooBean"/>
-	
-	<!-- setup Hibernate session factory -->
+
 	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
-		<property name="dataSource" ref="dataSource"/>
-		<!-- here we define the hibernate mapping files we use -->
-		<property name="mappingResources">
-			<list>
-				<value>Foo.hbm.xml</value>
-			</list>
-		</property>
-		<!-- and here we have additional hibernate options -->
+		<property name="dataSource" ref="dataSource" />
+		<property name="packagesToScan" value="at.tuwien.sentimentanalyzer.entities" />
 		<property name="hibernateProperties">
-			<value>
-				hibernate.dialect=org.hibernate.dialect.DerbyTenSevenDialect
-				hibernate.hbm2ddl.auto=create
-			</value>
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.DerbyTenSevenDialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.hbm2ddl.auto">create</prop>
+			</props>
 		</property>
 	</bean>
-	
-	<tx:annotation-driven />
+
+	<tx:annotation-driven transaction-manager="transactionManager" />
 	
 	<camelContext xmlns="http://camel.apache.org/schema/spring">
 		<!-- references to other routeContexts - dont forget to link the file aswell!!! -->
 		<!-- <routeContextRef ref="TwitterRoutes"/>-->
 		<!--<routeContextRef ref="FacebookRoutes"/>-->
 		<routeContextRef ref="TestRoutes"/>
-		
-		
-		
-		
-
-
 	</camelContext>
 
 	<camel:sslContextParameters id="sslContextParameters">
 		<camel:trustManagers>
-			<camel:keyStore resource="/users/home/server/truststore.jks" password="keystorePassword"/>
-			</camel:trustManagers>
-		</camel:sslContextParameters>
+		<camel:keyStore resource="/users/home/server/truststore.jks" password="keystorePassword"/>
+		</camel:trustManagers>
+	</camel:sslContextParameters>
+	
+	<bean id="fooBean" class="at.tuwien.sentimentanalyzer.beans.FooBean"/>
+	
 	<bean id="testProcessor" class="at.tuwien.sentimentanalyzer.sample.TestProcessor"/>
 
 </beans>
