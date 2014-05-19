@@ -1,25 +1,24 @@
 package at.tuwien.sentimentanalyzer;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLClassLoader;
 
 import org.apache.log4j.Logger;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.webapp.WebAppContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class Main {
-	private static ClassPathXmlApplicationContext springContext = null;
 	private static Server jettyServer = null;
 	private static Logger log = Logger.getLogger(Main.class);
 	
 	public static void main(String[] args) {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		String line = null;
-		
-		initSpring();
-		
+
 		try {
 			initJetty();
 		} catch (Exception e1) {
@@ -48,13 +47,8 @@ public class Main {
 		
 	}
 	
-	private static void initSpring() {
-		log.info("Initializing Spring context...");
-		springContext = new ClassPathXmlApplicationContext("camel-config.xml");
-		springContext.registerShutdownHook();
-	}
-	
 	private static void initJetty() throws Exception{
+		
 		log.info("Starting server...");
 		jettyServer = new Server(8080);
 
@@ -66,5 +60,14 @@ public class Main {
 		log.info(context.toString());
 		jettyServer.setHandler(context);
 		jettyServer.start();
+	}
+	
+	private static boolean fileExists(String path) {
+		File f = new File(path);
+		if (f.exists()) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 }

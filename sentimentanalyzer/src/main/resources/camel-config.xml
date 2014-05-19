@@ -50,7 +50,6 @@
 		<property name="hibernateProperties">
 			<props>
 				<prop key="hibernate.dialect">org.hibernate.dialect.DerbyTenSevenDialect</prop>
-				<prop key="hibernate.show_sql">true</prop>
 				<prop key="hibernate.hbm2ddl.auto">create</prop>
 			</props>
 		</property>
@@ -60,7 +59,7 @@
 	
 	<camelContext xmlns="http://camel.apache.org/schema/spring">
 		<!-- references to other routeContexts - dont forget to link the file aswell!!! -->
-		<!-- <routeContextRef ref="TwitterRoutes"/>-->
+		<routeContextRef ref="TwitterRoutes"/>
 		<!--<routeContextRef ref="FacebookRoutes"/>-->
 		<routeContextRef ref="TestRoutes"/>
 	</camelContext>

@@ -1,9 +1,6 @@
 package at.tuwien.sentimentanalyzer.connectors;
 
-import java.io.UnsupportedEncodingException;
-
 import org.apache.camel.Converter;
-import org.apache.camel.Exchange;
 import org.apache.log4j.Logger;
 
 import twitter4j.Status;
@@ -14,33 +11,20 @@ public class TwitterConverter {
 	
 	@Converter
 	public static Message toMessage(String string) {
-		log.info(string);
+		log.trace("StringToMessage"+string);
 		return new Message();
 	}
 	
-	//twitter4j.internal.json.StatusJSONImpl
+	
 	@Converter
-	public static Message toMessage(Status string) {
-		log.info("StatusToMessage");
-		return new Message();
-		
+	public static Message toMessage(Status status) {
+		Message m = new Message();
+		m.setMessage(status.getText());
+		m.setAuthor(status.getUser().getName());
+		m.setTimePosted(status.getCreatedAt());
+		m.setSource(null);
+		log.trace("StatusToMessage"+m.toString());
+		return m;
 	}
-	@Converter
-    public static Message toMessage(byte[] data, Exchange exchange) {
-		Message out = new Message();
-		log.info("toMessage");
-        if (exchange != null) {
-            String charsetName = exchange.getProperty(Exchange.CHARSET_NAME, String.class);
-            if (charsetName != null) {
-                try {
-                	out.setMessage(new String(data, charsetName));
-                    return out;
-                } catch (UnsupportedEncodingException e) {
-                    log.warn("Can't convert the byte to String with the charset " + charsetName, e);
-                }
-            }
-        }
-        out.setMessage(new String(data));
-        return out;
-    }
+	
 }

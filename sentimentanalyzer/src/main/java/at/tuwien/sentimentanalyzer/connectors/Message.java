@@ -9,6 +9,11 @@ import java.util.Date;
  */
 public class Message {
 	
+	@Override
+	public String toString() {
+		return "Message [message=" + message + ", author=" + author
+				+ ", timePosted=" + timePosted + ", source=" + source + "]";
+	}
 	/**
 	 * The content of the message (e.g. a tweet, a fecebook post, ...)
 	 */
