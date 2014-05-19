@@ -56,8 +56,12 @@
 	</bean>
 
 	<tx:annotation-driven transaction-manager="transactionManager" />
+	<bean id="properties" class="org.apache.camel.component.properties.PropertiesComponent">
+    <property name="location" value="/search.properties"/>
+	</bean>
 	
 	<camelContext xmlns="http://camel.apache.org/schema/spring">
+		
 		<!-- references to other routeContexts - dont forget to link the file aswell!!! -->
 		<routeContextRef ref="TwitterRoutes"/>
 		<!--<routeContextRef ref="FacebookRoutes"/>-->
