@@ -8,13 +8,18 @@
  	<bean id="socialBean" class="at.tuwien.sentimentanalyzer.beans.SocialBean" />
  	
     <!-- this is the included XML file where we include only the routeContext -->
-    <routeContext id="TwitterRoutes" xmlns="http://camel.apache.org/schema/spring">
-        <!-- searches for the keyword "share" on twitter and returns the tweets -->
-        <route id="twitterSearchPlachutta">
-			<from uri="twitter://search?type=polling&amp;numberOfPages=1&amp;delay=60&amp;keywords={{search.term}}&amp;consumerKey=hEnR5kZzziT64SMb1IZjmJw9f&amp;consumerSecret=LZc6bLhihxVCicn9JBi28EHC73C6u1llQ2PjA9W6uEUastACrv&amp;accessToken=2493103232-0ath7kWee8wC98OryubP1TvLa0SmDQM3sfm8jlU&amp;accessTokenSecret=m4PwikkabfFBgagebNZW1h8qYG25cks8K6uyNvOX89AAE" />		
+    <routeContext id="ProfaneRoutes" xmlns="http://camel.apache.org/schema/spring">
+        <!-- searches for the profanity in database -->
+        <route id="ProfaneRoutes">
+			<!--<from uri="hibernate:at.tuwien.sentimentanalyzer.entities." />		
 			
-			<convertBodyTo type="at.tuwien.sentimentanalyzer.connectors.Message" />
-			<to uri="log:tweet" />
+			<!--  Some kind of profanity filter here -->
+			<!--<to uri="hibernate:at.tuwien.sentimentanalyzer.entities." />
+			
+			<!--  Some kind of non-profanity filter here -->
+			<!--<to uri="hibernate:at.tuwien.sentimentanalyzer.entities." />
+
+
 			
 			<!--Save tweet to the database-->
 			<!--<transform>
@@ -24,16 +29,16 @@
 			<to uri="log:DBtweets" />-->
 			
 			<!--Save tweet to CSV-->
-			<bean ref="messageToMapBean"/>
-			<to uri="log:mapper" />
-			<marshal>
-				<csv />
-			</marshal>
-			<to uri="log:csv" />
+			<!--<bean ref="messageToMapBean"/>
+			<!--<to uri="log:mapper" />
+			<!--<marshal>
+			<!--	<csv />
+			<!--</marshal>
+			<!--<to uri="log:csv" />
 			
 			
 			<!-- Note it simply overwrites the old file at the moment. Create a bean to read the file and add the new data (I think) -->
-			<to uri="file://searches/?fileName=${date:now:yyyyMMdd}/{{search.term}}.csv"/>
+			<!--<to uri="file://searches/?fileName=${date:now:yyyyMMdd}/{{search.term}}.csv"/>
         </route>
 
 		
