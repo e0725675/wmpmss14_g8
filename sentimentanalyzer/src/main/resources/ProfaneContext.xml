@@ -1,0 +1,42 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+    ">
+ 	<bean id="messageToMapBean" class="at.tuwien.sentimentanalyzer.beans.CSVHandler" />
+ 	<bean id="socialBean" class="at.tuwien.sentimentanalyzer.beans.SocialBean" />
+ 	
+    <!-- this is the included XML file where we include only the routeContext -->
+    <routeContext id="TwitterRoutes" xmlns="http://camel.apache.org/schema/spring">
+        <!-- searches for the keyword "share" on twitter and returns the tweets -->
+        <route id="twitterSearchPlachutta">
+			<from uri="twitter://search?type=polling&amp;numberOfPages=1&amp;delay=60&amp;keywords={{search.term}}&amp;consumerKey=hEnR5kZzziT64SMb1IZjmJw9f&amp;consumerSecret=LZc6bLhihxVCicn9JBi28EHC73C6u1llQ2PjA9W6uEUastACrv&amp;accessToken=2493103232-0ath7kWee8wC98OryubP1TvLa0SmDQM3sfm8jlU&amp;accessTokenSecret=m4PwikkabfFBgagebNZW1h8qYG25cks8K6uyNvOX89AAE" />		
+			
+			<convertBodyTo type="at.tuwien.sentimentanalyzer.connectors.Message" />
+			<to uri="log:tweet" />
+			
+			<!--Save tweet to the database-->
+			<!--<transform>
+				<method ref="socialBean" method="generateSocial"/>
+			</transform>
+			<to uri="hibernate:at.tuwien.sentimentanalyzer.entities.SocialMessages"/>
+			<to uri="log:DBtweets" />-->
+			
+			<!--Save tweet to CSV-->
+			<bean ref="messageToMapBean"/>
+			<to uri="log:mapper" />
+			<marshal>
+				<csv />
+			</marshal>
+			<to uri="log:csv" />
+			
+			
+			<!-- Note it simply overwrites the old file at the moment. Create a bean to read the file and add the new data (I think) -->
+			<to uri="file://searches/?fileName=${date:now:yyyyMMdd}/{{search.term}}.csv"/>
+        </route>
+
+		
+    </routeContext>
+ 
+</beans>

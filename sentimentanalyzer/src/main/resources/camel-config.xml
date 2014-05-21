@@ -18,6 +18,7 @@
 	<import resource="TestContext.xml"/>
 	<import resource="TwitterContext.xml"/>
 	<import resource="FacebookContext.xml"/>
+	<import resource="ProfaneContext.xml"/>
 
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 		<property name="driverClassName" value="org.apache.derby.jdbc.EmbeddedDriver"/>
@@ -63,10 +64,11 @@
 	
 	<camelContext xmlns="http://camel.apache.org/schema/spring">
 		
-		<!-- references to other routeContexts - dont forget to link the file aswell!!! -->
+		<!-- references to other routeContexts - dont forget to link the file as well!!! -->
 		<routeContextRef ref="TwitterRoutes"/>
 		<!--<routeContextRef ref="FacebookRoutes"/>-->
 		<routeContextRef ref="TestRoutes"/>
+		<!--<routeContextRef ref="ProfaneRoutes"/> -->
 	</camelContext>
 
 	<camel:sslContextParameters id="sslContextParameters">
