@@ -50,7 +50,7 @@ public class Main {
 	private static void initJetty() throws Exception{
 		
 		log.info("Starting server...");
-		jettyServer = new Server(8080);
+		jettyServer = new Server(8889);
 
 		WebAppContext context = new WebAppContext();
 		context.setDescriptor("WEB-INF/web.xml");
