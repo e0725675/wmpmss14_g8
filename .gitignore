@@ -19,3 +19,4 @@ sentimentanalyzer/.settings
 *.log
 .settings
 /sentimentanalyzer/log.txt
+/sentimentanalyzer/searches

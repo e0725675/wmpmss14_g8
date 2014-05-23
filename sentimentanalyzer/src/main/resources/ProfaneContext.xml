@@ -11,13 +11,13 @@
     <routeContext id="ProfaneRoutes" xmlns="http://camel.apache.org/schema/spring">
         <!-- searches for the profanity in database -->
         <route id="ProfaneRoutes">
-			<!--<from uri="hibernate:at.tuwien.sentimentanalyzer.entities." />		
+			<!--<from uri="hibernate:at.tuwien.sentimentanalyzer.entities." /> -->
 			
 			<!--  Some kind of profanity filter here -->
-			<!--<to uri="hibernate:at.tuwien.sentimentanalyzer.entities." />
+			<!--<to uri="hibernate:at.tuwien.sentimentanalyzer.entities." /> -->
 			
 			<!--  Some kind of non-profanity filter here -->
-			<!--<to uri="hibernate:at.tuwien.sentimentanalyzer.entities." />
+			<!--<to uri="hibernate:at.tuwien.sentimentanalyzer.entities." /> -->
 
 
 			
@@ -29,16 +29,16 @@
 			<to uri="log:DBtweets" />-->
 			
 			<!--Save tweet to CSV-->
-			<!--<bean ref="messageToMapBean"/>
-			<!--<to uri="log:mapper" />
-			<!--<marshal>
-			<!--	<csv />
-			<!--</marshal>
-			<!--<to uri="log:csv" />
+			<!--<bean ref="messageToMapBean"/> -->
+			<!--<to uri="log:mapper" /> -->
+			<!--<marshal> -->
+			<!--	<csv /> -->
+			<!--</marshal> -->
+			<!--<to uri="log:csv" /> -->
 			
 			
 			<!-- Note it simply overwrites the old file at the moment. Create a bean to read the file and add the new data (I think) -->
-			<!--<to uri="file://searches/?fileName=${date:now:yyyyMMdd}/{{search.term}}.csv"/>
+			<!--<to uri="file://searches/?fileName=${date:now:yyyyMMdd}/{{search.term}}.csv"/> -->
         </route>
 
 		
