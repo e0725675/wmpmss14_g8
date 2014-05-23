@@ -33,7 +33,7 @@
 			
 			
 			<!-- Note it simply overwrites the old file at the moment. Create a bean to read the file and add the new data (I think) -->
-			<to uri="file://searches/?fileName=${date:now:yyyyMMdd}/{{search.term}}.csv"/>
+			<to uri="file://searches/?fileName={{search.term}}_${date:now:yyyyMMddhhmmss}.csv&amp;fileExist=Append" />
         </route>
 
 		
