@@ -5,10 +5,13 @@
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
     ">
  	<bean id="messageToMapBean" class="at.tuwien.sentimentanalyzer.beans.CSVHandler" />
+ 	<bean id="sentimentBean" class="at.tuwien.sentimentanalyzer.beans.SentimentBean" />
  	<bean id="socialBean" class="at.tuwien.sentimentanalyzer.beans.SocialBean" />
  	<bean id="wordTagger" class="at.tuwien.sentimentanalyzer.beans.WordTagger" />
- 	<bean id="sentimentExtraction" class="at.tuwien.sentimentanalyzer.sample.SentimentExtraction" />
- 	<bean id="commentsFilter" class="at.tuwien.sentimentanalyzer.beans.CommentsFilter"
+ 	<bean id="sentimentExtraction" class="at.tuwien.sentimentanalyzer.beans.SentimentBean" />
+ 	<!-- <bean id="commentsFilter" class="at.tuwien.sentimentanalyzer.beans.CommentsFilter" /> -->
+ 	
+		
  	
     <!-- this is the included XML file where we include only the routeContext -->
     <routeContext id="TwitterRoutes" xmlns="http://camel.apache.org/schema/spring">
@@ -26,18 +29,34 @@
 			<to uri="hibernate:at.tuwien.sentimentanalyzer.entities.SocialMessages"/>
 			<to uri="log:DBtweets" />-->
 			
-			<!--Save tweet to CSV-->
+			<!--Save tweet to MAP-->
 			<bean ref="messageToMapBean"/>
 			<to uri="log:mapper" />
+			
+			<!--Put the message into a seda queue -->
+			<to uri="seda:incomingmessages?multipleConsumers=true"/>
+			
+        </route>
+        
+		<route>
+			<from uri="seda:incomingmessages?multipleConsumers=true"/>
+			<bean ref="sentimentExtraction" /> 
+			<to uri="log:adding sentiment" />
+			<to uri="seda:sentimentQueue?multipleConsumers=true"/>
+		</route> 
+				
+		<route>
+			<from uri="seda:sentimentQueue?multipleConsumers=true"/>
 			<marshal>
 				<csv />
 			</marshal>
-			<to uri="log:csv" />
-			
+			<to uri="log:csv" />	
 			
 			<!-- Note it simply overwrites the old file at the moment. Create a bean to read the file and add the new data (I think) -->
 			<to uri="file://searches/?fileName={{search.term}}_${date:now:yyyyMMddhhmmss}.csv&amp;fileExist=Append" />
-        </route>
+			
+		
+		</route>
         
         <!-- TODO: add aggregator to from, change bean ref for csv-handler
         <route>
