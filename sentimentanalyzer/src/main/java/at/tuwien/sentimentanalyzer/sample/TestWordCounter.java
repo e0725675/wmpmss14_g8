@@ -16,7 +16,7 @@ public class TestWordCounter {
 		textList.add("MOTHER_NN FUCKING_NNP DICK_NNP BUTTER_NNP IN_IN MOTHER_NNP FUCKER_NNP !_.");
 		textList.add("This_DT is_VBZ ok_JJ I_PRP guess_VBP");
 		textList.add("Something_NN more_JJR than_IN this_DT will_MD do_VB");
-		textList.add("Hahahaha_NNP this_DT is_VBZ the_DT best_JJS !!_NN I_PRP like_VBP it_PRP !_.");
+		textList.add("Hahahaha_NNP this_DT is_VBZ the_DT best_JJS !!_NN I_PRP like_VBP it_PRP shit_JJ!_.");
 		counterList = (ArrayList<String>) counter.WordCounter(textList);
 		
 		System.out.println("************RESULTS****************");
