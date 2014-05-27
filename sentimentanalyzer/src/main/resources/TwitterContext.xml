@@ -8,7 +8,7 @@
  	<bean id="socialBean" class="at.tuwien.sentimentanalyzer.beans.SocialBean" />
  	<bean id="wordTagger" class="at.tuwien.sentimentanalyzer.beans.WordTagger" />
  	<bean id="sentimentExtraction" class="at.tuwien.sentimentanalyzer.sample.SentimentExtraction" />
- 	<bean id="commentsFilter" class="at.tuwien.sentimentanalyzer.beans.CommentsFilter"
+ 	<bean id="commentsFilter" class="at.tuwien.sentimentanalyzer.beans.CommentsFilter" />
  	
     <!-- this is the included XML file where we include only the routeContext -->
     <routeContext id="TwitterRoutes" xmlns="http://camel.apache.org/schema/spring">
@@ -53,6 +53,7 @@
 				<csv />
 			</marshal>
 			<to uri="log:csv" />
+	        <to uri="file://analysis/?fileName=filteredComments_${date:now:yyyyMMddhhmmss}.csv&amp;fileExist=Append" />
     	</route>
         -->
 
