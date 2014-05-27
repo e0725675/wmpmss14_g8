@@ -20,25 +20,23 @@ import edu.stanford.nlp.util.CoreMap;
  */
 
 public class SentimentExtraction {
-	public HashMap<String, Integer> makeSentiment(List<String> textList){
+	public Integer makeSentiment(String text){
 		Properties props = new Properties();
 		props.put("annotators", "tokenize, ssplit, parse, pos, sentiment");  //tokenize, ssplit, pos, lemma, ner, parse, dcoref
-		if(textList.size()<1){
-			return null;
-		}
+		
 		HashMap<String, Integer> resultsList = new HashMap<>();
 		
 			
 //			System.out.println("Extracting sentiment for sentence: " + text);
 			StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
 		
-			for(String text: textList){
+			
 			
 			edu.stanford.nlp.pipeline.Annotation doc = new edu.stanford.nlp.pipeline.Annotation(text);
 			pipeline.annotate(doc);
 			
 			List<CoreMap>sentences = doc.get(SentencesAnnotation.class);
-			
+			int senti = -10;
 			for(CoreMap sentence: sentences){
 				Tree tree = sentence.get(SentimentCoreAnnotations.AnnotatedTree.class);
 //				System.out.println("Tree");
@@ -46,13 +44,14 @@ public class SentimentExtraction {
 //				Label label = tree.label();
 //				System.out.println("Label: " + label);
 				
-				int senti = RNNCoreAnnotations.getPredictedClass(tree);
-				resultsList.put(text, senti);
+				senti = RNNCoreAnnotations.getPredictedClass(tree);
+				
+//				resultsList.put(text, senti);
 			}
-			
-		}
+
+			return senti;
 		
-		return resultsList;
+		
 		
 	}
 	
