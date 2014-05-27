@@ -20,7 +20,7 @@ public class SentimentBean {
 			// first element in the array should be the message. Then get the sentiment of the message
 			String text = entry.getValue().get(1);
 			String sentiment = String.valueOf(senti.makeSentiment(text));
-			entry.getValue().add(sentiment);
+			entry.getValue().add(0, sentiment);
 			
 		}
 		log.trace("Map: " + csv);
