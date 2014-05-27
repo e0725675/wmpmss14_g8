@@ -37,16 +37,16 @@
 			<to uri="seda:incomingmessages?multipleConsumers=true"/>
 			
         </route>
-        <!-- 
+        
 		<route>
 			<from uri="seda:incomingmessages?multipleConsumers=true"/>
 			<bean ref="sentimentExtraction" /> 
-			<to uri="log:something" />
-		</route> -->
+			<to uri="log:adding sentiment" />
+			<to uri="seda:sentimentQueue?multipleConsumers=true"/>
+		</route> 
 				
-		
 		<route>
-			<from uri="seda:incomingmessages?multipleConsumers=true"/>
+			<from uri="seda:sentimentQueue?multipleConsumers=true"/>
 			<marshal>
 				<csv />
 			</marshal>
