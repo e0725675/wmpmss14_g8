@@ -20,3 +20,5 @@ sentimentanalyzer/.settings
 .settings
 /sentimentanalyzer/log.txt
 /sentimentanalyzer/searches
+/sentimentanalyzer/sentimented
+/sentimentanalyzer/counted

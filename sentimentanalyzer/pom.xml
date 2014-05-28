@@ -217,6 +217,13 @@
 					</execution>
 				</executions>-->
 			</plugin>
+<!-- 			<plugin> -->
+<!-- 				<groupId>org.apache.camel</groupId> -->
+<!-- 				<artifactId>camel-maven-plugin</artifactId> -->
+<!-- 				<configuration> -->
+<!-- 					<applicationContextUri>camel-config.xml</applicationContextUri> -->
+<!-- 				</configuration> -->
+<!-- 			</plugin> -->
 		</plugins>
 	</build>
 </project>

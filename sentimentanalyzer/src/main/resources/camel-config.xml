@@ -79,7 +79,6 @@
 	</camel:sslContextParameters>
 	
 	<bean id="fooBean" class="at.tuwien.sentimentanalyzer.beans.FooBean"/>
-	
 	<bean id="testProcessor" class="at.tuwien.sentimentanalyzer.sample.TestProcessor"/>
 
 </beans>

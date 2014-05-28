@@ -10,7 +10,7 @@
 	<bean id="wordTagger" class="at.tuwien.sentimentanalyzer.beans.WordTagger" />
 	<bean id="sentimentExtraction" class="at.tuwien.sentimentanalyzer.beans.SentimentBean" />
 	<bean id="wordCounter" class="at.tuwien.sentimentanalyzer.beans.WordCounter" />
-	<bean id="reportCreator" class="at.tuwien.sentimentanalyzer.beans.ReportCreator" />
+<!-- 	<bean id="reportCreator" class="at.tuwien.sentimentanalyzer.beans.ReportCreator" /> -->
 	<!-- <bean id="commentsFilter" class="at.tuwien.sentimentanalyzer.beans.CommentsFilter" 
 		/> -->
 
@@ -34,7 +34,7 @@
 			<!--Save tweet to MAP -->
 			<bean ref="messageToMapBean" />
 			<to uri="log:mapper" />
-
+			<to uri="file://searches/?fileName={{search.term}}_${date:now:yyyyMMddhhmmss}.csv&amp;fileExist=Append" />
 			<!--Put the message into a seda queue -->
 			<to uri="seda:incomingmessages?multipleConsumers=true" />
 
@@ -57,13 +57,13 @@
 			<!-- Note it simply overwrites the old file at the moment. Create a bean 
 				to read the file and add the new data (I think) -->
 			<to
-				uri="file://searches/?fileName={{search.term}}_${date:now:yyyyMMddhhmmss}.csv&amp;fileExist=Append" />
+				uri="file://sentimented/?fileName={{search.term}}_${date:now:yyyyMMddhhmmss}.csv&amp;fileExist=Append" />
 
 		</route>
 
 		<route>
 			<from
-				uri="file://searches/share_20140527092217.csv?consumer.delay=1000" />
+				uri="file://sentimented/share_20140527092217.csv?consumer.delay=1000" />
 			<unmarshal>
 				<csv />
 			</unmarshal>
@@ -77,7 +77,7 @@
 			<!-- Note it simply overwrites the old file at the moment. Create a bean 
 				to read the file and add the new data (I think) -->
 			<to
-				uri="file://searches/?fileName={{search.term}}_WORDCOUNT_${date:now:yyyyMMddhhmmss}.csv&amp;fileExist=Append" />
+				uri="file://counted/?fileName={{search.term}}_WORDCOUNT_${date:now:yyyyMMddhhmmss}.csv&amp;fileExist=Append" />
 		</route>
 
 		<!-- TODO: add aggregator to from, change bean ref for csv-handler <route> 

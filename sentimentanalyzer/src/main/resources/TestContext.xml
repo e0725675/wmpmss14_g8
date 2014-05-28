@@ -33,23 +33,23 @@
 			</to>
 		</route>
 		<!-- generates an object of class "Foo" every 20 seconds and routes it to "processFoo-route" -->
-		<route id="generateFoo-route">
-			<from uri="timer:foo?period=20s"/>
-			<transform>
-				<method ref="fooBean" method="generateFoo"/>
-			</transform>
-			<to uri="hibernate:at.tuwien.sentimentanalyzer.entities.Foo"/>
-			<log message="Inserted new foo ${body.id}"/>
-		</route>
+<!-- 		<route id="generateFoo-route"> -->
+<!-- 			<from uri="timer:foo?period=20s"/> -->
+<!-- 			<transform> -->
+<!-- 				<method ref="fooBean" method="generateFoo"/> -->
+<!-- 			</transform> -->
+<!-- 			<to uri="hibernate:at.tuwien.sentimentanalyzer.entities.Foo"/> -->
+<!-- 			<log message="Inserted new foo ${body.id}"/> -->
+<!-- 		</route> -->
 
 		<!-- route that process the foos by picking up new rows from the database
 		and when done processing then update the row to mark it as processed -->
-		<route id="processFoo-route">
-			<from uri="hibernate:at.tuwien.sentimentanalyzer.entities.Foo?delay=1s"/>
-			<to uri="bean:fooBean?method=processFoo"/>
+<!-- 		<route id="processFoo-route"> -->
+<!-- 			<from uri="hibernate:at.tuwien.sentimentanalyzer.entities.Foo?delay=1s"/> -->
+<!-- 			<to uri="bean:fooBean?method=processFoo"/> -->
 			<!-- <to uri="smtps://smtp.gmail.com:465?password=wmpmSS2014&amp;username=workflow@applepublic.tv" />-->
-			<log message="${body}"/>
-		</route>
+<!-- 			<log message="${body}"/> -->
+<!-- 		</route> -->
     </routeContext>
  
 </beans>
