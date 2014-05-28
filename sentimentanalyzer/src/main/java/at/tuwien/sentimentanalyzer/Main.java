@@ -1,11 +1,8 @@
 package at.tuwien.sentimentanalyzer;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.URL;
-import java.net.URLClassLoader;
 
 import org.apache.log4j.Logger;
 import org.eclipse.jetty.server.Server;
@@ -60,14 +57,5 @@ public class Main {
 		log.info(context.toString());
 		jettyServer.setHandler(context);
 		jettyServer.start();
-	}
-	
-	private static boolean fileExists(String path) {
-		File f = new File(path);
-		if (f.exists()) {
-			return true;
-		} else {
-			return false;
-		}
 	}
 }

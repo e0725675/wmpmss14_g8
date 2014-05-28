@@ -1,7 +1,6 @@
 package at.tuwien.sentimentanalyzer.beans;
 
 import at.tuwien.sentimentanalyzer.connectors.Message;
-import at.tuwien.sentimentanalyzer.entities.Foo;
 import at.tuwien.sentimentanalyzer.entities.SocialMessages;
 
 /**
