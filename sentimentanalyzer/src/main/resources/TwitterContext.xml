@@ -1,132 +1,92 @@
 ﻿<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="
-http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
-">
-  <bean id="messageToMapBean" class="at.tuwien.sentimentanalyzer.beans.CSVHandler" />
-  <bean id="sentimentBean" class="at.tuwien.sentimentanalyzer.beans.SentimentBean" />
-  <bean id="socialBean" class="at.tuwien.sentimentanalyzer.beans.SocialBean" />
-  <bean id="wordTagger" class="at.tuwien.sentimentanalyzer.beans.WordTagger" />
-  <bean id="sentimentExtraction" class="at.tuwien.sentimentanalyzer.beans.SentimentBean" />
-  <bean id="commentsFilter" class="at.tuwien.sentimentanalyzer.beans.CommentsFilter" />
- 
-
- 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
     ">
- 	<bean id="messageToMapBean" class="at.tuwien.sentimentanalyzer.beans.CSVHandler" />
- 	<bean id="sentimentBean" class="at.tuwien.sentimentanalyzer.beans.SentimentBean" />
- 	<bean id="socialBean" class="at.tuwien.sentimentanalyzer.beans.SocialBean" />
- 	<bean id="wordTagger" class="at.tuwien.sentimentanalyzer.beans.WordTagger" />
- 	<bean id="sentimentExtraction" class="at.tuwien.sentimentanalyzer.beans.SentimentBean" />
- 	<!-- <bean id="commentsFilter" class="at.tuwien.sentimentanalyzer.beans.CommentsFilter" /> -->
- 	
-		
- 	
-    <!-- this is the included XML file where we include only the routeContext -->
-    <routeContext id="TwitterRoutes" xmlns="http://camel.apache.org/schema/spring">
-        <!-- searches for the keyword "share" on twitter and returns the tweets -->
-        <route id="twitterSearchPlachutta">
-<from uri="twitter://search?type=polling&amp;numberOfPages=1&amp;delay=60&amp;keywords={{search.term}}&amp;consumerKey=hEnR5kZzziT64SMb1IZjmJw9f&amp;consumerSecret=LZc6bLhihxVCicn9JBi28EHC73C6u1llQ2PjA9W6uEUastACrv&amp;accessToken=2493103232-0ath7kWee8wC98OryubP1TvLa0SmDQM3sfm8jlU&amp;accessTokenSecret=m4PwikkabfFBgagebNZW1h8qYG25cks8K6uyNvOX89AAE" />	
+	<bean id="messageToMapBean" class="at.tuwien.sentimentanalyzer.beans.CSVHandler" />
+	<bean id="sentimentBean" class="at.tuwien.sentimentanalyzer.beans.SentimentBean" />
+	<bean id="socialBean" class="at.tuwien.sentimentanalyzer.beans.SocialBean" />
+	<bean id="wordTagger" class="at.tuwien.sentimentanalyzer.beans.WordTagger" />
+	<bean id="sentimentExtraction" class="at.tuwien.sentimentanalyzer.beans.SentimentBean" />
+	<bean id="wordCounter" class="at.tuwien.sentimentanalyzer.beans.WordCounter" />
+	<bean id="reportCreator" class="at.tuwien.sentimentanalyzer.beans.ReportCreator" />
+	<!-- <bean id="commentsFilter" class="at.tuwien.sentimentanalyzer.beans.CommentsFilter" 
+		/> -->
 
-<convertBodyTo type="at.tuwien.sentimentanalyzer.connectors.Message" />
-<to uri="log:tweet" />
 
-<!--Save tweet to the database-->
-<!--<transform>
-<method ref="socialBean" method="generateSocial"/>
-</transform>
-<to uri="hibernate:at.tuwien.sentimentanalyzer.entities.SocialMessages"/>
-<to uri="log:DBtweets" />-->
 
-<!--Save tweet to MAP-->
-<bean ref="messageToMapBean"/>
-<to uri="log:mapper" />
+	<!-- this is the included XML file where we include only the routeContext -->
+	<routeContext id="TwitterRoutes" xmlns="http://camel.apache.org/schema/spring">
+		<!-- searches for the keyword "share" on twitter and returns the tweets -->
+		<route id="twitterSearchPlachutta">
+			<from
+				uri="twitter://search?type=polling&amp;numberOfPages=1&amp;delay=60&amp;keywords={{search.term}}&amp;consumerKey=hEnR5kZzziT64SMb1IZjmJw9f&amp;consumerSecret=LZc6bLhihxVCicn9JBi28EHC73C6u1llQ2PjA9W6uEUastACrv&amp;accessToken=2493103232-0ath7kWee8wC98OryubP1TvLa0SmDQM3sfm8jlU&amp;accessTokenSecret=m4PwikkabfFBgagebNZW1h8qYG25cks8K6uyNvOX89AAE" />
 
-<!--Put the message into a seda queue -->
-<to uri="seda:incomingmessages?multipleConsumers=true"/>
-
-			<from uri="twitter://search?type=polling&amp;numberOfPages=1&amp;delay=60&amp;keywords={{search.term}}&amp;consumerKey=hEnR5kZzziT64SMb1IZjmJw9f&amp;consumerSecret=LZc6bLhihxVCicn9JBi28EHC73C6u1llQ2PjA9W6uEUastACrv&amp;accessToken=2493103232-0ath7kWee8wC98OryubP1TvLa0SmDQM3sfm8jlU&amp;accessTokenSecret=m4PwikkabfFBgagebNZW1h8qYG25cks8K6uyNvOX89AAE" />		
-			
 			<convertBodyTo type="at.tuwien.sentimentanalyzer.connectors.Message" />
 			<to uri="log:tweet" />
-			
-			<!--Save tweet to the database-->
-			<!--<transform>
-				<method ref="socialBean" method="generateSocial"/>
-			</transform>
-			<to uri="hibernate:at.tuwien.sentimentanalyzer.entities.SocialMessages"/>
-			<to uri="log:DBtweets" />-->
-			
-			<!--Save tweet to MAP-->
-			<bean ref="messageToMapBean"/>
+
+			<!--Save tweet to the database -->
+			<!--<transform> <method ref="socialBean" method="generateSocial"/> </transform> 
+				<to uri="hibernate:at.tuwien.sentimentanalyzer.entities.SocialMessages"/> 
+				<to uri="log:DBtweets" /> -->
+
+			<!--Save tweet to MAP -->
+			<bean ref="messageToMapBean" />
 			<to uri="log:mapper" />
-			
+
 			<!--Put the message into a seda queue -->
-			<to uri="seda:incomingmessages?multipleConsumers=true"/>
-			
-        </route>
-        
+			<to uri="seda:incomingmessages?multipleConsumers=true" />
+
+		</route>
+
 		<route>
-			<from uri="seda:incomingmessages?multipleConsumers=true"/>
-			<bean ref="sentimentExtraction" /> 
+			<from uri="seda:incomingmessages?multipleConsumers=true" />
+			<bean ref="sentimentExtraction" />
 			<to uri="log:adding sentiment" />
-			<to uri="seda:sentimentQueue?multipleConsumers=true"/>
-		</route> 
-				
+			<to uri="seda:sentimentQueue?multipleConsumers=true" />
+		</route>
+
 		<route>
-			<from uri="seda:sentimentQueue?multipleConsumers=true"/>
+			<from uri="seda:sentimentQueue?multipleConsumers=true" />
 			<marshal>
 				<csv />
 			</marshal>
-			<to uri="log:csv" />	
-			
-			<!-- Note it simply overwrites the old file at the moment. Create a bean to read the file and add the new data (I think) -->
-			<to uri="file://searches/?fileName={{search.term}}_${date:now:yyyyMMddhhmmss}.csv&amp;fileExist=Append" />
-			
-		
+			<to uri="log:csv" />
+
+			<!-- Note it simply overwrites the old file at the moment. Create a bean 
+				to read the file and add the new data (I think) -->
+			<to
+				uri="file://searches/?fileName={{search.term}}_${date:now:yyyyMMddhhmmss}.csv&amp;fileExist=Append" />
+
 		</route>
-        
-<route>
-<from uri="seda:incomingmessages?multipleConsumers=true"/>
-<bean ref="sentimentExtraction" />
-<to uri="log:adding sentiment" />
-<to uri="seda:sentimentQueue?multipleConsumers=true"/>
-</route>
 
-<route>
-<from uri="seda:sentimentQueue?multipleConsumers=true"/>
-<marshal>
-<csv />
-</marshal>
-<to uri="log:csv" />	
+		<route>
+			<from
+				uri="file://searches/share_20140527092217.csv?consumer.delay=1000" />
+			<unmarshal>
+				<csv />
+			</unmarshal>
+			<to uri="bean:wordCounter?method=WordCounter" />
+			
+			<marshal>
+				<csv />
+			</marshal>
+			<to uri="log:csv" />
 
-<!-- Note it simply overwrites the old file at the moment. Create a bean to read the file and add the new data (I think) -->
-<to uri="file://searches/?fileName={{search.term}}_${date:now:yyyyMMddhhmmss}.csv&amp;fileExist=Append" />
+			<!-- Note it simply overwrites the old file at the moment. Create a bean 
+				to read the file and add the new data (I think) -->
+			<to
+				uri="file://searches/?fileName={{search.term}}_WORDCOUNT_${date:now:yyyyMMddhhmmss}.csv&amp;fileExist=Append" />
+		</route>
 
-
-</route>
-        
-        <!-- TODO: add aggregator to from, change bean ref for csv-handler
-<route>
-<from uri="bean:"/>
-<filter>
-<method ref="commentsFilter" method="filterURL"/>
-<to uri="bean:sentimentExtraction"/>
-</filter>
-<bean ref="messageToMapBean"/>
-<to uri="log:mapper" />
-<marshal>
-<csv />
-</marshal>
-<to uri="log:csv" />
-<to uri="file://analysis/?fileName=filteredComments_${date:now:yyyyMMddhhmmss}.csv&amp;fileExist=Append" />
-</route>
--->
+		<!-- TODO: add aggregator to from, change bean ref for csv-handler <route> 
+			<from uri="bean:"/> <filter> <method ref="commentsFilter" method="filterURL"/> 
+			<to uri="bean:sentimentExtraction"/> </filter> <bean ref="messageToMapBean"/> 
+			<to uri="log:mapper" /> <marshal> <csv /> </marshal> <to uri="log:csv" /> 
+			</route> -->
 
 
-    </routeContext>
- 
+	</routeContext>
+
 </beans>
