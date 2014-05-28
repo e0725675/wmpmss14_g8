@@ -10,7 +10,7 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 
 import at.tuwien.sentimentanalyzer.connectors.Message;
-
+@Deprecated
 public class CSVHandler {
 	public static Logger log = Logger.getLogger(CSVHandler.class);
 	
