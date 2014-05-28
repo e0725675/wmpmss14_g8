@@ -3,6 +3,7 @@ package at.tuwien.sentimentanalyzer.beans;
 import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.Hashtable;
+import java.util.Map;
 
 /*
  * Author: Serafima
@@ -10,13 +11,13 @@ import java.util.Hashtable;
 
 public class WordCounter {
 
-	public ArrayList<String> WordCounter(ArrayList<String> textList) {
-		int wordMaximum =10;
+	public Map<String, Integer> WordCounter(ArrayList<String> textList) {
+
 		Hashtable<String, Integer> countableWords = new Hashtable<String, Integer>();
 		
 		for(String text : textList){
 			for(String word : text.split(" ")){
-				if(countableWords.contains(word)){
+				if(countableWords.containsKey(word)){
 					countableWords.put(word, countableWords.get(word) + 1);
 				}else{
 					countableWords.put(word,1);
@@ -25,7 +26,7 @@ public class WordCounter {
 		}
 		
 		
-		return null;
+		return countableWords;
 	}
 
 }
