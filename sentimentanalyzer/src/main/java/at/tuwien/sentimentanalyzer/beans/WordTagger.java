@@ -1,29 +1,36 @@
 package at.tuwien.sentimentanalyzer.beans;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import edu.stanford.nlp.tagger.maxent.MaxentTagger;
 
 /*
- * Author: Pia Liszt
- * pia.liszt@gmail.com
+ * Author: Pia 
  * Using the Stanford Core NLP Library
  * Tagging of words, see list of abbreviations at the end
  */
 
 public class WordTagger {
-	public List<String> addWordtype (List<String> textList){
-		List<String> taggedList = new ArrayList<String>();
+	
+	public HashMap<String, List<String>> addWordtype (HashMap<String, List<String>> csv){ //List<String> textList
+		//List<String> taggedList = new ArrayList<String>();
+		
 		MaxentTagger tagger = new MaxentTagger("taggers/english-left3words-distsim.tagger");
 		
-		if(textList.size() < 1)
+		if(csv.size() < 1)
 			return null;
 		
-		for(String text: textList)
-			taggedList.add(tagger.tagString(text));
+		for(Map.Entry<String, List<String>> entry: csv.entrySet())
+			entry.getValue().set(1, tagger.tagString(entry.getValue().get(1)));
 		
-		return taggedList;		
+		//for(String text: textList)
+		//	taggedList.add(tagger.tagString(text));
+		
+		//return taggedList;
+		
+		return csv;
 	}
 }
 
