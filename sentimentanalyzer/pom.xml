@@ -159,6 +159,11 @@
 			<artifactId>camel-hibernate</artifactId>
 			<version>${camel-version}</version>
 		</dependency>
+		<dependency>
+  			<groupId>org.apache.camel</groupId>
+  			<artifactId>camel-csv</artifactId>
+  			<version>${camel-version}</version>
+		</dependency>
 		
 		<!-- Stanford NLP for Sentiment -->
 		<dependency>
@@ -173,13 +178,6 @@
     		<artifactId>stanford-corenlp</artifactId>
     		<version>3.3.1</version>
     		<classifier>models</classifier>
-		</dependency>
-		
-		<!-- Yo dawg I heard you like CSV -->
-		<dependency>
-  			<groupId>org.apache.camel</groupId>
-  			<artifactId>camel-csv</artifactId>
-  			<version>${camel-version}</version>
 		</dependency>
 	
 	</dependencies>

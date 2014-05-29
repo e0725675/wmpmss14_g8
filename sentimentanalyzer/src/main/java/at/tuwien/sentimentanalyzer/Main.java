@@ -19,7 +19,7 @@ public class Main {
 		try {
 			initJetty();
 		} catch (Exception e1) {
-			log.error(e1);
+			log.error("Error on initializing Jetty", e1);
 			System.exit(1);
 		}
 		
@@ -29,7 +29,7 @@ public class Main {
 			try {
 				line = br.readLine();
 			} catch (IOException e) {
-				log.error(e);
+				log.error("IOError on readLine",e);
 				System.exit(1);
 			}
 			if (line.equalsIgnoreCase("exit")) {
@@ -39,7 +39,7 @@ public class Main {
 		try {
 			jettyServer.stop();
 		} catch (Exception e) {
-			log.error(e);
+			log.error("Error on stopping Jetty",e);
 		}
 		
 	}
@@ -56,6 +56,7 @@ public class Main {
 		context.setParentLoaderPriority(true);
 		log.info(context.toString());
 		jettyServer.setHandler(context);
+		
 		jettyServer.start();
 	}
 }

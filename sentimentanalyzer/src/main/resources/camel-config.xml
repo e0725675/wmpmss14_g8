@@ -16,7 +16,7 @@
 	
 	<!-- import the routes from another XML file -->
 	<import resource="TestContext.xml"/>
-	<import resource="TwitterContext.xml"/>
+	<import resource="SentimentContext.xml"/>
 	<import resource="FacebookContext.xml"/>
 	<import resource="ProfaneContext.xml"/>
 
@@ -58,15 +58,14 @@
 	</bean>
 
 	<tx:annotation-driven transaction-manager="transactionManager" />
+	
 	<bean id="properties" class="org.apache.camel.component.properties.PropertiesComponent">
-    <property name="location" value="/search.properties"/>
+    	<property name="location" value="/search.properties"/>
 	</bean>
 	
-	<camelContext xmlns="http://camel.apache.org/schema/spring">
-		
-		
+	<camelContext id="MAIN-CAMEL-CONTEXT" xmlns="http://camel.apache.org/schema/spring">
 		<!-- references to other routeContexts - dont forget to link the file as well!!! -->
-		<routeContextRef ref="TwitterRoutes"/>
+		<routeContextRef ref="SentimentRoutes"/>
 		<!--<routeContextRef ref="FacebookRoutes"/>-->
 		<routeContextRef ref="TestRoutes"/>
 		<!--<routeContextRef ref="ProfaneRoutes"/> -->
@@ -78,7 +77,8 @@
 		</camel:trustManagers>
 	</camel:sslContextParameters>
 	
-	<bean id="fooBean" class="at.tuwien.sentimentanalyzer.beans.FooBean"/>
-	<bean id="testProcessor" class="at.tuwien.sentimentanalyzer.sample.TestProcessor"/>
-
+	<bean id="messageConverter" class="at.tuwien.sentimentanalyzer.beans.MessageConverter" />
+	<bean id="routeCreator" class="at.tuwien.sentimentanalyzer.beans.RouteCreator">
+		<constructor-arg ref="MAIN-CAMEL-CONTEXT" />
+	</bean>
 </beans>
