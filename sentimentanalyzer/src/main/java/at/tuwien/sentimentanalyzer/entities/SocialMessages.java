@@ -17,6 +17,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table
+@Deprecated
 public class SocialMessages {
 	@Id
 	@GeneratedValue(strategy = AUTO)

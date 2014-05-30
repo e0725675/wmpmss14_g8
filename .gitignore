@@ -22,3 +22,4 @@ sentimentanalyzer/.settings
 /sentimentanalyzer/searches
 /sentimentanalyzer/sentimented
 /sentimentanalyzer/counted
+/sentimentanalyzer/dependency-reduced-pom.xml

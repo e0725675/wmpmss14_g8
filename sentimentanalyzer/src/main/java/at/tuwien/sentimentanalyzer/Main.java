@@ -52,7 +52,7 @@ public class Main {
 		WebAppContext context = new WebAppContext();
 		context.setDescriptor("WEB-INF/web.xml");
 		context.setResourceBase("src/webapp/");
-		context.setContextPath("");
+		context.setContextPath("/");
 		context.setParentLoaderPriority(true);
 		log.info(context.toString());
 		jettyServer.setHandler(context);

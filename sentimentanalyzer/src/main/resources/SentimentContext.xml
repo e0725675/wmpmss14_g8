@@ -1,8 +1,8 @@
 ﻿<beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="
-       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring-2.13.0.xsd
     ">
 	<bean id="sentimentBean" class="at.tuwien.sentimentanalyzer.beans.SentimentBean" />
 	<bean id="socialBean" class="at.tuwien.sentimentanalyzer.beans.SocialBean" />

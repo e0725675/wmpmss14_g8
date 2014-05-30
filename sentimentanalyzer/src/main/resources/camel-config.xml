@@ -10,7 +10,7 @@
 	http://www.springframework.org/schema/context
 	http://www.springframework.org/schema/context/spring-context-2.5.xsd
 	http://camel.apache.org/schema/spring
-	http://camel.apache.org/schema/spring/camel-spring.xsd
+	http://camel.apache.org/schema/spring/camel-spring-2.13.0.xsd
 	http://www.springframework.org/schema/tx
 	http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
 	
