@@ -1,0 +1,1 @@
+java -jar target/ChartTest-1.0-SNAPSHOT.one-jar.jar at.clf.tests.charttest.ChartTest
