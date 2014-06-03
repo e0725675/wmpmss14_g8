@@ -81,4 +81,18 @@
 	<bean id="routeCreator" class="at.tuwien.sentimentanalyzer.beans.RouteCreator">
 		<constructor-arg ref="MAIN-CAMEL-CONTEXT" />
 	</bean>
+	
+	<bean id="mainProperties" class="at.tuwien.sentimentanalyzer.PropertiesLoader">
+		<constructor-arg value="main.properties" />
+	</bean>
+	<bean id="messageMocker" class="at.tuwien.sentimentanalyzer.beans.MessageMocker" scope="singleton">
+		<constructor-arg index="0" value= "mock_userlist.txt"/>
+		<constructor-arg index="1" value= "mock_wordlist.txt"/>
+		<constructor-arg index="2">
+			<list>
+				<value>mock_swearwordlist.txt</value>
+				<value>mock_nonwordslist.txt</value>
+			</list>
+		</constructor-arg>
+	</bean>
 </beans>

@@ -30,6 +30,9 @@ public class MessageConverter {
 	}
 	
 	public static Message statusToMessage(Status status) {
+		if (status == null) {
+			throw new RuntimeException("input Status is null");
+		}
 		Message m = new Message();
 
 		m.setAuthor(status.getUser().getName());
@@ -42,6 +45,9 @@ public class MessageConverter {
 	
 	
 	public static Message listToMessage(List<String> list) {
+		if (list == null) {
+			throw new RuntimeException("input list is null");
+		}
 		if (list.size() != numListItems) {
 			throw new RuntimeException("Invalid number of list items. Should be "+numListItems+" but was "+list.size());
 		}
@@ -61,6 +67,9 @@ public class MessageConverter {
 	}
 	
 	public static List<String> messageToList( Message message) {
+		if (message == null) {
+			throw new RuntimeException("input message is null");
+		}
 		List<String> out = new ArrayList<String>();
 		out.add(message.getMessage());
 		out.add(message.getAuthor());
@@ -70,6 +79,9 @@ public class MessageConverter {
 	}
 	
 	public static List<List<String>> messagesToLists( List<Message> messages) {
+		if (messages == null) {
+			throw new RuntimeException("input list of messages is null");
+		}
 		List<List<String>> out = new ArrayList<List<String>>();
 		for (Message m : messages) {
 			out.add(MessageConverter.messageToList(m));
@@ -78,6 +90,9 @@ public class MessageConverter {
 	}
 	
 	public static List<Message> listsToMessages( List<List<String>> lists) {
+		if (lists == null) {
+			throw new RuntimeException("input list is null");
+		}
 		log.info(lists);
 		List<Message> out = new ArrayList<Message>();
 		for (List<String> l : lists) {
@@ -86,6 +101,9 @@ public class MessageConverter {
 		return out;
 	}
 	public static List<Map<String, Object>> messagesToMaplist( List<Message> messages) {
+		if (messages == null) {
+			throw new RuntimeException("input list of messages is null");
+		}
 		List<Map<String, Object>> out = new ArrayList<Map<String,Object>>();
 		for (Message m : messages) {
 			out.add(MessageConverter.messageToMap(m));
@@ -94,6 +112,9 @@ public class MessageConverter {
 	}
 	
 	public static Map<String, Object> messageToMap( Message message) {
+		if (message == null) {
+			throw new RuntimeException("input message is null");
+		}
 		Map<String, Object> csv = new TreeMap<String,Object>();
 		//List<String>data = MessageConverter.messageToList(message);
 		//csv.put(message.getAuthor()+"-"+data.get(3), data);
@@ -106,6 +127,9 @@ public class MessageConverter {
 	}
 	
 	public static Map<String, Object> messagesToMap( List<Message> messages) {
+		if (messages == null) {
+			throw new RuntimeException("input list ofmessages is null");
+		}
 		Map<String, Object> out = new HashMap<>();
 		for (Message m : messages) {
 			List<String>data = MessageConverter.messageToList(m);
@@ -116,6 +140,9 @@ public class MessageConverter {
 	}
 	
 	public static List<Message> mapToMessages( Map<String, List<String>> map) {
+		if (map == null) {
+			throw new RuntimeException("input map is null");
+		}
 		List<Message> out = new ArrayList<Message>();
 		for (List<String> l : map.values()) {
 			out.add(MessageConverter.listToMessage(l));

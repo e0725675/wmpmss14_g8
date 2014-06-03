@@ -5,23 +5,33 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
 
+import org.apache.commons.configuration.ConfigurationException;
+import org.apache.commons.configuration.PropertiesConfiguration;
 import org.apache.log4j.Logger;
 
 
 /**
- * For program configuration
+ * Wrapper for properties file which also allows for multiple valus per key
  * @author CLF
  *
  */
-public class PropertiesLoader {
+public class PropertiesLoader extends PropertiesConfiguration {
+	
+	public PropertiesLoader(String filePath) throws ConfigurationException {
+		super(filePath);
+	}
+
 	private static Logger log = Logger.getLogger(PropertiesLoader.class);
 	
+	@Deprecated
 	private static Properties props = init();
 	
+	@Deprecated
 	public static Properties getProperties() {
 		return props;
 	}
 	
+	@Deprecated
 	private static Properties init() {
 		Properties p = new Properties();
 		try {
