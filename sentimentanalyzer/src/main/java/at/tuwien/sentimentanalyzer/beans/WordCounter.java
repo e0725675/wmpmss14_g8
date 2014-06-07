@@ -1,8 +1,9 @@
 package at.tuwien.sentimentanalyzer.beans;
 
-import java.util.ArrayList;
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.Map;
+
+import at.tuwien.sentimentanalyzer.entities.Message;
 
 /*
  * Author: Serafima
@@ -10,22 +11,20 @@ import java.util.Map;
 
 public class WordCounter {
 
-	public Map<String, Integer> WordCounter(ArrayList<String> textList) {
+	public Message CountWords(Message message) {
 
-		Hashtable<String, Integer> countableWords = new Hashtable<String, Integer>();
+		HashMap<String, Integer> countableWords = new HashMap<String, Integer>();
 		
-		for(String text : textList){
-			for(String word : text.split(" ")){
+		
+			for(String word : message.getMessage().toLowerCase().split(" ")){
 				if(countableWords.containsKey(word)){
 					countableWords.put(word, countableWords.get(word) + 1);
 				}else{
 					countableWords.put(word,1);
 				}
 			}
-		}
-		
-		
-		return countableWords;
+		message.setWordcounts(countableWords);
+		return message;
 	}
 
 }

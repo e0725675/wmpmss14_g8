@@ -27,6 +27,7 @@
 		<property name="password" value=""/>
 	</bean>
 
+
 	<bean id="hibernate" class="org.apacheextras.camel.component.hibernate.HibernateComponent">
 		<property name="sessionFactory" ref="sessionFactory"/>
 		<property name="transactionStrategy" ref="springTransactionStrategy"/>

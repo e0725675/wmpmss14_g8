@@ -34,8 +34,10 @@ public class Message {
 	
 	@Override
 	public String toString() {
-		return "Message [message=" + message + ", author=" + author
-				+ ", timePosted=" + timePosted + ", source=" + source + "]";
+		return "Message [originalMessage=" + originalMessage + ", message="
+				+ message + ", author=" + author + ", timePosted=" + timePosted
+				+ ", sentiment=" + sentiment + ", source=" + source
+				+ ", wordcounts=" + wordcounts + "]";
 	}
 	/**
 	 * Unedited content of the message (e.g. a tweet, a fecebook post, ...)

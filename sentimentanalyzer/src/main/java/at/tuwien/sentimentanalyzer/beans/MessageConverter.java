@@ -29,6 +29,7 @@ public class MessageConverter {
 		throw new UnsupportedOperationException("not yet implemented");
 	}
 	
+	
 	public static Message statusToMessage(Status status) {
 		if (status == null) {
 			throw new RuntimeException("input Status is null");
