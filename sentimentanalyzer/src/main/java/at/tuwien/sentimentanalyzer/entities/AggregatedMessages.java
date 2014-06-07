@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.HashMap;
 
 public class AggregatedMessages {
-	public class Author {
+	public static class Author {
 		public Author(String name, String source) {
 			this.name = name;
 			this.source = source;
