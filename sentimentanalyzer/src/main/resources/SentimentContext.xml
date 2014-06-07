@@ -5,7 +5,6 @@
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring-2.13.0.xsd
     ">
 	<bean id="sentimentBean" class="at.tuwien.sentimentanalyzer.beans.SentimentBean" />
-	<bean id="socialBean" class="at.tuwien.sentimentanalyzer.beans.SocialBean" />
 	<bean id="wordTagger" class="at.tuwien.sentimentanalyzer.beans.WordTagger" />
 	<bean id="sentimentExtraction" class="at.tuwien.sentimentanalyzer.beans.SentimentBean" />
 	<bean id="wordCounter" class="at.tuwien.sentimentanalyzer.beans.WordCounter" />
