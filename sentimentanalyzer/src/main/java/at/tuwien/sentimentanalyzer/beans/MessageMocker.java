@@ -6,14 +6,19 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
 import org.apache.log4j.Logger;
 
+import at.tuwien.sentimentanalyzer.entities.AggregatedMessages;
+import at.tuwien.sentimentanalyzer.entities.AggregatedMessages.Author;
 import at.tuwien.sentimentanalyzer.entities.Message;
+import at.tuwien.sentimentanalyzer.entities.Message.Sentiment;
 
 /**
  * since we overuse twitter...
@@ -80,6 +85,29 @@ public class MessageMocker {
 		}
 		return list.get(r.nextInt(list.size()));
 	}
+	private static <T> List<T> getRandomElements(List<T> list, Random r, int numElements) {
+		if (list == null ||list.isEmpty() || r == null) {
+			throw new RuntimeException("invalid input parameter");
+		}
+		if (numElements < 0) {
+			throw new RuntimeException("numElements cannot be smaller than 0");
+		}
+		if (list.size() < numElements) {
+			throw new RuntimeException("input list ("+list.size()+") is smaller than the number of elements you want ("+numElements+").");
+		}
+		List<T> in = list;
+		List<T> out = new ArrayList<T>();
+		for (int i=0; i<numElements; i++) {
+			int index = r.nextInt(in.size());
+			out.add(in.get(index));
+			in.remove(index);
+		}
+		return out;
+	}
+	/**
+	 * Generates a random message
+	 * @return
+	 */
 	public Message nextMessage() {
 		Message out = new Message();
 		String user = MessageMocker.getRandomElement(users, r);
@@ -117,6 +145,65 @@ public class MessageMocker {
 		out.setMessage(message);
 		out.setSource("MessageMocker");
 		log.info("next message");
+		return out;
+	}
+	/**
+	 * Generates a random AggregatedMessages
+	 * @param numberOfMessagesIncluded - number of messages that will be generated
+	 * @return
+	 */
+	public AggregatedMessages nextAggregatedMessage() {
+		
+		Calendar cal = Calendar.getInstance();
+		cal.set(2014, 01, 01, 1, 2, 3);
+		final Date MINTIMEPOSTED = cal.getTime();
+		cal.set(2014, 02, 02, 2, 3, 4);
+		final Date MAXTIMEPOSTED = cal.getTime();
+		
+		final int MAXUSERS = 20;
+		final int MAXWORDS = 200;
+		final int MAXSOURCECOUNTS = 50;
+		final int MAXSENTIMENTCOUNTS = 50;
+		
+		AggregatedMessages out = new AggregatedMessages();
+		
+		out.setMinTimePosted(MINTIMEPOSTED);
+		out.setMaxTimePosted(MAXTIMEPOSTED);
+		
+		
+		int numUsers = r.nextInt(this.users.size());
+		if (numUsers == 0) numUsers = 1;
+		List<String> randomUsers = MessageMocker.getRandomElements(this.users, r, numUsers);
+		HashMap<Author, Integer> authors = new HashMap<Author, Integer>();
+		for (String user : randomUsers) {
+			Author author = new Author(user, "MessageMocker");
+			Integer num = r.nextInt(MAXUSERS);
+			authors.put(author, num);
+		}
+		out.setAuthors(authors);
+		
+		int numWords = r.nextInt(this.dictionary.size());
+		List<String> randomWords = MessageMocker.getRandomElements(this.dictionary, r, numWords);
+		HashMap<String, Integer> words = new HashMap<String, Integer>();
+		for (String word : randomWords) {
+			Integer num = r.nextInt(MAXWORDS);
+			words.put(word, num);
+		}
+		out.setWordCounts(words);
+		
+		HashMap<String, Integer> sourceCounts = new HashMap<String, Integer>();
+		int numSourceCounts = r.nextInt(MAXSOURCECOUNTS);
+		sourceCounts.put("MessageMocker", numSourceCounts);
+		out.setSourceCounts(sourceCounts);
+		
+		HashMap<Sentiment, Integer> sentimentCounts = new HashMap<Sentiment, Integer>();
+
+		sentimentCounts.put(Sentiment.NEGATIVE, r.nextInt(MAXSENTIMENTCOUNTS));
+		sentimentCounts.put(Sentiment.NEUTRAL, r.nextInt(MAXSENTIMENTCOUNTS));
+		sentimentCounts.put(Sentiment.POSITIVE, r.nextInt(MAXSENTIMENTCOUNTS));
+		
+		out.setSentimentCounts(sentimentCounts);
+		
 		return out;
 	}
 }
