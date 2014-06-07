@@ -193,7 +193,7 @@ public class ReportGenerator {
 			Tuple<Integer, String> t = l.get(i);
 			mtotalmap.put(t.getT(), t.getS());
 		}
-		log.info("treemap:"+mtotalmap.size()+" "+mtotalmap.toString());
+		//log.info("treemap:"+mtotalmap.size()+" "+mtotalmap.toString());
 		out.imgMessagesTotal = ReportGenerator.createPieChartImage(targetFolder+"/messagesTotal.png", mtotalmap, "Wordcounts per Source", null, 800, 600);
 		return out;
 	}
@@ -217,8 +217,8 @@ public class ReportGenerator {
 	}
 	private static String createPieChartImage(String targetFile, SortedMap<? extends Comparable<?>, ? extends Number> namesAndValues, String title, String subTitle, int widthPx, int heightPx) {
 		
-		log.info("createPieChartImage");
-		log.info("treemap:"+namesAndValues.size()+" "+namesAndValues.toString());
+		//log.info("createPieChartImage");
+		//log.info("treemap:"+namesAndValues.size()+" "+namesAndValues.toString());
 		DefaultPieDataset dpd = new DefaultPieDataset();
 		for (Comparable<?> key : namesAndValues.keySet()) {
 			dpd.setValue(key, namesAndValues.get(key));
@@ -270,12 +270,12 @@ public class ReportGenerator {
 			}
 		}
 		try {
-			log.info("Saving image");
+			//log.info("Saving image");
 			ChartUtilities.saveChartAsPNG(outFile, chart, widthPx, heightPx);
 		} catch (IOException e) {
 			throw new ReportGeneratorException("IOException occured on saving Chart to image file", e);
 		}
-		log.info("createPieChartImage done "+targetFile);
+		//log.info("createPieChartImage done "+targetFile);
 		return targetFile;
 	}
 	private static String fillAltAndSrc(String input, String alt, String src) {
@@ -428,9 +428,9 @@ public class ReportGenerator {
         chart.addSubtitle(source);
         
 		try {
-			log.info("saving");
+			//log.info("saving");
 			ChartUtilities.saveChartAsPNG(new File("piechart_trololo.png"), chart, 800, 600);
-			log.info("saved");
+			//log.info("saved");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
