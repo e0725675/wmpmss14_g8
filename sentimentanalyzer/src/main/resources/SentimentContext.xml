@@ -25,6 +25,7 @@
 <!-- 			</unmarshal> -->
 			<from uri="direct:incomingMessages" />
 			<bean ref="sentimentExtraction" />
+			<bean ref="wordCounter" />
 			<to uri="log:result" />
 			<to uri="seda:aggregatorQueue?multipleConsumers=true" />
 		</route>
