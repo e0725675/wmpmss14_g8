@@ -85,6 +85,7 @@
 	<bean id="mainProperties" class="at.tuwien.sentimentanalyzer.PropertiesLoader">
 		<constructor-arg value="main.properties" />
 	</bean>
+	
 	<bean id="messageMocker" class="at.tuwien.sentimentanalyzer.beans.MessageMocker" scope="singleton">
 		<constructor-arg index="0" value= "mock_userlist.txt"/>
 		<constructor-arg index="1" value= "mock_wordlist.txt"/>
@@ -95,4 +96,6 @@
 			</list>
 		</constructor-arg>
 	</bean>
+	
+	<bean id="reportGenerator" class="at.tuwien.sentimentanalyzer.beans.ReportGenerator" />
 </beans>

@@ -3,8 +3,7 @@ package at.tuwien.sentimentanalyzer.beans;
 import org.apache.camel.CamelContext;
 import org.apache.log4j.Logger;
 
-import at.tuwien.sentimentanalyzer.routebuilders.TwitterRouteBuilder;
-
+import at.tuwien.sentimentanalyzer.routebuilders.MessageReporterRouteBuilder;
 /**
  * A helper class since this is the only way to get access to the camel context
  * in this setup.
@@ -21,8 +20,9 @@ public class RouteCreator  {
 		
 		try {
 			// add routes from the twitter routebuilder
-			context.addRoutes(new TwitterRouteBuilder());
-			
+			//context.addRoutes(new TwitterRouteBuilder());
+			// add routes from the messagereporter routebuilder
+			context.addRoutes(new MessageReporterRouteBuilder());
 			
 			// YOU CAN ADD MORE ROUTEBUILDERS HERE!!!
 			

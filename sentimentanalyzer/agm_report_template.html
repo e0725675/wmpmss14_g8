@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Sentiment Report</title>
+</head>
+<body>
+<h1 style="text-align: center;">
+Sentiment Report</h1>
+<h2 style="text-align: center;">
+2014-01-01 01:02:03 to 2014-02-02 02:03:04</h2>
+<div id="sentiments" style="border-style: solid; page-break-after:always">
+<h3 style="text-align: center;">
+Total Sentiment</h3>
+<p style="text-align: center;">
+<img alt="sentimentpercentages_total" src="<!--###sentimentpercentages_total###-->" style="width: 340px; height: 200px;" /></p>
+<h3 style="text-align: center;">
+Sentiments per Source</h3>
+<p style="text-align: center;">
+<!--###sentimentpercentages_persource###-->
+</p>
+</div>
+<div id="wordcountsandmessages" style="border-style: solid">
+<h3 style="text-align: center;">
+Total Wordcounts</h3>
+<p style="text-align: center;">
+<img alt="wordcounts_total" src="<!--###wordcounts_total###-->" style="width: 340px; height: 200px;" /></p>
+<h3 style="text-align: center;">
+Wordcounts per Source</h3>
+<p style="text-align: center;">
+<!--###wordcounts_persource###-->
+</p>
+<h3 style="text-align: center;">
+Number of Messages per Source</h3>
+<p style="text-align: center;">
+<img alt="messages_total" src="<!--###messages_total###-->" style="width: 340px; height: 200px;" /></p>
+</div>
+</body>
+</html>
+<!--templates:-->
+<!--####sentimentpercentages_persource#<img alt="##alt##" src="##src##" style="width: 170px; height: 100px;" />####-->
+<!--####wordcounts_persource#<img alt="##alt##" src="##src##" style="width: 170px; height: 100px;" />####-->

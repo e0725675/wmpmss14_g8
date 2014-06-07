@@ -95,7 +95,7 @@ public class MessageMocker {
 		if (list.size() < numElements) {
 			throw new RuntimeException("input list ("+list.size()+") is smaller than the number of elements you want ("+numElements+").");
 		}
-		List<T> in = list;
+		ArrayList<T> in = new ArrayList<T>(list);
 		List<T> out = new ArrayList<T>();
 		for (int i=0; i<numElements; i++) {
 			int index = r.nextInt(in.size());
@@ -153,7 +153,12 @@ public class MessageMocker {
 	 * @return
 	 */
 	public AggregatedMessages nextAggregatedMessage() {
-		
+		if (this.users.size() == 0) {
+			throw new MessageMockerException("User list size is 0");
+		}
+		if (this.dictionary.size() == 0) {
+			throw new MessageMockerException("Dictionary list size is 0");
+		}
 		Calendar cal = Calendar.getInstance();
 		cal.set(2014, 01, 01, 1, 2, 3);
 		final Date MINTIMEPOSTED = cal.getTime();
@@ -171,7 +176,7 @@ public class MessageMocker {
 		out.setMaxTimePosted(MAXTIMEPOSTED);
 		
 		
-		int numUsers = r.nextInt(this.users.size());
+		int numUsers = r.nextInt(MAXUSERS);
 		if (numUsers == 0) numUsers = 1;
 		List<String> randomUsers = MessageMocker.getRandomElements(this.users, r, numUsers);
 		HashMap<Author, Integer> authors = new HashMap<Author, Integer>();
@@ -182,7 +187,7 @@ public class MessageMocker {
 		}
 		out.setAuthors(authors);
 		
-		int numWords = r.nextInt(this.dictionary.size());
+		int numWords = r.nextInt(MAXWORDS);
 		List<String> randomWords = MessageMocker.getRandomElements(this.dictionary, r, numWords);
 		HashMap<String, Integer> words = new HashMap<String, Integer>();
 		for (String word : randomWords) {
@@ -205,5 +210,15 @@ public class MessageMocker {
 		out.setSentimentCounts(sentimentCounts);
 		
 		return out;
+	}
+	public static class MessageMockerException extends RuntimeException {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = -8136826189510596543L;
+
+		public MessageMockerException(String msg) {
+			super(msg);
+		}
 	}
 }
