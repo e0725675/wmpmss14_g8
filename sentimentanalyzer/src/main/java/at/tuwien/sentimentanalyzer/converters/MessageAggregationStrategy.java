@@ -11,6 +11,7 @@ public class MessageAggregationStrategy implements AggregationStrategy {
 		// TODO Auto-generated constructor stub
 	}
 
+	
 	@Override
 	public Exchange aggregate(Exchange oldExchange, Exchange newExchange) {
 		Object newBody = newExchange.getIn().getBody();

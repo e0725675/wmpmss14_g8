@@ -45,6 +45,8 @@ public class TestAggregatedMesssage {
 				System.out.println("SAME!");
 			}
 		}
+		
+		
 		assertNotNull(agg.getAuthors().get(auth));
 		
 		System.out.println("Max:" + agg.getMaxTimePosted());

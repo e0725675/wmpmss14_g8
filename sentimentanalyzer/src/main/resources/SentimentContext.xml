@@ -53,6 +53,7 @@
         		<to uri="log:incomingAggregator"/>
         	</aggregate>
 		</route>
+		
 		<route>
 			<from uri="direct:incomingAggregator1"/>
 			<bean ref="toAggregateMessage"/>

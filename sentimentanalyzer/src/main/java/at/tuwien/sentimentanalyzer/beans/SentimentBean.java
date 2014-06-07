@@ -13,7 +13,6 @@ public class SentimentBean {
 	
 	public Message attachSentiment(Message message)
 	{
-		
 		SentimentExtraction senti = new SentimentExtraction();
 		String text = message.getMessage();
 		int sentiment = senti.makeSentiment(text);

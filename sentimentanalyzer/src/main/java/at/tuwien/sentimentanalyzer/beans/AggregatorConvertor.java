@@ -38,6 +38,7 @@ public class AggregatorConvertor {
 				if(authorMap.containsKey(auth)){
 					authorMap.put(auth, authorMap.get(auth)+1);
 				}
+				
 				else{
 					authorMap.put(auth, 1);
 				}			

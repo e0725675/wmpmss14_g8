@@ -102,4 +102,5 @@ public class AggregatedMessages {
 		this.sentimentCounts = sentimentCounts;
 	}
 	
+	
 }
