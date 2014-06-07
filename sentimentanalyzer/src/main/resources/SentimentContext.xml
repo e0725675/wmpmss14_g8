@@ -9,6 +9,7 @@
 	<bean id="wordTagger" class="at.tuwien.sentimentanalyzer.beans.WordTagger" />
 	<bean id="sentimentExtraction" class="at.tuwien.sentimentanalyzer.beans.SentimentBean" />
 	<bean id="wordCounter" class="at.tuwien.sentimentanalyzer.beans.WordCounter" />
+	<bean id="aggregatorStrategy" class="at.tuwien.sentimentanalyzer.converters.MessageAggregationStrategy"/>
 <!-- 	<bean id="reportCreator" class="at.tuwien.sentimentanalyzer.beans.ReportCreator" /> -->
 	<!-- <bean id="commentsFilter" class="at.tuwien.sentimentanalyzer.beans.CommentsFilter" 
 		/> -->
@@ -27,22 +28,37 @@
 			<from uri="direct:incomingMessages" />
 			<bean ref="sentimentExtraction" />
 			<to uri="log:result" />
+			<to uri="seda:aggregatorQueue?multipleConsumers=true" />
 		</route>
 
-		<route>
-			<from uri="seda:sentimentQueue?multipleConsumers=true" />
-			<marshal>
-				<csv />
-			</marshal>
-			<to uri="log:csv" />
+<!--  		<route> -->
+<!-- 			<from uri="seda:sentimentQueue?multipleConsumers=true" /> -->
+<!--			<marshal> -->
+<!--				<csv /> -->
+<!--			</marshal> -->
+<!--			<to uri="log:csv" /> -->
 
 			<!-- Note it simply overwrites the old file at the moment. Create a bean 
 				to read the file and add the new data (I think) -->
-			<to
-				uri="file://sentimented/?fileName={{search.term}}_${date:now:yyyyMMddhhmmssSSS}.csv&amp;fileExist=Append" />
+<!--			<to -->
+<!--				uri="file://sentimented/?fileName={{search.term}}_${date:now:yyyyMMddhhmmssSSS}.csv&amp;fileExist=Append" /> -->
 
+<!--		</route> -->
+		
+		<route>
+			<from uri="seda:aggregatorQueue?multipleConsumers=true" />
+			<aggregate strategyRef="aggregatorStrategy" completionInterval="5000">
+            		<correlationExpression>
+                		<constant>true</constant>
+            		</correlationExpression>
+            		<to uri="direct:incomingAggregator1"/>
+        	</aggregate>
 		</route>
-
+		<route>
+			<from uri="direct:incomingAggregator1"/>
+			<to uri="log:Aggregated" />
+			
+		</route>
 		<route>
 			<from
 				uri="file://sentimented/share_20140527092217.csv?consumer.delay=1000" />
