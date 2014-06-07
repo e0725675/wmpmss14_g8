@@ -42,7 +42,9 @@ package org.jfree.chart.demo;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GradientPaint;
+import java.text.NumberFormat;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -50,6 +52,10 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.CategoryAxis;
 import org.jfree.chart.axis.CategoryLabelPositions;
 import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.labels.CategoryItemLabelGenerator;
+import org.jfree.chart.labels.ItemLabelAnchor;
+import org.jfree.chart.labels.ItemLabelPosition;
+import org.jfree.chart.labels.StandardCategoryItemLabelGenerator;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.BarRenderer;
@@ -57,6 +63,7 @@ import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.ui.ApplicationFrame;
 import org.jfree.ui.RefineryUtilities;
+import org.jfree.ui.TextAnchor;
 
 /**
  * A simple demonstration application showing how to create a bar chart.
@@ -84,13 +91,15 @@ public class BarChartDemo1 extends ApplicationFrame {
      *
      * @return The dataset.
      */
-    private static CategoryDataset createDataset() {
+    public static CategoryDataset createDataset() {
 
         // row keys...
         String series1 = "First";
         String series2 = "Second";
         String series3 = "Third";
-
+        String series4 = "Fourth";
+        String series5 = "Fifth";
+        
         // column keys...
         String category1 = "Category 1";
         String category2 = "Category 2";
@@ -102,12 +111,12 @@ public class BarChartDemo1 extends ApplicationFrame {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 
         dataset.addValue(1.0, series1, category1);
-        dataset.addValue(4.0, series1, category2);
-        dataset.addValue(3.0, series1, category3);
-        dataset.addValue(5.0, series1, category4);
-        dataset.addValue(5.0, series1, category5);
+        dataset.addValue(4.0, series2, category2);
+        dataset.addValue(3.0, series3, category3);
+        dataset.addValue(5.0, series4, category4);
+        dataset.addValue(5.0, series5, category5);
 
-        dataset.addValue(5.0, series2, category1);
+        /*dataset.addValue(5.0, series2, category1);
         dataset.addValue(7.0, series2, category2);
         dataset.addValue(6.0, series2, category3);
         dataset.addValue(8.0, series2, category4);
@@ -118,7 +127,7 @@ public class BarChartDemo1 extends ApplicationFrame {
         dataset.addValue(2.0, series3, category3);
         dataset.addValue(3.0, series3, category4);
         dataset.addValue(6.0, series3, category5);
-
+        */
         return dataset;
 
     }
@@ -130,7 +139,7 @@ public class BarChartDemo1 extends ApplicationFrame {
      *
      * @return The chart.
      */
-    private static JFreeChart createChart(CategoryDataset dataset) {
+    public static JFreeChart createChart(CategoryDataset dataset) {
 
         // create the chart...
         JFreeChart chart = ChartFactory.createBarChart(
@@ -178,7 +187,19 @@ public class BarChartDemo1 extends ApplicationFrame {
         renderer.setSeriesPaint(0, gp0);
         renderer.setSeriesPaint(1, gp1);
         renderer.setSeriesPaint(2, gp2);
+        CategoryItemLabelGenerator generator
+            = new StandardCategoryItemLabelGenerator("{0}",
+                    NumberFormat.getInstance());
+        renderer.setBaseItemLabelGenerator(generator);
+        renderer.setBaseItemLabelFont(new Font("SansSerif", Font.PLAIN, 12));
+        renderer.setBaseItemLabelsVisible(true);
+        renderer.setBasePositiveItemLabelPosition(new ItemLabelPosition(
+                ItemLabelAnchor.OUTSIDE12, TextAnchor.BASELINE_CENTER));
+        renderer.setMaximumBarWidth(1);
+        renderer.setItemMargin(0);
 
+        
+        
         CategoryAxis domainAxis = plot.getDomainAxis();
         domainAxis.setCategoryLabelPositions(
                 CategoryLabelPositions.createUpRotationLabelPositions(

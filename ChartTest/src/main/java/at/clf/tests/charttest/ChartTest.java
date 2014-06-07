@@ -13,6 +13,7 @@ import java.io.IOException;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.demo.BarChartDemo1;
 import org.jfree.chart.plot.PiePlot;
 import org.jfree.chart.title.TextTitle;
 import org.jfree.data.general.DefaultPieDataset;
@@ -22,6 +23,7 @@ import org.jfree.ui.RectangleEdge;
 public class ChartTest {
 
 	public static void main(String[] args) {
+		
 		// TODO Auto-generated method stub
 		DefaultPieDataset dpd = new DefaultPieDataset();
 		dpd.setValue("Trololo", new Double(70));
@@ -80,7 +82,13 @@ public class ChartTest {
 			e.printStackTrace();
 		}
 		
-		
+		JFreeChart chart2 = BarChartDemo1.createChart(BarChartDemo1.createDataset());
+		try {
+			ChartUtilities.saveChartAsPNG(new File("barchart_demo.png"), chart2, 800, 600);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	/**
      * A utility method for creating gradient paints.

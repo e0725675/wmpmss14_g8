@@ -10,19 +10,27 @@ import java.awt.geom.Point2D;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.SortedMap;
+import java.util.StringTokenizer;
 import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -31,19 +39,42 @@ import org.apache.log4j.Logger;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.labels.CategoryItemLabelGenerator;
+import org.jfree.chart.labels.ItemLabelAnchor;
+import org.jfree.chart.labels.ItemLabelPosition;
+import org.jfree.chart.labels.StandardCategoryItemLabelGenerator;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.PieLabelLinkStyle;
 import org.jfree.chart.plot.PiePlot;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.renderer.category.BarRenderer;
+import org.jfree.chart.renderer.category.CategoryItemRenderer;
 import org.jfree.chart.title.TextTitle;
+import org.jfree.data.category.CategoryDataset;
+import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.ui.HorizontalAlignment;
 import org.jfree.ui.RectangleEdge;
+import org.jfree.ui.TextAnchor;
+
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.tool.xml.XMLWorkerHelper;
 
 import at.tuwien.sentimentanalyzer.entities.AggregatedMessages;
+import at.tuwien.sentimentanalyzer.entities.Message.Sentiment;
 
 public class ReportGenerator {
 	private static Logger log = Logger.getLogger(ReportGenerator.class);
 	public ReportGenerator() {
 
 	}
+	private static  final String REGEX_mintime = "<!--###mintime###-->";
+	private static  final String REGEX_maxtime = "<!--###maxtime###-->";
+	
 	private static  final String REGEX_sentimentpercentages_total = "<!--###sentimentpercentages_total###-->";
 	private static  final String REGEX_wordcounts_total = "<!--###wordcounts_total###-->";
 	private static  final String REGEX_messages_total = "<!--###messages_total###-->";
@@ -80,7 +111,7 @@ public class ReportGenerator {
 			baseFolder = "htmlMessageReports/"+df.format(date)+"_"+ReportGenerator.getRandomAlphaNumericString(4);
 			file = new File(baseFolder);
 		} while(file.exists());
-		
+
 		ImageSources imageSources = ReportGenerator.generateChartImages(baseFolder, agm);
 
 		File template = new File("agm_report_template.html");
@@ -90,9 +121,14 @@ public class ReportGenerator {
 		String imgWordcountsTotal = imageSources.imgWordcountsTotal;
 		String imgMessagesTotal = imageSources.imgMessagesTotal;
 
-		List<String> imgSentimentsPerSource = imageSources.imgSentimentsPerSource;imgSentimentsPerSource.add("test1");
-		List<String> imgWordCountsPerSource = imageSources.imgWordCountsPerSource;imgWordCountsPerSource.add("test2");
+		List<String> imgSentimentsPerSource = imageSources.imgSentimentsPerSource;
+		List<String> imgWordCountsPerSource = imageSources.imgWordCountsPerSource;
 
+		// replace times
+		DateFormat df2 = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
+		html = ReportGenerator.replaceTextinString(html, REGEX_mintime, df2.format(agm.getMinTimePosted()));
+		html = ReportGenerator.replaceTextinString(html, REGEX_maxtime, df2.format(agm.getMaxTimePosted()));
+		
 		// replace total markers with imagepaths
 		html = ReportGenerator.replaceTextinString(html, REGEX_sentimentpercentages_total, imgSentimentpercentagesTotal);
 		html = ReportGenerator.replaceTextinString(html, REGEX_wordcounts_total, imgWordcountsTotal);
@@ -142,9 +178,49 @@ public class ReportGenerator {
 		html = ReportGenerator.replaceTextinString(html, REGEX_comments, "");
 
 		HtmlReport output = new HtmlReport(html, baseFolder);
-		
+		BufferedWriter bw = new BufferedWriter(new FileWriter(new File(baseFolder+"/report.html")));
+		bw.write(html);
+		bw.close();
+		convertFile(new File(baseFolder+"/report.html"),new File(baseFolder+"/report.pdf"));
 		return output;
 	}
+	
+	public static boolean convertFile(File file, File outFile) {
+		if (file.isFile()) {
+	        Document document = new Document(PageSize.A4, 0, 0, 0, 0);
+	        // step 2
+	        PdfWriter writer;
+			try {
+				writer = PdfWriter.getInstance(document, new FileOutputStream(outFile));
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				//System.out.println( "fail 1" );
+				return false;
+			} catch (DocumentException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				//System.out.println( "fail 2" );
+				return false;
+			}
+	        // step 3
+	        document.open();
+	        // step 4
+	        try {
+				XMLWorkerHelper.getInstance().parseXHtml(writer, document,
+				        new FileInputStream(file));
+			} catch (FileNotFoundException e) {
+				throw new ReportGeneratorException("FileNotFoundException on parsing XHtml",e);
+			} catch (IOException e) {
+				throw new ReportGeneratorException("IOException on parsing XHtml",e);
+			}
+	         document.close();
+	        return true;
+		} else {
+			return false;
+		}
+	}
+	
 	private static class Tuple<S extends Comparable<S>,T extends Comparable<T>> implements Comparable<Tuple<S,T>> {
 		public Tuple(S s, T t) {
 			super();
@@ -174,16 +250,30 @@ public class ReportGenerator {
 			return "Tuple [s=" + s + ", t=" + t + "]";
 		}
 
-		
+
 	}
-	private static ImageSources generateChartImages(String targetFolder, AggregatedMessages agm) {
+	
+	private static ImageSources generateChartImages(String targetFolder, AggregatedMessages agm) throws IOException {
 		ImageSources out = new ImageSources();
 		File folder = new File(targetFolder);
 		folder.mkdirs();
-		
-		ArrayList<Tuple<Integer, String>> l = new ArrayList<Tuple<Integer, String>>();
+		ArrayList<Tuple<Integer, String>> l;
+		l = new ArrayList<Tuple<Integer, String>>();
 		for (String key : agm.getWordCounts().keySet()) {
 			Tuple<Integer, String> t = new Tuple<Integer, String>(agm.getWordCounts().get(key), key);
+			l.add(t);
+		}
+		Collections.sort(l);
+		Collections.reverse(l);
+		TreeMap<String, Integer> wctotalmap = new TreeMap<String, Integer>();
+		for (int i=0; i<Math.min(l.size(), 10);i++) {
+			Tuple<Integer, String> t = l.get(i);
+			wctotalmap.put(t.getT(), t.getS());
+		}
+		
+		l = new ArrayList<Tuple<Integer, String>>();
+		for (String key : agm.getSourceCounts().keySet()) {
+			Tuple<Integer, String> t = new Tuple<Integer, String>(agm.getSourceCounts().get(key), key);
 			l.add(t);
 		}
 		Collections.sort(l);
@@ -193,18 +283,40 @@ public class ReportGenerator {
 			Tuple<Integer, String> t = l.get(i);
 			mtotalmap.put(t.getT(), t.getS());
 		}
+		
+		
+		ArrayList<Tuple<Integer, Sentiment>> l2 = new ArrayList<Tuple<Integer, Sentiment>>();
+		if (agm.getSentimentCounts().size() != 3) {
+			throw new ReportGeneratorException("Invalid SentimentCountsSize. should be 3 but was "+agm.getSentimentCounts().size());
+		}
+		for (Sentiment key : agm.getSentimentCounts().keySet()) {
+			Tuple<Integer, Sentiment> t = new Tuple<Integer, Sentiment>(agm.getSentimentCounts().get(key), key);
+			l2.add(t);
+		}
+		Collections.sort(l);
+		Collections.reverse(l);
+		TreeMap<Sentiment, Integer> senttotalmap = new TreeMap<Sentiment, Integer>();
+		for (int i=0; i<Math.min(l2.size(), 10);i++) {
+			Tuple<Integer, Sentiment> t = l2.get(i);
+			senttotalmap.put(t.getT(), t.getS());
+		}
+		
 		//log.info("treemap:"+mtotalmap.size()+" "+mtotalmap.toString());
-		out.imgMessagesTotal = ReportGenerator.createPieChartImage(targetFolder+"/messagesTotal.png", mtotalmap, "Wordcounts per Source", null, 800, 600);
+		out.imgWordcountsTotal = ReportGenerator.createPieChartImage(targetFolder+"/wordcountsTotal.png", wctotalmap, "Wordcounts per Source", null, 800, 600);
+		out.imgMessagesTotal = ReportGenerator.createBarChartImage(targetFolder+"/messagesTotal.png", mtotalmap, "Messages per Source", null, "Sources", "Number of Messages", 800, 600);
+		out.imgSentimentpercentagesTotal = ReportGenerator.createPieChartImage(targetFolder+"/sentimentsTotal.png", senttotalmap, "Sentiments per Source", null, 800, 600);
+		//ReportGenerator.createPieChartImage(targetFolder+"/messagesTotal.png", wctotalmap, "Wordcounts per Source", null, 800, 600);
+		
 		return out;
 	}
 	private static char[] alphaNumericCharacters;
 	{
 		StringBuilder tmp = new StringBuilder();
-	    for (char ch = '0'; ch <= '9'; ++ch)
-	      tmp.append(ch);
-	    for (char ch = 'a'; ch <= 'z'; ++ch)
-	      tmp.append(ch);
-	    alphaNumericCharacters = tmp.toString().toCharArray();
+		for (char ch = '0'; ch <= '9'; ++ch)
+			tmp.append(ch);
+		for (char ch = 'a'; ch <= 'z'; ++ch)
+			tmp.append(ch);
+		alphaNumericCharacters = tmp.toString().toCharArray();
 	}
 	public static String getRandomAlphaNumericString(int length) {
 		Random r = new Random();
@@ -215,8 +327,8 @@ public class ReportGenerator {
 		}
 		return out;
 	}
-	private static String createPieChartImage(String targetFile, SortedMap<? extends Comparable<?>, ? extends Number> namesAndValues, String title, String subTitle, int widthPx, int heightPx) {
-		
+	public static String createPieChartImage(String targetFile, SortedMap<? extends Comparable<?>, ? extends Number> namesAndValues, String title, String subTitle, int widthPx, int heightPx) {
+
 		//log.info("createPieChartImage");
 		//log.info("treemap:"+namesAndValues.size()+" "+namesAndValues.toString());
 		DefaultPieDataset dpd = new DefaultPieDataset();
@@ -230,15 +342,14 @@ public class ReportGenerator {
 				false,               // tooltips
 				false               // no URL generation
 				);
-		
+
 		// set a custom background for the chart
-		chart.setBackgroundPaint(new GradientPaint(new Point(0, 0), 
-				new Color(20, 20, 20), new Point(400, 200), Color.DARK_GRAY));
+		chart.setBackgroundPaint(Color.WHITE);
 
 		// customise the title position and font
 		TextTitle t = chart.getTitle();
-		t.setHorizontalAlignment(HorizontalAlignment.LEFT);
-		t.setPaint(new Color(240, 240, 240));
+		t.setHorizontalAlignment(HorizontalAlignment.CENTER);
+		t.setPaint(Color.BLACK);
 		t.setFont(new Font("Arial", Font.BOLD, 26));
 
 		PiePlot plot = (PiePlot) chart.getPlot();
@@ -247,17 +358,20 @@ public class ReportGenerator {
 		plot.setOutlineVisible(false);
 
 		// customise the section label appearance
+		plot.setLabelLinksVisible(true);
 		plot.setLabelFont(new Font("Courier New", Font.BOLD, 20));
-		plot.setLabelLinkPaint(Color.WHITE);
-		plot.setLabelLinkStroke(new BasicStroke(2.0f));
+		//plot.setLabelLinkPaint(Color.WHITE);
+		//plot.setLabelLinkStroke(new BasicStroke(2.0f));
 		plot.setLabelOutlineStroke(null);
-		plot.setLabelPaint(Color.WHITE);
-		plot.setLabelBackgroundPaint(null);
+		plot.setLabelPaint(Color.BLACK);
+		plot.setLabelBackgroundPaint(Color.WHITE);
+		plot.setLabelShadowPaint(null);
+
 
 		if (subTitle != null) {
 			// add a subtitle giving the data source
 			TextTitle source = new TextTitle(subTitle, new Font("Courier New", Font.PLAIN, 12));
-			source.setPaint(Color.WHITE);
+			source.setPaint(Color.BLACK);
 			source.setPosition(RectangleEdge.BOTTOM);
 			source.setHorizontalAlignment(HorizontalAlignment.RIGHT);
 			chart.addSubtitle(source);
@@ -276,8 +390,83 @@ public class ReportGenerator {
 			throw new ReportGeneratorException("IOException occured on saving Chart to image file", e);
 		}
 		//log.info("createPieChartImage done "+targetFile);
+		//return outFile.getName();
 		return targetFile;
 	}
+
+	public static String createBarChartImage(String targetFile, 
+			SortedMap<? extends Comparable<?>, ? extends Number> namesAndValues, 
+			String title, String subTitle, String categoryAxisLabel, 
+			String valueAxisLabel, int widthPx, int heightPx) {
+
+		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+
+		List<Comparable<?>> c = new LinkedList<Comparable<?>>(namesAndValues.keySet());
+		for (int i=c.size()-1; i>=0; i--) {
+			Number value = namesAndValues.get(c.get(i));
+			dataset.addValue(value, c.get(i), "");
+		}
+		JFreeChart bchart = ChartFactory.createBarChart(
+				title, 
+				categoryAxisLabel, 
+				valueAxisLabel, 
+				dataset, 
+				PlotOrientation.HORIZONTAL, 
+				false, //legend
+				false, //tooltips
+				false); // urls
+		// set a custom background for the chart
+		bchart.setBackgroundPaint(Color.WHITE);
+
+		// customise the title position and font
+		TextTitle t = bchart.getTitle();
+		t.setHorizontalAlignment(HorizontalAlignment.CENTER);
+		t.setPaint(Color.BLACK);
+		t.setFont(new Font("Arial", Font.BOLD, 26));
+
+		CategoryPlot plot = (CategoryPlot) bchart.getPlot();
+		plot.setBackgroundPaint(null);
+		CategoryItemLabelGenerator generator
+		= new StandardCategoryItemLabelGenerator("{0}",
+				NumberFormat.getInstance());
+		BarRenderer renderer = (BarRenderer) plot.getRenderer();
+		renderer.setBaseItemLabelGenerator(generator);
+		renderer.setBaseItemLabelFont(new Font("SansSerif", Font.PLAIN, 18));
+		renderer.setBaseItemLabelsVisible(true);
+		renderer.setBasePositiveItemLabelPosition(new ItemLabelPosition(
+				ItemLabelAnchor.CENTER, TextAnchor.BASELINE_CENTER));
+		renderer.setMaximumBarWidth(1);
+		renderer.setItemMargin(0.1);
+		
+		NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
+		
+		rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
+		if (subTitle != null) {
+			// add a subtitle giving the data source
+			TextTitle source = new TextTitle(subTitle, new Font("Courier New", Font.PLAIN, 12));
+			source.setPaint(Color.BLACK);
+			source.setPosition(RectangleEdge.BOTTOM);
+			source.setHorizontalAlignment(HorizontalAlignment.RIGHT);
+			bchart.addSubtitle(source);
+		}
+
+		File outFile = new File(targetFile);
+		if (outFile.exists()) {
+			if (!outFile.delete()) {
+				throw new ReportGeneratorException("Cannot delete existing file "+outFile.getName());
+			}
+		}
+		try {
+			//log.info("Saving image");
+			ChartUtilities.saveChartAsPNG(outFile, bchart, widthPx, heightPx);
+		} catch (IOException e) {
+			throw new ReportGeneratorException("IOException occured on saving Chart to image file", e);
+		}
+		//log.info("createPieChartImage done "+targetFile);
+		//return outFile.getName();
+		return targetFile;
+	}
+
 	private static String fillAltAndSrc(String input, String alt, String src) {
 		String out = input;
 		out = ReportGenerator.replaceTextinString(input, REGEX_alt, alt);
@@ -373,9 +562,9 @@ public class ReportGenerator {
 					+ "]";
 		}
 	}
-	
-	
-	
+
+
+
 	public static void test() {
 		DefaultPieDataset dpd = new DefaultPieDataset();
 		dpd.setValue("Trololo", new Double(70));
@@ -383,50 +572,50 @@ public class ReportGenerator {
 		dpd.setValue("Trololo3", new Double(10));
 		JFreeChart chart = ChartFactory.createPieChart(
 				"Trololo Title",  // chart title
-	            dpd,            // data
-	            false,              // no legend
-	            false,               // tooltips
-	            false               // no URL generation
-	            );
+				dpd,            // data
+				false,              // no legend
+				false,               // tooltips
+				false               // no URL generation
+				);
 		// set a custom background for the chart
-        chart.setBackgroundPaint(new GradientPaint(new Point(0, 0), 
-                new Color(20, 20, 20), new Point(400, 200), Color.DARK_GRAY));
+		chart.setBackgroundPaint(new GradientPaint(new Point(0, 0), 
+				new Color(20, 20, 20), new Point(400, 200), Color.DARK_GRAY));
 
-        // customise the title position and font
-        TextTitle t = chart.getTitle();
-        t.setHorizontalAlignment(HorizontalAlignment.LEFT);
-        t.setPaint(new Color(240, 240, 240));
-        t.setFont(new Font("Arial", Font.BOLD, 26));
+		// customise the title position and font
+		TextTitle t = chart.getTitle();
+		t.setHorizontalAlignment(HorizontalAlignment.LEFT);
+		t.setPaint(new Color(240, 240, 240));
+		t.setFont(new Font("Arial", Font.BOLD, 26));
 
-        PiePlot plot = (PiePlot) chart.getPlot();
-        plot.setBackgroundPaint(null);
-        plot.setInteriorGap(0.04);
-        plot.setOutlineVisible(false);
+		PiePlot plot = (PiePlot) chart.getPlot();
+		plot.setBackgroundPaint(null);
+		plot.setInteriorGap(0.04);
+		plot.setOutlineVisible(false);
 
-        // use gradients and white borders for the section colours
-        plot.setSectionPaint("Trololo", createGradientPaint(new Color(200, 200, 255), Color.BLUE));
-        plot.setSectionPaint("Trololo2", createGradientPaint(new Color(255, 200, 200), Color.RED));
-        plot.setSectionPaint("Trololo3", createGradientPaint(new Color(200, 255, 200), Color.GREEN));
-       plot.setBaseSectionOutlinePaint(Color.WHITE);
-        plot.setSectionOutlinesVisible(true);
-        plot.setBaseSectionOutlineStroke(new BasicStroke(2.0f));
+		// use gradients and white borders for the section colours
+		plot.setSectionPaint("Trololo", createGradientPaint(new Color(200, 200, 255), Color.BLUE));
+		plot.setSectionPaint("Trololo2", createGradientPaint(new Color(255, 200, 200), Color.RED));
+		plot.setSectionPaint("Trololo3", createGradientPaint(new Color(200, 255, 200), Color.GREEN));
+		plot.setBaseSectionOutlinePaint(Color.WHITE);
+		plot.setSectionOutlinesVisible(true);
+		plot.setBaseSectionOutlineStroke(new BasicStroke(2.0f));
 
-        // customise the section label appearance
-        plot.setLabelFont(new Font("Courier New", Font.BOLD, 20));
-        plot.setLabelLinkPaint(Color.WHITE);
-        plot.setLabelLinkStroke(new BasicStroke(2.0f));
-        plot.setLabelOutlineStroke(null);
-        plot.setLabelPaint(Color.WHITE);
-        plot.setLabelBackgroundPaint(null);
-        
-        // add a subtitle giving the data source
-        TextTitle source = new TextTitle("Source: http://www.trololo.org/url", 
-                new Font("Courier New", Font.PLAIN, 12));
-        source.setPaint(Color.WHITE);
-        source.setPosition(RectangleEdge.BOTTOM);
-        source.setHorizontalAlignment(HorizontalAlignment.RIGHT);
-        chart.addSubtitle(source);
-        
+		// customise the section label appearance
+		plot.setLabelFont(new Font("Courier New", Font.BOLD, 20));
+		plot.setLabelLinkPaint(Color.WHITE);
+		plot.setLabelLinkStroke(new BasicStroke(2.0f));
+		plot.setLabelOutlineStroke(null);
+		plot.setLabelPaint(Color.WHITE);
+		plot.setLabelBackgroundPaint(null);
+
+		// add a subtitle giving the data source
+		TextTitle source = new TextTitle("Source: http://www.trololo.org/url", 
+				new Font("Courier New", Font.PLAIN, 12));
+		source.setPaint(Color.WHITE);
+		source.setPosition(RectangleEdge.BOTTOM);
+		source.setHorizontalAlignment(HorizontalAlignment.RIGHT);
+		chart.addSubtitle(source);
+
 		try {
 			//log.info("saving");
 			ChartUtilities.saveChartAsPNG(new File("piechart_trololo.png"), chart, 800, 600);
@@ -435,22 +624,22 @@ public class ReportGenerator {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
+
+
 	}
 	/**
-     * A utility method for creating gradient paints.
-     * 
-     * @param c1  color 1.
-     * @param c2  color 2.
-     * 
-     * @return A radial gradient paint.
-     */
-    private static RadialGradientPaint createGradientPaint(Color c1, Color c2) {
-        Point2D center = new Point2D.Float(0, 0);
-        float radius = 200;
-        float[] dist = {0.0f, 1.0f};
-        return new RadialGradientPaint(center, radius, dist,
-                new Color[] {c1, c2});
-    }
+	 * A utility method for creating gradient paints.
+	 * 
+	 * @param c1  color 1.
+	 * @param c2  color 2.
+	 * 
+	 * @return A radial gradient paint.
+	 */
+	private static RadialGradientPaint createGradientPaint(Color c1, Color c2) {
+		Point2D center = new Point2D.Float(0, 0);
+		float radius = 200;
+		float[] dist = {0.0f, 1.0f};
+		return new RadialGradientPaint(center, radius, dist,
+				new Color[] {c1, c2});
+	}
 }
