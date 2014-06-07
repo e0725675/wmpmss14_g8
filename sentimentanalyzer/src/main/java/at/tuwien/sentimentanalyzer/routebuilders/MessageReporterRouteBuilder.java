@@ -14,7 +14,7 @@ public class MessageReporterRouteBuilder extends RouteBuilder{
 		//to("bean:messageConverter?method=statusToMessage").
 		from("timer:messagemockerTimer2?period=5000").
 		beanRef("messageMocker", "nextAggregatedMessage").
-		beanRef("reportGenerator", "generateAggregatedMessagesHtmlReport").
+		beanRef("reportGenerator", "generateAggregatedMessagesPDFReport").
 		to("log:reportgenerator");
 	}
 	

@@ -1,12 +1,7 @@
 package at.tuwien.sentimentanalyzer.beans;
 
-import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.GradientPaint;
-import java.awt.Point;
-import java.awt.RadialGradientPaint;
-import java.awt.geom.Point2D;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -16,21 +11,16 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.text.DateFormat;
-import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 import java.util.SortedMap;
-import java.util.StringTokenizer;
 import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -45,27 +35,24 @@ import org.jfree.chart.labels.ItemLabelAnchor;
 import org.jfree.chart.labels.ItemLabelPosition;
 import org.jfree.chart.labels.StandardCategoryItemLabelGenerator;
 import org.jfree.chart.plot.CategoryPlot;
-import org.jfree.chart.plot.PieLabelLinkStyle;
 import org.jfree.chart.plot.PiePlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.BarRenderer;
-import org.jfree.chart.renderer.category.CategoryItemRenderer;
 import org.jfree.chart.title.TextTitle;
-import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.ui.HorizontalAlignment;
 import org.jfree.ui.RectangleEdge;
 import org.jfree.ui.TextAnchor;
 
+import at.tuwien.sentimentanalyzer.entities.AggregatedMessages;
+import at.tuwien.sentimentanalyzer.entities.Message.Sentiment;
+
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.tool.xml.XMLWorkerHelper;
-
-import at.tuwien.sentimentanalyzer.entities.AggregatedMessages;
-import at.tuwien.sentimentanalyzer.entities.Message.Sentiment;
 
 public class ReportGenerator {
 	private static Logger log = Logger.getLogger(ReportGenerator.class);
@@ -79,30 +66,20 @@ public class ReportGenerator {
 	private static  final String REGEX_wordcounts_total = "<!--###wordcounts_total###-->";
 	private static  final String REGEX_messages_total = "<!--###messages_total###-->";
 
-	private static  final String REGEX_sentimentpercentages_persource = "<!--###sentimentpercentages_persource###-->";
-	private static  final String REGEX_wordcounts_persource = "<!--###wordcounts_persource###-->";
-
-	private static  final String REGEX_get_template_sentimentpercentages_persource = "(?:<!--####sentimentpercentages_persource#)(.*?)(?:####-->)";
-	private static  final String REGEX_get_template_wordcounts_persource = "(?:<!--####sentimentpercentages_persource#)(.*?)(?:####-->)";
-
-	private static final String REGEX_alt = "##alt##";
-	private static  final String REGEX_src = "##src##";
 
 	private static  final String REGEX_comments = "(<!--.*?-->)";
 	private static class ImageSources {
 		public String imgSentimentpercentagesTotal = "imgSentimentpercentagesTotal";
 		public String imgWordcountsTotal = "imgWordcountsTotal";
 		public String imgMessagesTotal = "imgMessagesTotal";
-		public List<String> imgSentimentsPerSource = new ArrayList<String>();
-		public List<String> imgWordCountsPerSource = new ArrayList<String>();
 	}
 	/**
-	 * Generates an HTML report for AggregatedMessages
+	 * Generates an PDF report for AggregatedMessages
 	 * @param agm
-	 * @return
+	 * @return path of the generated PDF
 	 * @throws IOException 
 	 */
-	public HtmlReport generateAggregatedMessagesHtmlReport(AggregatedMessages agm) throws IOException {
+	public String generateAggregatedMessagesPDFReport(AggregatedMessages agm) throws IOException {
 		String baseFolder = "";
 		File file = null;
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
@@ -121,9 +98,6 @@ public class ReportGenerator {
 		String imgWordcountsTotal = imageSources.imgWordcountsTotal;
 		String imgMessagesTotal = imageSources.imgMessagesTotal;
 
-		List<String> imgSentimentsPerSource = imageSources.imgSentimentsPerSource;
-		List<String> imgWordCountsPerSource = imageSources.imgWordCountsPerSource;
-
 		// replace times
 		DateFormat df2 = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
 		html = ReportGenerator.replaceTextinString(html, REGEX_mintime, df2.format(agm.getMinTimePosted()));
@@ -134,78 +108,28 @@ public class ReportGenerator {
 		html = ReportGenerator.replaceTextinString(html, REGEX_wordcounts_total, imgWordcountsTotal);
 		html = ReportGenerator.replaceTextinString(html, REGEX_messages_total, imgMessagesTotal);
 
-		List<List<String>> temp;
-
-		// get template for sentiment per source images
-		temp = ReportGenerator.getMatchingGroups(html, REGEX_get_template_sentimentpercentages_persource);
-		if (temp.size() != 1 || temp.get(0).size() != 1) {
-			if (temp.size() == 0) {
-				throw new ReportGeneratorException("Could not find template for sentiment per source images");
-			} else {
-				throw new ReportGeneratorException("Invalid number of templates for sentiment per source images");
-			}
-		}
-		String sentimentpercentages_persource_template = temp.get(0).get(0);
-
-		// get template for wordcounts per source images
-		temp = ReportGenerator.getMatchingGroups(html, REGEX_get_template_wordcounts_persource);
-		if (temp.size() != 1 || temp.get(0).size() != 1) {
-			if (temp.size() == 0) {
-				throw new ReportGeneratorException("Could not find template for wordcounts per source images");
-			} else {
-				throw new ReportGeneratorException("Invalid number of templates for wordcounts per source images");
-			}
-		}
-		String wordcounts_persource_template = temp.get(0).get(0);
-
-		// insert sentiments per source images
-		String sentimentpercentagess_persource_out = "";
-		for (String src : imgSentimentsPerSource) {
-			String imgTag = ReportGenerator.fillAltAndSrc(sentimentpercentages_persource_template, src, src);
-			sentimentpercentagess_persource_out+=imgTag;
-		}
-		html = ReportGenerator.replaceTextinString(html, REGEX_sentimentpercentages_persource, sentimentpercentagess_persource_out);
-
-		// insert wordcounts per source images
-		String wordcounts_persource_out = "";
-		for (String src : imgSentimentsPerSource) {
-			String imgTag = ReportGenerator.fillAltAndSrc(wordcounts_persource_template, src, src);
-			wordcounts_persource_out+=imgTag;
-		}
-		html = ReportGenerator.replaceTextinString(html, REGEX_wordcounts_persource, wordcounts_persource_out);
-
 		// replace remaining comments
 		html = ReportGenerator.replaceTextinString(html, REGEX_comments, "");
 
-		HtmlReport output = new HtmlReport(html, baseFolder);
 		BufferedWriter bw = new BufferedWriter(new FileWriter(new File(baseFolder+"/report.html")));
 		bw.write(html);
 		bw.close();
 		convertFile(new File(baseFolder+"/report.html"),new File(baseFolder+"/report.pdf"));
-		return output;
+		return baseFolder+"/report.pdf";
 	}
 	
 	public static boolean convertFile(File file, File outFile) {
 		if (file.isFile()) {
 	        Document document = new Document(PageSize.A4, 0, 0, 0, 0);
-	        // step 2
 	        PdfWriter writer;
 			try {
 				writer = PdfWriter.getInstance(document, new FileOutputStream(outFile));
 			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				//System.out.println( "fail 1" );
-				return false;
+				throw new ReportGeneratorException("FileNotFoundException on FileOutputStream creation of "+outFile.getPath(),e);
 			} catch (DocumentException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				//System.out.println( "fail 2" );
-				return false;
+				throw new ReportGeneratorException("DocumentException on PdfWriter.getInstance",e);
 			}
-	        // step 3
 	        document.open();
-	        // step 4
 	        try {
 				XMLWorkerHelper.getInstance().parseXHtml(writer, document,
 				        new FileInputStream(file));
@@ -232,14 +156,8 @@ public class ReportGenerator {
 		public S getS() {
 			return s;
 		}
-		public void setS(S s) {
-			this.s = s;
-		}
 		public T getT() {
 			return t;
-		}
-		public void setT(T t) {
-			this.t = t;
 		}
 		@Override
 		public int compareTo(Tuple<S,T> o) {
@@ -302,9 +220,9 @@ public class ReportGenerator {
 		}
 		
 		//log.info("treemap:"+mtotalmap.size()+" "+mtotalmap.toString());
-		out.imgWordcountsTotal = ReportGenerator.createPieChartImage(targetFolder+"/wordcountsTotal.png", wctotalmap, "Wordcounts per Source", null, 800, 600);
+		out.imgWordcountsTotal = ReportGenerator.createPieChartImage(targetFolder+"/wordcountsTotal.png", wctotalmap, "Wordcounts", null, 800, 600);
 		out.imgMessagesTotal = ReportGenerator.createBarChartImage(targetFolder+"/messagesTotal.png", mtotalmap, "Messages per Source", null, "Sources", "Number of Messages", 800, 600);
-		out.imgSentimentpercentagesTotal = ReportGenerator.createPieChartImage(targetFolder+"/sentimentsTotal.png", senttotalmap, "Sentiments per Source", null, 800, 600);
+		out.imgSentimentpercentagesTotal = ReportGenerator.createPieChartImage(targetFolder+"/sentimentsTotal.png", senttotalmap, "Sentiments", null, 800, 600);
 		//ReportGenerator.createPieChartImage(targetFolder+"/messagesTotal.png", wctotalmap, "Wordcounts per Source", null, 800, 600);
 		
 		return out;
@@ -329,8 +247,6 @@ public class ReportGenerator {
 	}
 	public static String createPieChartImage(String targetFile, SortedMap<? extends Comparable<?>, ? extends Number> namesAndValues, String title, String subTitle, int widthPx, int heightPx) {
 
-		//log.info("createPieChartImage");
-		//log.info("treemap:"+namesAndValues.size()+" "+namesAndValues.toString());
 		DefaultPieDataset dpd = new DefaultPieDataset();
 		for (Comparable<?> key : namesAndValues.keySet()) {
 			dpd.setValue(key, namesAndValues.get(key));
@@ -467,18 +383,13 @@ public class ReportGenerator {
 		return targetFile;
 	}
 
-	private static String fillAltAndSrc(String input, String alt, String src) {
-		String out = input;
-		out = ReportGenerator.replaceTextinString(input, REGEX_alt, alt);
-		out = ReportGenerator.replaceTextinString(out, REGEX_src, src);
-		return out;
-	}
 	public static String replaceTextinString(String string,String regex, String replacement) {
 		String inStr = string;
 		Pattern p = Pattern.compile(regex); // Compiles regular expression into Pattern.
 		Matcher m = p.matcher(inStr); // Creates Matcher with subject s and Pattern p.
 		if (!m.find()) {
-			throw new ReportGeneratorException("regex "+regex+" not found in string");
+			//throw new ReportGeneratorException("regex "+regex+" not found in string");
+			return string;
 		}
 		String outStr = inStr.replaceAll(regex, replacement);
 		return outStr;
@@ -532,114 +443,5 @@ public class ReportGenerator {
 			super(msg, e);
 		}
 	}
-	/**
-	 * Container class for Html Reports
-	 * @author CLF
-	 *
-	 */
-	public static class HtmlReport {
-		HtmlReport(String html, String baseFolder) {
-			this.html = html;
-			this.baseFolder = baseFolder;
-		}
-		private String html = "";
-		private String baseFolder = "";
-		public String getHtml() {
-			return html;
-		}
-		public void setHtml(String html) {
-			this.html = html;
-		}
-		public String getBaseFolder() {
-			return baseFolder;
-		}
-		public void setBaseFolder(String baseFolder) {
-			this.baseFolder = baseFolder;
-		}
-		@Override
-		public String toString() {
-			return "HtmlOutput [html=" + html + ", baseFolder=" + baseFolder
-					+ "]";
-		}
-	}
 
-
-
-	public static void test() {
-		DefaultPieDataset dpd = new DefaultPieDataset();
-		dpd.setValue("Trololo", new Double(70));
-		dpd.setValue("Trololo2", new Double(20));
-		dpd.setValue("Trololo3", new Double(10));
-		JFreeChart chart = ChartFactory.createPieChart(
-				"Trololo Title",  // chart title
-				dpd,            // data
-				false,              // no legend
-				false,               // tooltips
-				false               // no URL generation
-				);
-		// set a custom background for the chart
-		chart.setBackgroundPaint(new GradientPaint(new Point(0, 0), 
-				new Color(20, 20, 20), new Point(400, 200), Color.DARK_GRAY));
-
-		// customise the title position and font
-		TextTitle t = chart.getTitle();
-		t.setHorizontalAlignment(HorizontalAlignment.LEFT);
-		t.setPaint(new Color(240, 240, 240));
-		t.setFont(new Font("Arial", Font.BOLD, 26));
-
-		PiePlot plot = (PiePlot) chart.getPlot();
-		plot.setBackgroundPaint(null);
-		plot.setInteriorGap(0.04);
-		plot.setOutlineVisible(false);
-
-		// use gradients and white borders for the section colours
-		plot.setSectionPaint("Trololo", createGradientPaint(new Color(200, 200, 255), Color.BLUE));
-		plot.setSectionPaint("Trololo2", createGradientPaint(new Color(255, 200, 200), Color.RED));
-		plot.setSectionPaint("Trololo3", createGradientPaint(new Color(200, 255, 200), Color.GREEN));
-		plot.setBaseSectionOutlinePaint(Color.WHITE);
-		plot.setSectionOutlinesVisible(true);
-		plot.setBaseSectionOutlineStroke(new BasicStroke(2.0f));
-
-		// customise the section label appearance
-		plot.setLabelFont(new Font("Courier New", Font.BOLD, 20));
-		plot.setLabelLinkPaint(Color.WHITE);
-		plot.setLabelLinkStroke(new BasicStroke(2.0f));
-		plot.setLabelOutlineStroke(null);
-		plot.setLabelPaint(Color.WHITE);
-		plot.setLabelBackgroundPaint(null);
-
-		// add a subtitle giving the data source
-		TextTitle source = new TextTitle("Source: http://www.trololo.org/url", 
-				new Font("Courier New", Font.PLAIN, 12));
-		source.setPaint(Color.WHITE);
-		source.setPosition(RectangleEdge.BOTTOM);
-		source.setHorizontalAlignment(HorizontalAlignment.RIGHT);
-		chart.addSubtitle(source);
-
-		try {
-			//log.info("saving");
-			ChartUtilities.saveChartAsPNG(new File("piechart_trololo.png"), chart, 800, 600);
-			//log.info("saved");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-
-	}
-	/**
-	 * A utility method for creating gradient paints.
-	 * 
-	 * @param c1  color 1.
-	 * @param c2  color 2.
-	 * 
-	 * @return A radial gradient paint.
-	 */
-	private static RadialGradientPaint createGradientPaint(Color c1, Color c2) {
-		Point2D center = new Point2D.Float(0, 0);
-		float radius = 200;
-		float[] dist = {0.0f, 1.0f};
-		return new RadialGradientPaint(center, radius, dist,
-				new Color[] {c1, c2});
-	}
 }
