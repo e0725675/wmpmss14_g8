@@ -30,40 +30,40 @@ public class AggregatedMessages {
 	private HashMap<String, Integer> wordCounts = new HashMap<String, Integer>();
 	private HashMap<String, Integer> sourceCounts = new HashMap<String, Integer>();
 	private HashMap<Message.Sentiment, Integer> sentimentCounts = new HashMap<Message.Sentiment, Integer>();
-	protected HashMap<Author, Integer> getAuthors() {
+	public HashMap<Author, Integer> getAuthors() {
 		return authors;
 	}
-	protected void setAuthors(HashMap<Author, Integer> authors) {
+	public void setAuthors(HashMap<Author, Integer> authors) {
 		this.authors = authors;
 	}
-	protected Date getMinTimePosted() {
+	public Date getMinTimePosted() {
 		return minTimePosted;
 	}
-	protected void setMinTimePosted(Date minTimePosted) {
+	public void setMinTimePosted(Date minTimePosted) {
 		this.minTimePosted = minTimePosted;
 	}
-	protected Date getMaxTimePosted() {
+	public Date getMaxTimePosted() {
 		return maxTimePosted;
 	}
-	protected void setMaxTimePosted(Date maxTimePosted) {
+	public void setMaxTimePosted(Date maxTimePosted) {
 		this.maxTimePosted = maxTimePosted;
 	}
-	protected HashMap<String, Integer> getWordCounts() {
+	public HashMap<String, Integer> getWordCounts() {
 		return wordCounts;
 	}
-	protected void setWordCounts(HashMap<String, Integer> wordCounts) {
+	public void setWordCounts(HashMap<String, Integer> wordCounts) {
 		this.wordCounts = wordCounts;
 	}
-	protected HashMap<String, Integer> getSourceCounts() {
+	public HashMap<String, Integer> getSourceCounts() {
 		return sourceCounts;
 	}
-	protected void setSourceCounts(HashMap<String, Integer> sourceCounts) {
+	public void setSourceCounts(HashMap<String, Integer> sourceCounts) {
 		this.sourceCounts = sourceCounts;
 	}
-	protected HashMap<Message.Sentiment, Integer> getSentimentCounts() {
+	public HashMap<Message.Sentiment, Integer> getSentimentCounts() {
 		return sentimentCounts;
 	}
-	protected void setSentimentCounts(
+	public void setSentimentCounts(
 			HashMap<Message.Sentiment, Integer> sentimentCounts) {
 		this.sentimentCounts = sentimentCounts;
 	}
