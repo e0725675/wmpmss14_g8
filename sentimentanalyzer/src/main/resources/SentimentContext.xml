@@ -9,12 +9,11 @@
 	<bean id="sentimentExtraction" class="at.tuwien.sentimentanalyzer.beans.SentimentBean" />
 	<bean id="wordCounter" class="at.tuwien.sentimentanalyzer.beans.WordCounter" />
 	<bean id="aggregatorStrategy" class="at.tuwien.sentimentanalyzer.converters.MessageAggregationStrategy"/>
+	<bean id="toAggregateMessage" class="at.tuwien.sentimentanalyzer.beans.AggregatorConvertor"/>
 <!-- 	<bean id="reportCreator" class="at.tuwien.sentimentanalyzer.beans.ReportCreator" /> -->
 	<!-- <bean id="commentsFilter" class="at.tuwien.sentimentanalyzer.beans.CommentsFilter" 
 		/> -->
-
-
-
+	
 	<!-- this is the included XML file where we include only the routeContext -->
 	<routeContext id="SentimentRoutes" xmlns="http://camel.apache.org/schema/spring">
 
@@ -46,17 +45,22 @@
 		
 		<route>
 			<from uri="seda:aggregatorQueue?multipleConsumers=true" />
-			<aggregate strategyRef="aggregatorStrategy" completionInterval="5000">
+			<aggregate strategyRef="aggregatorStrategy" completionInterval="10000">
             		<correlationExpression>
                 		<constant>true</constant>
             		</correlationExpression>
-            		<to uri="direct:incomingAggregator1"/>
+        		<to uri="direct:incomingAggregator1"/>
+        		<to uri="log:incomingAggregator"/>
         	</aggregate>
 		</route>
 		<route>
 			<from uri="direct:incomingAggregator1"/>
-			<to uri="log:Aggregated" />
-			
+			<bean ref="toAggregateMessage"/>
+			<to uri="direct:outgoingAggregator1"/>
+		</route>
+		<route>
+			<from uri="direct:outgoingAggregator1"/>
+			<to uri="log:outGoingAggregator"/>
 		</route>
 		<route>
 			<from
