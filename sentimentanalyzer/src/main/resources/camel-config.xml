@@ -79,6 +79,10 @@
 	</camel:sslContextParameters>
 	
 	<bean id="messageConverter" class="at.tuwien.sentimentanalyzer.beans.MessageConverter" />
+	
+	
+	<bean id="redditConvertor" class = "at.tuwien.sentimentanalyzer.beans.RedditConvertor" />
+	
 	<bean id="routeCreator" class="at.tuwien.sentimentanalyzer.beans.RouteCreator">
 		<constructor-arg ref="MAIN-CAMEL-CONTEXT" />
 	</bean>
