@@ -1,13 +1,7 @@
 package at.tuwien.sentimentanalyzer.beans;
 
-import java.security.Timestamp;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
-
-import org.apache.log4j.Logger;
 
 import at.tuwien.sentimentanalyzer.entities.Message;
 import at.tuwien.sentimentanalyzer.entities.reddit.Children;
@@ -15,7 +9,7 @@ import at.tuwien.sentimentanalyzer.entities.reddit.Data;
 import at.tuwien.sentimentanalyzer.entities.reddit.RedditMessage;
 
 public class RedditConvertor {
-	public static Logger log = Logger.getLogger(RedditConvertor.class);
+	//private static Logger log = Logger.getLogger(RedditConvertor.class);
 	/**
 	 * @author LG
 	 */
@@ -26,7 +20,7 @@ public class RedditConvertor {
 		List<Children> children = redditMessage.getData().getChildren();
 		for(Children child: children){
 			if(child==null){
-				System.out.println("Child is null..");
+				//log.warn("Child is null..");
 			} else{
 				Data secondData = child.getData();
 				System.out.println("Title: " + secondData.getTitle());
@@ -55,7 +49,7 @@ public class RedditConvertor {
 			
 		}
 	
-		log.info("Reddit message: " + msg);
+		//log.info("Reddit message: " + msg);
 		return msg;
 	}
 	

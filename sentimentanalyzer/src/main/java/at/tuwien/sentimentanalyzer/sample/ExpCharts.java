@@ -17,7 +17,8 @@ public class ExpCharts {
 		namesAndValues.put("test4xxxxxxx", 30);
 		namesAndValues.put("test5xxxxxxxxxxx", 40);
 		String outFile;
-		//String outFile = ReportGenerator.createPieChartImage("target/testPieChart.png", namesAndValues , "Title", "SubTitle", 800, 600);
+		outFile = ReportGenerator.createPieChartImage("target/testPieChart.png", namesAndValues , "Title", "SubTitle", 800, 600);
+		log.info("Generated file: "+outFile);
 		outFile = ReportGenerator.createBarChartImage("target/testBarChart.png", namesAndValues , "Title", "SubTitle", "CategoryAxis", "ValueAxis", 800, 600);
 		log.info("Generated file: "+outFile);
 	}

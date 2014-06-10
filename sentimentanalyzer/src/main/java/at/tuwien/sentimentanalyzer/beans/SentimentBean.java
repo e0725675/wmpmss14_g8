@@ -1,7 +1,5 @@
 package at.tuwien.sentimentanalyzer.beans;
 
-import java.util.List;
-
 import org.apache.log4j.Logger;
 
 import at.tuwien.sentimentanalyzer.entities.Message;

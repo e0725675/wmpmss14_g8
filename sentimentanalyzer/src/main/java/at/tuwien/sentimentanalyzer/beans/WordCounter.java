@@ -1,7 +1,6 @@
 package at.tuwien.sentimentanalyzer.beans;
 
 import java.util.HashMap;
-import java.util.Map;
 
 import at.tuwien.sentimentanalyzer.entities.Message;
 

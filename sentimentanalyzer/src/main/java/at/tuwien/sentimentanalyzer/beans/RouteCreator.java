@@ -21,9 +21,7 @@ public class RouteCreator  {
 		log.info("RouteCreator created ");
 		
 		try {
-			// add routes from the twitter routebuilder
-			//context.addRoutes(new TwitterRouteBuilder());
-			// add routes from the messagereporter routebuilder
+			// Add routes from the following RouteBuilders
 			context.addRoutes(new MessageReporterRouteBuilder());
 			context.addRoutes(new TwitterRouteBuilder());
 			context.addRoutes(new RedditRouteBuilder());

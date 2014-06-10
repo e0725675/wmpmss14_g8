@@ -7,8 +7,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.validation.constraints.AssertTrue;
-
 import org.joda.time.DateTime;
 import org.junit.Test;
 

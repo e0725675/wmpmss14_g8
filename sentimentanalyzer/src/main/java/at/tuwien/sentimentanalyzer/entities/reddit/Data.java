@@ -1,6 +1,5 @@
 package at.tuwien.sentimentanalyzer.entities.reddit;
 
-import java.util.Date;
 import java.util.List;
 
 public class Data {

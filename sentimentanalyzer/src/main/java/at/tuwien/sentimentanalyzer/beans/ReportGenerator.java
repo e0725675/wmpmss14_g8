@@ -24,7 +24,6 @@ import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.log4j.Logger;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
@@ -55,21 +54,21 @@ import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.tool.xml.XMLWorkerHelper;
-
+/**
+ * Generated PDF Reports
+ * Needs to be instanced.
+ * @author CLF
+ *
+ */
 public class ReportGenerator {
-	private static Logger log = Logger.getLogger(ReportGenerator.class);
 	public ReportGenerator() {
 
 	}
-	private static  final String REGEX_mintime = "<!--###mintime###-->";
-	private static  final String REGEX_maxtime = "<!--###maxtime###-->";
-
-	private static  final String REGEX_sentimentpercentages_total = "<!--###sentimentpercentages_total###-->";
-	private static  final String REGEX_wordcounts_total = "<!--###wordcounts_total###-->";
-	private static  final String REGEX_messages_total = "<!--###messages_total###-->";
-
-
-	private static  final String REGEX_comments = "(<!--.*?-->)";
+	/**
+	 * Helper class to store generated image filepaths
+	 * @author CLF
+	 *
+	 */
 	private static class ImageSources {
 		public String imgSentimentpercentagesTotal = "imgSentimentpercentagesTotal";
 		public String imgWordcountsTotal = "imgWordcountsTotal";
@@ -115,18 +114,7 @@ public class ReportGenerator {
 		imgSentimentpercentagesTotal.setAlignment(Image.ALIGN_CENTER);
 		imgSentimentpercentagesTotal.scaleToFit(300, 300);
 		document.add(imgSentimentpercentagesTotal);
-		
-//		Paragraph tp = new Paragraph(90);
-//		tp.setAlignment(Paragraph.ALIGN_CENTER);
-//		for (int i=0; i<10; i++) {
-//			Image test = Image.getInstance(imageSources.imgSentimentpercentagesTotal);
-//			test.scaleToFit(100, 100);
-//			Chunk c = new Chunk(test,0,0);
-//			tp.add(c);
-//			
-//		}
-//		document.add(tp);
-		
+
 		Image imgWordcountsTotal = Image.getInstance(imageSources.imgWordcountsTotal);
 		imgWordcountsTotal.setAlignment(Image.ALIGN_CENTER);
 		imgWordcountsTotal.scaleToFit(300, 300);
@@ -137,59 +125,9 @@ public class ReportGenerator {
 		imgMessagesTotal.scaleToFit(300, 300);
 		document.add(imgMessagesTotal);
 		
-//		document.newPage();
-		
-
-		
 		document.close();
 		writer.close();
 		return outFile.getPath();
-	}
-	/**
-	 * Generates an PDF report for AggregatedMessages
-	 * doesnt work correctly
-	 * @param agm
-	 * @return path of the generated PDF
-	 * @throws IOException 
-	 */
-	@Deprecated
-	public String generateAggregatedMessagesPDFReportOld(AggregatedMessages agm) throws IOException {
-		String baseFolder = "";
-		File file = null;
-		DateFormat df = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
-		do {
-			Date date = new Date();
-			baseFolder = "htmlMessageReports/"+df.format(date)+"_"+ReportGenerator.getRandomAlphaNumericString(4);
-			file = new File(baseFolder);
-		} while(file.exists());
-
-		ImageSources imageSources = ReportGenerator.generateChartImages(baseFolder, agm);
-
-		File template = new File("agm_report_template.html");
-		String html = ReportGenerator.fileToString(template);
-
-		String imgSentimentpercentagesTotal = imageSources.imgSentimentpercentagesTotal;
-		String imgWordcountsTotal = imageSources.imgWordcountsTotal;
-		String imgMessagesTotal = imageSources.imgMessagesTotal;
-
-		// replace times
-		DateFormat df2 = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
-		html = ReportGenerator.replaceTextinString(html, REGEX_mintime, df2.format(agm.getMinTimePosted()));
-		html = ReportGenerator.replaceTextinString(html, REGEX_maxtime, df2.format(agm.getMaxTimePosted()));
-
-		// replace total markers with imagepaths
-		html = ReportGenerator.replaceTextinString(html, REGEX_sentimentpercentages_total, imgSentimentpercentagesTotal);
-		html = ReportGenerator.replaceTextinString(html, REGEX_wordcounts_total, imgWordcountsTotal);
-		html = ReportGenerator.replaceTextinString(html, REGEX_messages_total, imgMessagesTotal);
-
-		// replace remaining comments
-		html = ReportGenerator.replaceTextinString(html, REGEX_comments, "");
-
-		BufferedWriter bw = new BufferedWriter(new FileWriter(new File(baseFolder+"/report.html")));
-		bw.write(html);
-		bw.close();
-		convertFile(new File(baseFolder+"/report.html"),new File(baseFolder+"/report.pdf"));
-		return baseFolder+"/report.pdf";
 	}
 
 	/**
@@ -224,6 +162,7 @@ public class ReportGenerator {
 			return false;
 		}
 	}
+	
 	/**
 	 * Helper class
 	 * @author CLF
@@ -257,6 +196,13 @@ public class ReportGenerator {
 
 	}
 
+	/**
+	 * Generates chart images
+	 * @param targetFolder
+	 * @param agm
+	 * @return
+	 * @throws IOException
+	 */
 	private static ImageSources generateChartImages(String targetFolder, AggregatedMessages agm) throws IOException {
 		ImageSources out = new ImageSources();
 		File folder = new File(targetFolder);
@@ -331,6 +277,16 @@ public class ReportGenerator {
 		}
 		return out;
 	}
+	/**
+	 * Creates a PieChart image
+	 * @param targetFile
+	 * @param namesAndValues
+	 * @param title
+	 * @param subTitle
+	 * @param widthPx
+	 * @param heightPx
+	 * @return
+	 */
 	public static String createPieChartImage(String targetFile, SortedMap<? extends Comparable<?>, ? extends Number> namesAndValues, String title, String subTitle, int widthPx, int heightPx) {
 
 		DefaultPieDataset dpd = new DefaultPieDataset();
@@ -362,8 +318,6 @@ public class ReportGenerator {
 		// customise the section label appearance
 		plot.setLabelLinksVisible(true);
 		plot.setLabelFont(new java.awt.Font("Courier New", java.awt.Font.BOLD, 20));
-		//plot.setLabelLinkPaint(Color.WHITE);
-		//plot.setLabelLinkStroke(new BasicStroke(2.0f));
 		plot.setLabelOutlineStroke(null);
 		plot.setLabelPaint(Color.BLACK);
 		plot.setLabelBackgroundPaint(Color.WHITE);
@@ -386,16 +340,25 @@ public class ReportGenerator {
 			}
 		}
 		try {
-			//log.info("Saving image");
 			ChartUtilities.saveChartAsPNG(outFile, chart, widthPx, heightPx);
 		} catch (IOException e) {
 			throw new ReportGeneratorException("IOException occured on saving Chart to image file", e);
 		}
-		//log.info("createPieChartImage done "+targetFile);
-		//return outFile.getName();
+
 		return targetFile;
 	}
-
+	/**
+	 * Creates a BarChart image
+	 * @param targetFile
+	 * @param namesAndValues
+	 * @param title
+	 * @param subTitle
+	 * @param categoryAxisLabel
+	 * @param valueAxisLabel
+	 * @param widthPx
+	 * @param heightPx
+	 * @return
+	 */
 	public static String createBarChartImage(String targetFile, 
 			SortedMap<? extends Comparable<?>, ? extends Number> namesAndValues, 
 			String title, String subTitle, String categoryAxisLabel, 
@@ -464,22 +427,31 @@ public class ReportGenerator {
 		} catch (IOException e) {
 			throw new ReportGeneratorException("IOException occured on saving Chart to image file", e);
 		}
-		//log.info("createPieChartImage done "+targetFile);
-		//return outFile.getName();
 		return targetFile;
 	}
-
+	/**
+	 * Replace text in input string
+	 * @param string
+	 * @param regex
+	 * @param replacement
+	 * @return
+	 */
 	public static String replaceTextinString(String string,String regex, String replacement) {
 		String inStr = string;
 		Pattern p = Pattern.compile(regex); // Compiles regular expression into Pattern.
 		Matcher m = p.matcher(inStr); // Creates Matcher with subject s and Pattern p.
 		if (!m.find()) {
-			//throw new ReportGeneratorException("regex "+regex+" not found in string");
 			return string;
 		}
 		String outStr = inStr.replaceAll(regex, replacement);
 		return outStr;
 	}
+	/**
+	 * Returns matching regex groups from the input string using the input regex
+	 * @param string
+	 * @param regex
+	 * @return
+	 */
 	public static List<List<String>> getMatchingGroups(String string,String regex) {
 		Pattern p = Pattern.compile(regex);
 		Matcher m = p.matcher(string);
@@ -493,6 +465,14 @@ public class ReportGenerator {
 		}
 		return out;
 	}
+	/**
+	 * Loads the input textfile and replaces text by regex
+	 * @param file
+	 * @param regex
+	 * @param replacement
+	 * @param outputFile
+	 * @throws IOException
+	 */
 	public static void replaceTextinFile(File file,String regex, String replacement, File outputFile) throws IOException {
 		String inStr = fileToString(file);
 		String outStr = replaceTextinString(inStr, regex, replacement);
@@ -500,7 +480,12 @@ public class ReportGenerator {
 		writer.write(outStr);
 		writer.close();
 	}
-
+	/**
+	 * Helper method to load a file to string
+	 * @param file
+	 * @return
+	 * @throws IOException
+	 */
 	public static String fileToString(File file) throws IOException {
 		BufferedReader br = new BufferedReader(new FileReader(file));
 		try {
@@ -516,8 +501,12 @@ public class ReportGenerator {
 			br.close();
 		}
 	}
+	/**
+	 * Exception thrown by ReportGenerator
+	 * @author CLF
+	 *
+	 */
 	public static class ReportGeneratorException extends RuntimeException {
-
 		/**
 		 * 
 		 */
