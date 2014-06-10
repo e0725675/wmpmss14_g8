@@ -1,5 +1,7 @@
 package at.tuwien.sentimentanalyzer.routebuilders;
 
+import org.apache.camel.Exchange;
+import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 /**
  * Twitter polling
@@ -15,7 +17,20 @@ public class MessageReporterRouteBuilder extends RouteBuilder{
 		from("timer:messagemockerTimer2?period=5000").
 		beanRef("messageMocker", "nextAggregatedMessage").
 		beanRef("reportGenerator", "generateAggregatedMessagesPDFReport").
-		to("log:reportgenerator");
+		to("mock:reportgenerator");
+		
+//		from("timer:reddittesttimer?period=5000").
+//		from("http4://www.reddit.com/r/technology/search.json?q=iphone").
+//		process(new Processor() {
+//			@Override
+//			public void process(Exchange ex) {
+//				
+//				ex.getOut().setBody(ex.getIn().getBody(String.class));
+//				
+//			}
+//		}).
+//		to("log:reddittest");
+		
 	}
 	
 }
