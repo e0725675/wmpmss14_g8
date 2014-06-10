@@ -64,24 +64,7 @@
 			<from uri="direct:outgoingAggregator1"/>
 			<to uri="log:outGoingAggregator"/>
 		</route>
-		<route>
-			<from
-				uri="file://sentimented/share_20140527092217.csv?consumer.delay=1000" />
-			<unmarshal>
-				<csv />
-			</unmarshal>
-			<to uri="bean:wordCounter?method=WordCounter" />
-			
-			<marshal>
-				<csv />
-			</marshal>
-			<to uri="log:csv" />
 
-			<!-- Note it simply overwrites the old file at the moment. Create a bean 
-				to read the file and add the new data (I think) -->
-			<to
-				uri="file://counted/?fileName={{search.term}}_WORDCOUNT_${date:now:yyyyMMddhhmmss}.csv&amp;fileExist=Append" />
-		</route>
 
 		<!-- TODO: add aggregator to from, change bean ref for csv-handler <route> 
 			<from uri="bean:"/> <filter> <method ref="commentsFilter" method="filterURL"/> 
