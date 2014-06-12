@@ -1,8 +1,5 @@
 package at.tuwien.sentimentanalyzer.sample;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 /*
  * Author: Lucas Gerrand
  * lucasgerrand@gmail.com

@@ -26,7 +26,7 @@
 			<version>${junit.version}</version>
 			<scope>test</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
@@ -60,14 +60,19 @@
 			<version>1.4</version>
 		</dependency>
 
-		
+		<dependency>
+			<groupId>commons-configuration</groupId>
+			<artifactId>commons-configuration</artifactId>
+			<version>1.10</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.apache.derby</groupId>
 			<artifactId>derby</artifactId>
 			<version>10.10.2.0</version>
 		</dependency>
-		
-		
+
+
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
@@ -88,7 +93,7 @@
 			<artifactId>hibernate-jpa-2.0-api</artifactId>
 			<version>1.0.1.Final</version>
 		</dependency>
-		
+
 		<!-- JETTY -->
 		<dependency>
 			<groupId>org.eclipse.jetty</groupId>
@@ -100,7 +105,7 @@
 			<artifactId>jetty-webapp</artifactId>
 			<version>${jettyVersion}</version>
 		</dependency>
-		
+
 		<!-- LOGGING -->
 		<dependency>
 			<groupId>log4j</groupId>
@@ -159,63 +164,116 @@
 			<artifactId>camel-hibernate</artifactId>
 			<version>${camel-version}</version>
 		</dependency>
-		
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-csv</artifactId>
+			<version>${camel-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-http4</artifactId>
+			<version>${camel-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-gson</artifactId>
+			<version>2.10.0</version>
+		</dependency>
+
 		<!-- Stanford NLP for Sentiment -->
 		<dependency>
-    		<groupId>edu.stanford.nlp</groupId>
-    		<artifactId>stanford-corenlp</artifactId>
-    		<version>3.3.1</version>
+			<groupId>edu.stanford.nlp</groupId>
+			<artifactId>stanford-corenlp</artifactId>
+			<version>3.3.1</version>
 		</dependency>
-		
+
 		<!-- Second Stanford NLP for Sentiment -->
 		<dependency>
-    		<groupId>edu.stanford.nlp</groupId>
-    		<artifactId>stanford-corenlp</artifactId>
-    		<version>3.3.1</version>
-    		<classifier>models</classifier>
+			<groupId>edu.stanford.nlp</groupId>
+			<artifactId>stanford-corenlp</artifactId>
+			<version>3.3.1</version>
+			<classifier>models</classifier>
 		</dependency>
-		
-		<!-- Yo dawg I heard you like CSV -->
+
+		<!-- JFreeCharts -->
 		<dependency>
-  			<groupId>org.apache.camel</groupId>
-  			<artifactId>camel-csv</artifactId>
-  			<version>${camel-version}</version>
+			<groupId>jfree</groupId>
+			<artifactId>jfreechart</artifactId>
+			<version>1.0.13</version>
 		</dependency>
-	
+
+
+		<dependency>
+			<groupId>com.itextpdf</groupId>
+			<artifactId>itextpdf</artifactId>
+			<version>5.4.4</version>
+			<!--<scope>system</scope> <systemPath>${project.basedir}/lib/itext-5.4.4/itextpdf-5.4.4.jar</systemPath> -->
+		</dependency>
+		<dependency>
+			<groupId>com.itextpdf.tool</groupId>
+			<artifactId>xmlworker</artifactId>
+			<version>5.4.4</version>
+			<!--<scope>system</scope> <systemPath>${project.basedir}/lib/xmlworker-5.4.4/xmlworker-5.4.4.jar</systemPath> -->
+		</dependency>
+
+
+
 	</dependencies>
-	
+
 	<build>
 		<finalName>sentimentanalyzer</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.0</version>
+				<artifactId>maven-shade-plugin</artifactId>
+				<version>2.3</version>
 				<configuration>
-					<source>${jdk.version}</source>
-					<target>${jdk.version}</target>
+					<transformers>
+						<transformer
+							implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+							<mainClass>at.tuwien.sentimentanalyzer.Main</mainClass>
+						</transformer>
+						<transformer
+							implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+							<resource>META-INF/spring.handlers</resource>
+						</transformer>
+						<transformer
+							implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+							<resource>META-INF/spring.schemas</resource>
+						</transformer>
+					</transformers>
 				</configuration>
-			</plugin>
-			<plugin>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<configuration>
-					<archive>
-					<manifest>
-						<mainClass>at.tuwien.sentimentanalyzer.Main</mainClass>
-					</manifest>
-					</archive>
-					<descriptorRefs>
-						<descriptorRef>jar-with-dependencies</descriptorRef>
-					</descriptorRefs>
-				</configuration>
-				<!--<executions>
+				<executions>
 					<execution>
 						<phase>package</phase>
 						<goals>
-							<goal>single</goal>
+							<goal>shade</goal>
 						</goals>
 					</execution>
-				</executions>-->
+				</executions>
+			</plugin>
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.6</version>
+				<executions>
+					<execution>
+						<id>copy-resources</id>
+						<!-- here the phase you need -->
+						<phase>validate</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${basedir}/target/src/webapp</outputDirectory>
+							<resources>
+								<resource>
+									<directory>src/webapp</directory>
+									<filtering>true</filtering>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>

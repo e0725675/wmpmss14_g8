@@ -1,11 +1,8 @@
 package at.tuwien.sentimentanalyzer;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.URL;
-import java.net.URLClassLoader;
 
 import org.apache.log4j.Logger;
 import org.eclipse.jetty.server.Server;
@@ -22,7 +19,7 @@ public class Main {
 		try {
 			initJetty();
 		} catch (Exception e1) {
-			log.error(e1);
+			log.error("Error on initializing Jetty", e1);
 			System.exit(1);
 		}
 		
@@ -32,7 +29,7 @@ public class Main {
 			try {
 				line = br.readLine();
 			} catch (IOException e) {
-				log.error(e);
+				log.error("IOError on readLine",e);
 				System.exit(1);
 			}
 			if (line.equalsIgnoreCase("exit")) {
@@ -42,7 +39,7 @@ public class Main {
 		try {
 			jettyServer.stop();
 		} catch (Exception e) {
-			log.error(e);
+			log.error("Error on stopping Jetty",e);
 		}
 		
 	}
@@ -55,19 +52,11 @@ public class Main {
 		WebAppContext context = new WebAppContext();
 		context.setDescriptor("WEB-INF/web.xml");
 		context.setResourceBase("src/webapp/");
-		context.setContextPath("");
+		context.setContextPath("/");
 		context.setParentLoaderPriority(true);
 		log.info(context.toString());
 		jettyServer.setHandler(context);
+		
 		jettyServer.start();
-	}
-	
-	private static boolean fileExists(String path) {
-		File f = new File(path);
-		if (f.exists()) {
-			return true;
-		} else {
-			return false;
-		}
 	}
 }

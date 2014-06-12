@@ -25,7 +25,8 @@ public class CommentsFilter {
 	        
 	        //attempt to convert each item into an URL
 	        for( String item : words ) try {
-	            URL url = new URL(item);
+	            @SuppressWarnings("unused")
+				URL url = new URL(item);
 	            url_exists = true;
 	                
 	        } catch (MalformedURLException e) {

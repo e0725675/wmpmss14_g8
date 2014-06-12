@@ -10,13 +10,13 @@
 	http://www.springframework.org/schema/context
 	http://www.springframework.org/schema/context/spring-context-2.5.xsd
 	http://camel.apache.org/schema/spring
-	http://camel.apache.org/schema/spring/camel-spring.xsd
+	http://camel.apache.org/schema/spring/camel-spring-2.13.0.xsd
 	http://www.springframework.org/schema/tx
 	http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
 	
 	<!-- import the routes from another XML file -->
 	<import resource="TestContext.xml"/>
-	<import resource="TwitterContext.xml"/>
+	<import resource="SentimentContext.xml"/>
 	<import resource="FacebookContext.xml"/>
 	<import resource="ProfaneContext.xml"/>
 
@@ -26,6 +26,7 @@
 		<property name="username" value=""/>
 		<property name="password" value=""/>
 	</bean>
+
 
 	<bean id="hibernate" class="org.apacheextras.camel.component.hibernate.HibernateComponent">
 		<property name="sessionFactory" ref="sessionFactory"/>
@@ -58,15 +59,14 @@
 	</bean>
 
 	<tx:annotation-driven transaction-manager="transactionManager" />
+	
 	<bean id="properties" class="org.apache.camel.component.properties.PropertiesComponent">
-    <property name="location" value="/search.properties"/>
+    	<property name="location" value="/search.properties"/>
 	</bean>
 	
-	<camelContext xmlns="http://camel.apache.org/schema/spring">
-		
-		
+	<camelContext id="MAIN-CAMEL-CONTEXT" xmlns="http://camel.apache.org/schema/spring">
 		<!-- references to other routeContexts - dont forget to link the file as well!!! -->
-		<routeContextRef ref="TwitterRoutes"/>
+		<routeContextRef ref="SentimentRoutes"/>
 		<!--<routeContextRef ref="FacebookRoutes"/>-->
 		<routeContextRef ref="TestRoutes"/>
 		<!--<routeContextRef ref="ProfaneRoutes"/> -->
@@ -78,8 +78,29 @@
 		</camel:trustManagers>
 	</camel:sslContextParameters>
 	
-	<bean id="fooBean" class="at.tuwien.sentimentanalyzer.beans.FooBean"/>
+	<bean id="messageConverter" class="at.tuwien.sentimentanalyzer.beans.MessageConverter" />
 	
-	<bean id="testProcessor" class="at.tuwien.sentimentanalyzer.sample.TestProcessor"/>
-
+	
+	<bean id="redditConvertor" class = "at.tuwien.sentimentanalyzer.beans.RedditConvertor" />
+	
+	<bean id="routeCreator" class="at.tuwien.sentimentanalyzer.beans.RouteCreator">
+		<constructor-arg ref="MAIN-CAMEL-CONTEXT" />
+	</bean>
+	
+	<bean id="mainProperties" class="at.tuwien.sentimentanalyzer.PropertiesLoader">
+		<constructor-arg value="main.properties" />
+	</bean>
+	
+	<bean id="messageMocker" class="at.tuwien.sentimentanalyzer.beans.MessageMocker" scope="singleton">
+		<constructor-arg index="0" value= "mock_userlist.txt"/>
+		<constructor-arg index="1" value= "mock_wordlist.txt"/>
+		<constructor-arg index="2">
+			<list>
+				<value>mock_swearwordlist.txt</value>
+				<value>mock_nonwordslist.txt</value>
+			</list>
+		</constructor-arg>
+	</bean>
+	
+	<bean id="reportGenerator" class="at.tuwien.sentimentanalyzer.beans.ReportGenerator" />
 </beans>

@@ -1,8 +1,8 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="
-       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring-2.13.0.xsd
     ">
  
     <!-- This routeContext only contains experiments and testing stuff -->
@@ -18,8 +18,6 @@
 					<!-- yes so return back a message to the user -->
 					<transform>
 						<simple>Hello ${header.name} how are you?</simple>
-						
-						
 					</transform>
 				</when>
 				<otherwise>
@@ -31,24 +29,6 @@
 			</choice>
 			<to uri="smtps://smtp.gmail.com:465?password=wmpmSS2014&amp;username=workflow@applepublic.tv">
 			</to>
-		</route>
-		<!-- generates an object of class "Foo" every 20 seconds and routes it to "processFoo-route" -->
-		<route id="generateFoo-route">
-			<from uri="timer:foo?period=20s"/>
-			<transform>
-				<method ref="fooBean" method="generateFoo"/>
-			</transform>
-			<to uri="hibernate:at.tuwien.sentimentanalyzer.entities.Foo"/>
-			<log message="Inserted new foo ${body.id}"/>
-		</route>
-
-		<!-- route that process the foos by picking up new rows from the database
-		and when done processing then update the row to mark it as processed -->
-		<route id="processFoo-route">
-			<from uri="hibernate:at.tuwien.sentimentanalyzer.entities.Foo?delay=1s"/>
-			<to uri="bean:fooBean?method=processFoo"/>
-			<!-- <to uri="smtps://smtp.gmail.com:465?password=wmpmSS2014&amp;username=workflow@applepublic.tv" />-->
-			<log message="${body}"/>
 		</route>
     </routeContext>
  

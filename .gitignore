@@ -20,3 +20,10 @@ sentimentanalyzer/.settings
 .settings
 /sentimentanalyzer/log.txt
 /sentimentanalyzer/searches
+/sentimentanalyzer/sentimented
+/sentimentanalyzer/counted
+/sentimentanalyzer/dependency-reduced-pom.xml
+/ChartTest/piechart_trololo.png
+dependency-reduced-pom.xml
+/sentimentanalyzer/htmlMessageReports
+/ChartTest/barchart_demo.png
