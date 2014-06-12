@@ -40,7 +40,7 @@ public class CommentsFilter {
 	public HashMap<String, List<String>> filterClient (HashMap<String, List<String>> csv){
 		for(Map.Entry<String, List<String>> entry: csv.entrySet())
 		{
-			if ( entry.getValue().get(0).equals("") ) //TODO: add customername
+			if ( entry.getValue().get(0).equals("") ) //TODO: add clientname
 				csv.remove(entry.getKey());
 		}
 		
