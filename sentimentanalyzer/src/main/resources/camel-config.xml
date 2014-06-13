@@ -69,7 +69,7 @@
 		<routeContextRef ref="SentimentRoutes"/>
 		<!--<routeContextRef ref="FacebookRoutes"/>-->
 		<routeContextRef ref="TestRoutes"/>
-		<!--<routeContextRef ref="ProfaneRoutes"/> -->
+		<routeContextRef ref="ProfaneRoutes"/>
 	</camelContext>
 
 	<camel:sslContextParameters id="sslContextParameters">
@@ -103,4 +103,8 @@
 	</bean>
 	
 	<bean id="reportGenerator" class="at.tuwien.sentimentanalyzer.beans.ReportGenerator" />
+    
+    <bean id="swearChecker" class="at.tuwien.sentimentanalyzer.beans.SwearChecker" >
+    	<constructor-arg ref="dataSource"/>
+    </bean>
 </beans>

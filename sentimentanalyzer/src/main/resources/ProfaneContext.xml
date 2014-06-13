@@ -8,39 +8,14 @@
  	
     <!-- this is the included XML file where we include only the routeContext -->
     <routeContext id="ProfaneRoutes" xmlns="http://camel.apache.org/schema/spring">
-        <!-- searches for the profanity in database -->
+        <!-- searches for the profanity in camel message -->
         <route id="ProfaneRoutes">
-			<!--<from uri="hibernate:at.tuwien.sentimentanalyzer.entities." /> -->
-			
-			<!--  Some kind of profanity filter here -->
-			<!--<to uri="hibernate:at.tuwien.sentimentanalyzer.entities." /> -->
-			
-			<!--  Some kind of non-profanity filter here -->
-			<!--<to uri="hibernate:at.tuwien.sentimentanalyzer.entities." /> -->
-
-
-			
-			<!--Save tweet to the database-->
-			<!--<transform>
-				<method ref="socialBean" method="generateSocial"/>
-			</transform>
-			<to uri="hibernate:at.tuwien.sentimentanalyzer.entities.SocialMessages"/>
-			<to uri="log:DBtweets" />-->
-			
-			<!--Save tweet to CSV-->
-			<!--<bean ref="messageToMapBean"/> -->
-			<!--<to uri="log:mapper" /> -->
-			<!--<marshal> -->
-			<!--	<csv /> -->
-			<!--</marshal> -->
-			<!--<to uri="log:csv" /> -->
-			
-			
-			<!-- Note it simply overwrites the old file at the moment. Create a bean to read the file and add the new data (I think) -->
-			<!--<to uri="file://searches/?fileName=${date:now:yyyyMMdd}/{{search.term}}.csv"/> -->
+		 <from uri="timer:swearChecker?period=5000" />
+		 <!-- https://camel.apache.org/message-filter.html .stop -->
+		 <bean ref="messageMocker" method="nextMessage"></bean>
+		 <bean ref="swearChecker" method="logSwearChecker"></bean>
+		 <to uri="mock:result" />
         </route>
-
-		
     </routeContext>
  
 </beans>
