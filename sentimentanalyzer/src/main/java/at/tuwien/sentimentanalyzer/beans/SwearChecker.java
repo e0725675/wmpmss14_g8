@@ -19,8 +19,6 @@ import java.util.Calendar;
 import javax.sql.DataSource;
 
 import org.apache.log4j.Logger;
-import org.jfree.util.Log;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import at.tuwien.sentimentanalyzer.entities.Message;
 
@@ -35,7 +33,7 @@ public class SwearChecker {
 //		Create public method for putting cusswords into database
 		this.cussWords = new ArrayList<String>();
 		BufferedReader br = new BufferedReader(new FileReader("mock_swearwordlist.txt"));
-//		Create file linereader variable and iterate through each line storing it in 'con' using
+//		Create file linereader variable and iterate through each line storing it in 'con'
 //		with the preparedStatement
 		try {
 			String line = br.readLine();
@@ -54,7 +52,7 @@ public class SwearChecker {
 	}
 	
 	public void logSwearChecker(Message message) throws SQLException {
-		log.info(message);
+		log.info("Checking for swear word in the following message: " +message);
 //		If no message logs error as SQL Exception
 		String m = message.getMessage();
 //		Variable to step through the message removing
@@ -68,6 +66,7 @@ public class SwearChecker {
 		for (String word : words) {
 			if (this.cussWords.contains(word.toUpperCase())) {
 				containsCussword = true;
+				log.info("Attention! We have detected a swear word: " +word );
 			}
 		}
 		if (containsCussword) {
@@ -80,11 +79,13 @@ public class SwearChecker {
 			stmt.setDate(3, tp);
 			stmt.setBoolean(4, containsCussword);
 			stmt.executeUpdate();
+
 		}
 	}
 	public boolean isUserBlocked(String source, String username) throws SQLException {
+		log.info("The following user swore: " +username);
 //		Checks to see if the user has 10 total swears in db using variable 'ResultSet rs'.
-//		if so, logs 
+//		if so, logs it.
 //		Then checks to see if the user has 5 consecutive swears in db using variable 'ResultSet rs2'.
 
 		java.util.Date date = new java.util.Date();
@@ -101,9 +102,9 @@ public class SwearChecker {
 		ResultSet rs = stmt.getResultSet();
 		int count1 = rs.getInt(1);
 //		What is rs.getInt(1)? See it in the log.txt
-		log.info("This user has 10 recent swears total :See -> count1: "+count1);
+		
 		if (count1 > 10) {
-			
+			log.info("Result set for 10 entries with swears: "+rs);
 			return true;
 		}
 		PreparedStatement stmt2 = this.con.prepareStatement("SELECT count(*) FROM (SELECT * FROM Users WHERE username = ? AND source = ? ORDER BY timeposted DESC LIMIT 10) WHERE hasswears = TRUE");
@@ -111,9 +112,12 @@ public class SwearChecker {
 		stmt2.setString(2, source);
 		stmt2.execute();
 		ResultSet rs2 = stmt2.getResultSet();
+		
 		int count2 = rs2.getInt(1);
-		log.info("This user has 5 consecutive swears. :See -> count2 "+count2);
+//		What is rs2.getInt(1)? See it in the log.txt
+		
 		if (count2 > 5) {
+			log.info("Result set for 5 cosnecutive swear detection: " +rs2);
 			return true;
 		}
 		
