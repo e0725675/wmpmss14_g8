@@ -26,14 +26,17 @@ import at.tuwien.sentimentanalyzer.entities.Message;
 
 public class SwearChecker {
 	private static Logger log = Logger.getLogger(SwearChecker.class);
+//	Create local logging element 'log'
 	private ArrayList<String> cussWords;
-	
+//	Local variable of stored cusswords
 	private Connection con;
-	
+//	local datasource connection variable
 	public SwearChecker(DataSource dataSource) throws IOException, SQLException {
-		
+//		Create public method for putting cusswords into database
 		this.cussWords = new ArrayList<String>();
 		BufferedReader br = new BufferedReader(new FileReader("mock_swearwordlist.txt"));
+//		Create file linereader variable and iterate through each line storing it in 'con' using
+//		with the preparedStatement
 		try {
 			String line = br.readLine();
 			while (line != null) {
@@ -52,16 +55,24 @@ public class SwearChecker {
 	
 	public void logSwearChecker(Message message) throws SQLException {
 		log.info(message);
+//		If no message logs error as SQL Exception
 		String m = message.getMessage();
+//		Variable to step through the message removing
 		m = m.replaceAll("[^\\w\\s]", "");
+//		non-word, non-whitespace see http://www.regexr.com
 		String[] words = m.split("\\s");
 		boolean containsCussword = false;
+//		Boolean variable tests if word found via m.split is found in the database imported
+//		'mock_swearwordlist.txt' stored in 'this.cussWords'.
+		
 		for (String word : words) {
 			if (this.cussWords.contains(word.toUpperCase())) {
 				containsCussword = true;
 			}
 		}
 		if (containsCussword) {
+//			When match is found, entry is stored in table 'Users'.
+//			Added Column item 'containsCussword is then set to 'TRUE'.
 			PreparedStatement stmt = this.con.prepareStatement("INSERT INTO Users (username, source, timeposted, hasswears) VALUES (?,?,?, ?)");
 			stmt.setString(1, message.getAuthor());
 			stmt.setString(2, message.getSource());
@@ -72,6 +83,10 @@ public class SwearChecker {
 		}
 	}
 	public boolean isUserBlocked(String source, String username) throws SQLException {
+//		Checks to see if the user has 10 total swears in db using variable 'ResultSet rs'.
+//		if so, logs 
+//		Then checks to see if the user has 5 consecutive swears in db using variable 'ResultSet rs2'.
+
 		java.util.Date date = new java.util.Date();
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(date);
@@ -85,7 +100,8 @@ public class SwearChecker {
 		stmt.execute();
 		ResultSet rs = stmt.getResultSet();
 		int count1 = rs.getInt(1);
-		log.info("count1 "+count1);
+//		What is rs.getInt(1)? See it in the log.txt
+		log.info("This user has 10 recent swears total :See -> count1: "+count1);
 		if (count1 > 10) {
 			
 			return true;
@@ -96,22 +112,12 @@ public class SwearChecker {
 		stmt2.execute();
 		ResultSet rs2 = stmt2.getResultSet();
 		int count2 = rs2.getInt(1);
-		log.info("count2 "+count2);
+		log.info("This user has 5 consecutive swears. :See -> count2 "+count2);
 		if (count2 > 5) {
 			return true;
 		}
 		
 		return false;
 	}
-	
-//	public void doSomething() {
-		
-//	}
-//	
-//	private static Message  msg = Message.getMessage();
-//	
-//	public void logSwearChecker ( Message swearsIn){
-//		log.info("Unfiltered message -> " +swearsIn);
-//	}
 	
 }
