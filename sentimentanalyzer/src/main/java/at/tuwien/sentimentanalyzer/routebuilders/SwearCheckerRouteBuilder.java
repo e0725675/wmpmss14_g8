@@ -24,8 +24,8 @@ public class SwearCheckerRouteBuilder extends RouteBuilder{
 		  		.when(body().contains("cunt")).to("direct:incomingMessages")
 		  		.when(body().contains("motherfucker")).to("direct:incomingMessages")
 		  		.otherwise().to("mock:result")
-		  	.end()
-		  	.to("mock:result");
+		  	.end();
+		  	//.to("mock:result");
 		
 	}
 	

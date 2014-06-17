@@ -3,6 +3,8 @@ package at.tuwien.sentimentanalyzer.entities;
 import java.util.Date;
 import java.util.HashMap;
 
+import at.tuwien.sentimentanalyzer.entities.Message.Sentiment;
+
 public class AggregatedMessages {
 	public static class Author {
 		public Author(String name, String source) {
@@ -102,5 +104,15 @@ public class AggregatedMessages {
 		this.sentimentCounts = sentimentCounts;
 	}
 	
-	
+	public void validate() {
+		if (!this.sentimentCounts.containsKey(Sentiment.NEGATIVE)) {
+			this.sentimentCounts.put(Sentiment.NEGATIVE, 0);
+		}
+		if (!this.sentimentCounts.containsKey(Sentiment.POSITIVE)) {
+			this.sentimentCounts.put(Sentiment.POSITIVE, 0);
+		}
+		if (!this.sentimentCounts.containsKey(Sentiment.NEUTRAL)) {
+			this.sentimentCounts.put(Sentiment.NEUTRAL, 0);
+		}
+	}
 }

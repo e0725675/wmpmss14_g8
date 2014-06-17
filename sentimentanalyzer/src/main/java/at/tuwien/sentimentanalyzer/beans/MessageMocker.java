@@ -67,7 +67,7 @@ public class MessageMocker {
 		this.dictionary = MessageMocker.fileToList(f_dictionaryFile);
 		log.info("MessageMocker initialized with: "+userFile+" "+dictionaryFile);
 	}
-	private static List<String> fileToList(File f) throws IOException {
+	public static List<String> fileToList(File f) throws IOException {
 		ArrayList<String> out = new ArrayList<String>();
 		BufferedReader br = new BufferedReader(new FileReader(f));
 		String line;
@@ -144,7 +144,7 @@ public class MessageMocker {
 		out.setTimePosted(new Date());
 		out.setMessage(message);
 		out.setSource("MessageMocker");
-		log.info("next message");
+		log.debug("next message");
 		return out;
 	}
 	/**

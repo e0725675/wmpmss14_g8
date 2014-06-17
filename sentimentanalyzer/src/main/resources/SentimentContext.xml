@@ -26,7 +26,7 @@
 			<from uri="direct:incomingMessages" />
 			<bean ref="sentimentExtraction" />
 			<bean ref="wordCounter" />
-			<to uri="log:result" />
+<!-- 			<to uri="log:result" /> -->
 			<to uri="seda:aggregatorQueue?multipleConsumers=true" />
 		</route>
 
@@ -46,12 +46,12 @@
 		
 		<route>
 			<from uri="seda:aggregatorQueue?multipleConsumers=true" />
-			<aggregate strategyRef="aggregatorStrategy" completionInterval="10000">
+			<aggregate strategyRef="aggregatorStrategy" completionInterval="100000">
             		<correlationExpression>
                 		<constant>true</constant>
             		</correlationExpression>
         		<to uri="direct:incomingAggregator1"/>
-        		<to uri="log:incomingAggregator"/>
+<!--         		<to uri="log:incomingAggregator"/> -->
         	</aggregate>
 		</route>
 		
@@ -62,7 +62,7 @@
 		</route>
 		<route>
 			<from uri="direct:outgoingAggregator1"/>
-			<to uri="log:outGoingAggregator"/>
+			<to uri="direct:outGoingAggregator"/>
 		</route>
 
 

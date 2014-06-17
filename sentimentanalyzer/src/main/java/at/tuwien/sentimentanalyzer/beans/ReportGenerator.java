@@ -82,6 +82,7 @@ public class ReportGenerator {
 	 * @throws DocumentException 
 	 */
 	public String generateAggregatedMessagesPDFReport(AggregatedMessages agm) throws IOException, DocumentException {
+		agm.validate();
 		String baseFolder = "";
 		File file = null;
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");

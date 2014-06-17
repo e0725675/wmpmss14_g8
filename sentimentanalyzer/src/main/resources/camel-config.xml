@@ -12,8 +12,8 @@
 	http://camel.apache.org/schema/spring
 	http://camel.apache.org/schema/spring/camel-spring-2.13.0.xsd
 	http://www.springframework.org/schema/tx
-	http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
-	
+	http://www.springframework.org/schema/tx/spring-tx-3.0.xsd" default-autowire="byName">
+	<context:annotation-config />
 	<!-- import the routes from another XML file -->
 	<import resource="TestContext.xml"/>
 	<import resource="SentimentContext.xml"/>
@@ -22,7 +22,7 @@
 
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 		<property name="driverClassName" value="org.apache.derby.jdbc.EmbeddedDriver"/>
-		<property name="url" value="jdbc:derby:memory:orders;create=true"/>
+		<property name="url" value="jdbc:derby:target/derbydb;create=true"/>
 		<property name="username" value=""/>
 		<property name="password" value=""/>
 	</bean>
@@ -107,4 +107,5 @@
     <bean id="swearChecker" class="at.tuwien.sentimentanalyzer.beans.SwearChecker" >
     	<constructor-arg ref="dataSource"/>
     </bean>
+    
 </beans>

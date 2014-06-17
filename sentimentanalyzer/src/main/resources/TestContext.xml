@@ -4,7 +4,7 @@
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring-2.13.0.xsd
     ">
- 
+<!--  	<bean id="expCheckUsersBlocked" class="at.tuwien.sentimentanalyzer.sample.ExpCheckUsersBlocked" /> -->
     <!-- This routeContext only contains experiments and testing stuff -->
     <routeContext id="TestRoutes" xmlns="http://camel.apache.org/schema/spring">
         <route>
@@ -30,6 +30,12 @@
 			<to uri="smtps://smtp.gmail.com:465?password=wmpmSS2014&amp;username=workflow@applepublic.tv">
 			</to>
 		</route>
+		
+<!-- 		<route> -->
+<!-- 			<from uri="timer:userBlockedTest?period=15000"/> -->
+<!-- 			<bean ref="expCheckUsersBlocked" method="checkAllUsersBlocked"/> -->
+<!-- 			<to uri="log:userBlockedTestLog"/> -->
+<!-- 		</route> -->
     </routeContext>
  
 </beans>
