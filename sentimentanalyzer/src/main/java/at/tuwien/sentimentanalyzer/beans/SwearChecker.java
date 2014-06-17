@@ -72,6 +72,7 @@ public class SwearChecker {
 		if (containsCussword) {
 //			When match is found, entry is stored in table 'Users'.
 //			Added Column item 'containsCussword is then set to 'TRUE'.
+			log.info("Swear entry in DB attempted for: "+message.getAuthor());
 			PreparedStatement stmt = this.con.prepareStatement("INSERT INTO Users (username, source, timeposted, hasswears) VALUES (?,?,?, ?)");
 			stmt.setString(1, message.getAuthor());
 			stmt.setString(2, message.getSource());
@@ -79,9 +80,15 @@ public class SwearChecker {
 			stmt.setDate(3, tp);
 			stmt.setBoolean(4, containsCussword);
 			stmt.executeUpdate();
-
+			ResultSet rs0 = stmt.getResultSet();
 		}
 	}
+//	Nothing is being logged from here below. Why?
+//                   |	
+//	                 |    
+//					 |
+//	                 |
+//					 V
 	public boolean isUserBlocked(String source, String username) throws SQLException {
 		log.info("The following user swore: " +username);
 //		Checks to see if the user has 10 total swears in db using variable 'ResultSet rs'.
@@ -121,7 +128,17 @@ public class SwearChecker {
 			return true;
 		}
 		
-		return false;
+		else {
+			PreparedStatement stmt3 = this.con.prepareStatement(
+					"SELECT * FROM Users WHERE hasswears = TRUE");
+			stmt3.setString(1, username);
+			stmt3.setString(2, source);
+			stmt3.executeQuery();
+			ResultSet rs3 = stmt3.getResultSet();
+			
+			log.info("These users currently have swear entries: "+rs3);
+			return false;
+		}
 	}
 	
 }
