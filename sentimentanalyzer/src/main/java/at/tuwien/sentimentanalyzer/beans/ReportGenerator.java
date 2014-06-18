@@ -18,18 +18,17 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
-import java.util.Set;
-import java.util.SortedMap;
 import java.util.SortedSet;
-import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.activation.DataHandler;
+import javax.activation.FileDataSource;
+
+import org.apache.camel.Exchange;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
@@ -48,6 +47,7 @@ import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.ui.HorizontalAlignment;
 import org.jfree.ui.RectangleEdge;
 import org.jfree.ui.TextAnchor;
+import org.jfree.util.Log;
 
 import at.tuwien.sentimentanalyzer.entities.AggregatedMessages;
 import at.tuwien.sentimentanalyzer.entities.Message.Sentiment;
@@ -60,8 +60,6 @@ import com.itextpdf.text.Font;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.pdf.PdfPCell;
-import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.tool.xml.XMLWorkerHelper;
 /**
@@ -86,28 +84,36 @@ public class ReportGenerator {
 		public String imgMessagesTotal = "imgMessagesTotal";
 		public List<String> imgWordcountsPerSource = new ArrayList<String>();
 	}
+	
+	
 	/**
 	 * Generates an PDF report for AggregatedMessage
-	 * @param agm
+	 * @param body
 	 * @return path of the generated PDF
 	 * @throws IOException
 	 * @throws DocumentException 
 	 */
-	public String generateAggregatedMessagesPDFReport(AggregatedMessages agm) throws IOException, DocumentException {
-		agm.validate();
+	public void generateAggregatedMessagesPDFReport(Exchange exchange,AggregatedMessages body) throws IOException, DocumentException {
+		exchange.setOut(exchange.getIn());
+		body.validate();
 		
 		String baseFolder = "";
 		File file = null;
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
 		do {
 			Date date = new Date();
-			baseFolder = "htmlMessageReports/"+df.format(date)+"_"+ReportGenerator.getRandomAlphaNumericString(4);
+			baseFolder = "htmlMessageReports/"+
+					df.format(date)+"_"+
+					ReportGenerator.getRandomAlphaNumericString(4)+
+					"_from_"+df.format(body.getMinTimePosted())+
+					"_to_"+df.format(body.getMaxTimePosted());
 			file = new File(baseFolder);
 		} while(file.exists());
-
-		ImageSources imageSources = ReportGenerator.generateChartImages(baseFolder, agm);
+		
+		
+		ImageSources imageSources = ReportGenerator.generateChartImages(baseFolder, body);
 		File outFile = new File(baseFolder+"/report.pdf");
-		stringToFile(agm.toString(), baseFolder+"/aggregatedMessage.txt");
+		stringToFile(body.toString(), baseFolder+"/aggregatedMessage.txt");
 		Document document = new Document(PageSize.A4, 0, 0, 0, 0);
 		PdfWriter writer;
 		try {
@@ -163,7 +169,7 @@ public class ReportGenerator {
 		
 		document.close();
 		writer.close();
-		return outFile.getPath();
+		exchange.getOut().setHeader("reportfilename", outFile.getPath());
 	}
 
 	public static void stringToFile(String string, String filename) throws FileNotFoundException {
