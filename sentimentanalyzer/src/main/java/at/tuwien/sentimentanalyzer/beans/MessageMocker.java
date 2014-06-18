@@ -12,6 +12,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 
@@ -19,6 +20,8 @@ import at.tuwien.sentimentanalyzer.entities.AggregatedMessages;
 import at.tuwien.sentimentanalyzer.entities.AggregatedMessages.Author;
 import at.tuwien.sentimentanalyzer.entities.Message;
 import at.tuwien.sentimentanalyzer.entities.Message.Sentiment;
+import at.tuwien.sentimentanalyzer.entities.Message.Source;
+import at.tuwien.sentimentanalyzer.sample.SimpleGroupMap;
 
 /**
  * since we overuse twitter...
@@ -143,7 +146,8 @@ public class MessageMocker {
 		out.setAuthor(user);
 		out.setTimePosted(new Date());
 		out.setMessage(message);
-		out.setSource("MessageMocker");
+		int i_src = r.nextInt(4)+1;
+		out.setSource(new Source("MessageMocker "+i_src));
 		log.debug("next message");
 		return out;
 	}
@@ -167,13 +171,25 @@ public class MessageMocker {
 		
 		final int MAXUSERS = 20;
 		final int MAXWORDS = 200;
+		final int MAXWORDSPERSOURCE = 70;
 		final int MAXSOURCECOUNTS = 50;
-		final int MAXSENTIMENTCOUNTS = 50;
+		final int MAXSENTIMENTCOUNTSPERSOURCE = 50;
 		
 		AggregatedMessages out = new AggregatedMessages();
 		
 		out.setMinTimePosted(MINTIMEPOSTED);
 		out.setMaxTimePosted(MAXTIMEPOSTED);
+		
+		HashMap<Source, Integer> sourceCounts = new HashMap<Source, Integer>();
+		int numSourceCounts = r.nextInt(MAXSOURCECOUNTS);
+		sourceCounts.put(new Source("MessageMocker"), numSourceCounts);
+		numSourceCounts = r.nextInt(MAXSOURCECOUNTS);
+		sourceCounts.put(new Source("MessageMocker2"), numSourceCounts);
+		numSourceCounts = r.nextInt(MAXSOURCECOUNTS);
+		sourceCounts.put(new Source("MessageMocker3"), numSourceCounts);
+		out.setSourceCounts(sourceCounts);
+		
+		Set<Source> sources = out.getSourceCounts().keySet();
 		
 		
 		int numUsers = r.nextInt(MAXUSERS);
@@ -181,7 +197,7 @@ public class MessageMocker {
 		List<String> randomUsers = MessageMocker.getRandomElements(this.users, r, numUsers);
 		HashMap<Author, Integer> authors = new HashMap<Author, Integer>();
 		for (String user : randomUsers) {
-			Author author = new Author(user, "MessageMocker");
+			Author author = new Author(user, new Source("MessageMocker"));
 			Integer num = r.nextInt(MAXUSERS);
 			authors.put(author, num);
 		}
@@ -195,19 +211,49 @@ public class MessageMocker {
 			words.put(word, num);
 		}
 		out.setWordCounts(words);
+		SimpleGroupMap<Source,String,Integer> wordsPerSource = new SimpleGroupMap<Source,String,Integer>();
 		
-		HashMap<String, Integer> sourceCounts = new HashMap<String, Integer>();
-		int numSourceCounts = r.nextInt(MAXSOURCECOUNTS);
-		sourceCounts.put("MessageMocker", numSourceCounts);
-		out.setSourceCounts(sourceCounts);
+		for (Source source : sources) {
+			List<String> randomWordsPerSource = MessageMocker.getRandomElements(this.dictionary, r, r.nextInt(MAXWORDSPERSOURCE));
+			//HashMap<String, Integer> words = new HashMap<String, Integer>();
+			for (String word : randomWordsPerSource) {
+				Integer num = r.nextInt(MAXWORDSPERSOURCE);
+				wordsPerSource.put(source, word, num);
+			}
+		}
+		out.setWordCountsBySource(wordsPerSource);
 		
 		HashMap<Sentiment, Integer> sentimentCounts = new HashMap<Sentiment, Integer>();
-
-		sentimentCounts.put(Sentiment.NEGATIVE, r.nextInt(MAXSENTIMENTCOUNTS));
-		sentimentCounts.put(Sentiment.NEUTRAL, r.nextInt(MAXSENTIMENTCOUNTS));
-		sentimentCounts.put(Sentiment.POSITIVE, r.nextInt(MAXSENTIMENTCOUNTS));
+		
+		SimpleGroupMap<Source,Sentiment,Integer> sentPerSource = new SimpleGroupMap<Source,Sentiment,Integer>();
+		int totalSent = 0;
+		for (Source source : sources) {
+			int count = r.nextInt(MAXSENTIMENTCOUNTSPERSOURCE);
+			sentPerSource.put(source, Sentiment.NEGATIVE, count);
+			totalSent+=count;
+		}
+		sentimentCounts.put(Sentiment.NEGATIVE, totalSent);
+		
+		totalSent = 0;
+		for (Source source : sources) {
+			int count = r.nextInt(MAXSENTIMENTCOUNTSPERSOURCE);
+			sentPerSource.put(source, Sentiment.NEUTRAL, count);
+			totalSent+=count;
+		}
+		sentimentCounts.put(Sentiment.NEUTRAL, totalSent);
+		
+		totalSent = 0;
+		for (Source source : sources) {
+			int count = r.nextInt(MAXSENTIMENTCOUNTSPERSOURCE);
+			sentPerSource.put(source, Sentiment.POSITIVE, count);
+			totalSent+=count;
+		}
+		sentimentCounts.put(Sentiment.POSITIVE, totalSent);
 		
 		out.setSentimentCounts(sentimentCounts);
+		out.setSentimentCountsBySource(sentPerSource);
+		
+		
 		
 		return out;
 	}

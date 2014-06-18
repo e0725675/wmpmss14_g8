@@ -78,7 +78,7 @@ public class SwearChecker {
 			log.info("Swear entry in DB attempted for: "+message.getAuthor());
 			PreparedStatement stmt = this.con.prepareStatement("INSERT INTO Users (username, source, timeposted, hasswears) VALUES (?,?,?, ?)");
 			stmt.setString(1, message.getAuthor());
-			stmt.setString(2, message.getSource());
+			stmt.setString(2, message.getSource().toString());
 			java.sql.Date tp = new java.sql.Date(message.getTimePosted().getTime());
 			stmt.setDate(3, tp);
 			stmt.setBoolean(4, containsCussword);

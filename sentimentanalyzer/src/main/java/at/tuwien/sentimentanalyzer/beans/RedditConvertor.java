@@ -6,6 +6,7 @@ import java.util.List;
 import org.jboss.logging.Logger;
 
 import at.tuwien.sentimentanalyzer.entities.Message;
+import at.tuwien.sentimentanalyzer.entities.Message.Source;
 import at.tuwien.sentimentanalyzer.entities.reddit.Children;
 import at.tuwien.sentimentanalyzer.entities.reddit.Data;
 import at.tuwien.sentimentanalyzer.entities.reddit.RedditMessage;
@@ -40,7 +41,7 @@ public class RedditConvertor {
 				if(date!=null){
 					msg.setTimePosted(date);
 				}
-				msg.setSource("Reddit");
+				msg.setSource(new Source("Reddit"));
 
 				if(secondData.getAuthor()!=null){
 					msg.setAuthor(secondData.getAuthor());

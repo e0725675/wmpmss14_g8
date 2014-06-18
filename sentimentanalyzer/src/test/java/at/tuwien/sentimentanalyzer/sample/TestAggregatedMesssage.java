@@ -15,6 +15,7 @@ import at.tuwien.sentimentanalyzer.entities.AggregatedMessages;
 import at.tuwien.sentimentanalyzer.entities.AggregatedMessages.Author;
 import at.tuwien.sentimentanalyzer.entities.Message;
 import at.tuwien.sentimentanalyzer.entities.Message.Sentiment;
+import at.tuwien.sentimentanalyzer.entities.Message.Source;
 
 public class TestAggregatedMesssage {
 	
@@ -31,7 +32,7 @@ public class TestAggregatedMesssage {
 		System.out.println(agg.getAuthors().keySet());
 		assertNotNull(agg.getAuthors());
 		String authorName = "John"; 
-		String authorSource = "Test Message";
+		Source authorSource = new Source("Test Message");
 		Author auth = new Author(authorName,authorSource);
 		assertEquals(authorName, auth.getName());
 		System.out.println("Original.. auth: " + auth.getName() + " Source: " + auth.getSource());
@@ -67,7 +68,7 @@ public class TestAggregatedMesssage {
 		msg.setMessage("OMG THERE HAHAHA");
 		msg.setOriginalMessage("OMG HI THERE HAHAHA");
 		msg.setSentiment(Message.intToSentiment(1));
-		msg.setSource("Test Message");
+		msg.setSource(new Source("Test Message"));
 		DateTime toDay=new DateTime();
 		DateTime dateOfPreviousWeek=toDay.minusDays(7);
 		
@@ -87,7 +88,7 @@ public class TestAggregatedMesssage {
 		msg1.setMessage("OMG THERE HAHAHA");
 		msg1.setOriginalMessage("OMG HI THERE HAHAHA");
 		msg1.setSentiment(Message.intToSentiment(1));
-		msg1.setSource("Test Message");
+		msg1.setSource(new Source("Test Message"));
 		
 		
 		DateTime dateMinusThree=toDay.minusDays(3);
@@ -108,7 +109,7 @@ public class TestAggregatedMesssage {
 		msgs2.setMessage("OMG THERE HAHAHA");
 		msgs2.setOriginalMessage("OMG HI THERE HAHAHA");
 		msgs2.setSentiment(Message.intToSentiment(3));
-		msgs2.setSource("Test Message");
+		msgs2.setSource(new Source("Test Message"));
 		Date f = new Date();
 		msgs2.setTimePosted(f);
 		HashMap<String, Integer>wordcounts2 = new HashMap<>();
