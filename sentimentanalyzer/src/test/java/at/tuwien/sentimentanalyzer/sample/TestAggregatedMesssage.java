@@ -53,7 +53,7 @@ public class TestAggregatedMesssage {
 		
 		assertTrue(agg.getMinTimePosted().before(agg.getMaxTimePosted()));
 		
-		Sentiment neg = Message.intToSentiment(1);
+		Sentiment neg = new Sentiment(1);
 		
 		assertEquals(Integer.valueOf(2), agg.getSentimentCounts().get(neg));
 		
@@ -67,7 +67,7 @@ public class TestAggregatedMesssage {
 		msg.setAuthor("John");
 		msg.setMessage("OMG THERE HAHAHA");
 		msg.setOriginalMessage("OMG HI THERE HAHAHA");
-		msg.setSentiment(Message.intToSentiment(1));
+		msg.setSentiment(new Sentiment(1));
 		msg.setSource(new Source("Test Message"));
 		DateTime toDay=new DateTime();
 		DateTime dateOfPreviousWeek=toDay.minusDays(7);
@@ -87,7 +87,7 @@ public class TestAggregatedMesssage {
 		msg1.setAuthor("John");
 		msg1.setMessage("OMG THERE HAHAHA");
 		msg1.setOriginalMessage("OMG HI THERE HAHAHA");
-		msg1.setSentiment(Message.intToSentiment(1));
+		msg1.setSentiment(new Sentiment(1));
 		msg1.setSource(new Source("Test Message"));
 		
 		
@@ -108,7 +108,7 @@ public class TestAggregatedMesssage {
 		msgs2.setAuthor("John");
 		msgs2.setMessage("OMG THERE HAHAHA");
 		msgs2.setOriginalMessage("OMG HI THERE HAHAHA");
-		msgs2.setSentiment(Message.intToSentiment(3));
+		msgs2.setSentiment(new Sentiment(3));
 		msgs2.setSource(new Source("Test Message"));
 		Date f = new Date();
 		msgs2.setTimePosted(f);
