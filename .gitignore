@@ -27,3 +27,5 @@ sentimentanalyzer/.settings
 dependency-reduced-pom.xml
 /sentimentanalyzer/htmlMessageReports
 /ChartTest/barchart_demo.png
+/sentimentanalyzer/swearwordReports
+/sentimentanalyzer/messageReports
