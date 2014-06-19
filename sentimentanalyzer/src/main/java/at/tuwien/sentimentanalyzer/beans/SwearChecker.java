@@ -22,6 +22,7 @@ import javax.sql.DataSource;
 import org.apache.log4j.Logger;
 
 import at.tuwien.sentimentanalyzer.entities.Message;
+import at.tuwien.sentimentanalyzer.entities.Message.Source;
 
 public class SwearChecker {
 	private static Logger log = Logger.getLogger(SwearChecker.class);
@@ -31,6 +32,7 @@ public class SwearChecker {
 	private Connection con;
 //	local datasource connection variable
 	public SwearChecker(DataSource dataSource) throws IOException, SQLException {
+		log.info("Creating SwearChecker");
 //		Create public method for putting cusswords into database
 		this.cussWords = new ArrayList<String>();
 		BufferedReader br = new BufferedReader(new FileReader("mock_swearwordlist.txt"));
@@ -50,6 +52,7 @@ public class SwearChecker {
 		con = dataSource.getConnection();
 		PreparedStatement stmt = con.prepareStatement("CREATE TABLE Users (id int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), username VARCHAR(200) NOT NULL, source VARCHAR(200) NOT NULL, timeposted DATE NOT NULL, hasswears BOOLEAN NOT NULL,PRIMARY KEY(ID))");
 		stmt.execute();
+		stmt.close();
 	}
 	
 	public void logSwearChecker(Message message) throws SQLException {
@@ -75,13 +78,15 @@ public class SwearChecker {
 //			Added Column item 'containsCussword is then set to 'TRUE'.			
 			PreparedStatement stmt = this.con.prepareStatement("INSERT INTO Users (username, source, timeposted, hasswears) VALUES (?,?,?, ?)");
 			stmt.setString(1, message.getAuthor());
-			stmt.setString(2, message.getSource());
+			stmt.setString(2, message.getSource().toString());
 			java.sql.Date tp = new java.sql.Date(message.getTimePosted().getTime());
 			stmt.setDate(3, tp);
 			stmt.setBoolean(4, containsCussword);
 			stmt.executeUpdate();
 			ResultSet rs0 = stmt.getResultSet();
 			log.info("We have " +rs0);
+			stmt.getResultSet();
+			stmt.close();
 		}
 		
 		String source = "MessageMocker";
@@ -95,10 +100,14 @@ public class SwearChecker {
 	
 		
 	}
-//	Nothing is being logged from here below. Why?
-	public boolean isUserBlocked(Message message) throws SQLException {
-		String username = message.getAuthor();
-		String source = message.getSource();
+
+		public boolean isUserBlocked(Message message) throws SQLException {
+			String username = message.getAuthor();
+			
+			
+			String source = message.getSource().toString();
+			
+
 		log.info("The following user swore: " +username);
 //		Checks to see if the user has 10 total swears in db using variable 'ResultSet rs'.
 //		if so, logs it.
@@ -134,6 +143,7 @@ public class SwearChecker {
 		stmt2.execute();
 		ResultSet rs2 = stmt2.getResultSet();
 		rs2.next();
+
 		log.info("The result set is: " +rs2);
 		int count2 = rs2.getInt(1);
 //		What is rs2.getInt(1)? See it in the log.txt

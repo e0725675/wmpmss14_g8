@@ -13,6 +13,7 @@ import org.apache.log4j.Logger;
 
 import twitter4j.Status;
 import at.tuwien.sentimentanalyzer.entities.Message;
+import at.tuwien.sentimentanalyzer.entities.Message.Source;
 
 public class MessageConverter {
 
@@ -56,7 +57,7 @@ public class MessageConverter {
 		Message m = new Message();
 		m.setMessage(list.get(0));
 		m.setAuthor(list.get(1));
-		m.setSource(list.get(2));
+		m.setSource(new Source(list.get(2)));
 		try {
 			m.setTimePosted(dateFormat.parse(list.get(3)));
 		} catch (ParseException e) {
@@ -74,7 +75,7 @@ public class MessageConverter {
 		List<String> out = new ArrayList<String>();
 		out.add(message.getMessage());
 		out.add(message.getAuthor());
-		out.add(message.getSource());
+		out.add(message.getSource().toString());
 		out.add(dateFormat.format(message.getTimePosted()));
 		return out;
 	}

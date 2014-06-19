@@ -14,7 +14,7 @@ public class SentimentBean {
 		SentimentExtraction senti = new SentimentExtraction();
 		String text = message.getMessage();
 		int sentiment = senti.makeSentiment(text);
-		Sentiment s = Message.intToSentiment(sentiment);
+		Sentiment s = new Sentiment(sentiment);
 		message.setSentiment(s);
 		return message;
 		
