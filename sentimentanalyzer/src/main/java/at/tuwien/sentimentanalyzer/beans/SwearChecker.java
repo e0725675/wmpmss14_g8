@@ -104,6 +104,7 @@ public class SwearChecker {
 //		if so, logs it.
 //		Then checks to see if the user has 5 consecutive swears in db using variable 'ResultSet rs2'.
 
+		
 		java.util.Date date = new java.util.Date();
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(date);

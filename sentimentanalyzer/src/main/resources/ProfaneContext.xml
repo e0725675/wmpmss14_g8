@@ -15,5 +15,6 @@
 		 <bean ref="swearChecker" method="logSwearChecker"></bean>
 		 <to uri="mock:result" />
         </route>
+        
     </routeContext>
 </beans>
