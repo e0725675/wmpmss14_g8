@@ -16,5 +16,4 @@
 		 <to uri="mock:result" />
         </route>
     </routeContext>
- 
 </beans>

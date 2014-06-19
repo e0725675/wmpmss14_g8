@@ -133,7 +133,7 @@ public class SwearChecker {
 		stmt2.execute();
 		ResultSet rs2 = stmt2.getResultSet();
 		rs2.next();
-
+		log.info("The result set is: " +rs2);
 		int count2 = rs2.getInt(1);
 //		What is rs2.getInt(1)? See it in the log.txt
 		rs2.close();
@@ -143,6 +143,7 @@ public class SwearChecker {
 			return true;
 		}
 
+		
 		else {
 			PreparedStatement stmt3 = this.con.prepareStatement(
 					"SELECT username FROM Users WHERE hasswears = TRUE",
