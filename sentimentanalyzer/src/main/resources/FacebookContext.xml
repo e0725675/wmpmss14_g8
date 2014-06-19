@@ -13,7 +13,7 @@
 			<from uri="timer:foo?period=20s"/>
 			<to uri="https://graph.facebook.com/v2.0//123939137654782/feed?access_token=CAAErrkh9eZCIBACoq8cPFrHgntvMZAgXBzhyCCOHj9k9vHudOcJPcWmnHt7JtrZC6ZBQi4bGLzjaaoLKU33YP10JNNaKP2yYjRMaU14qA0QPR8lE5M2RkNSwhzJjCw7b2WgQCYNvA247FpDVYzspNezRzHjV93I5Tppp487m7QWn3AwtqHv4Mom4dV1ZCeW4ZD" />
 			<convertBodyTo type="java.lang.String" />
-			<to uri="log:facebook" /> 		        
+<!-- 			<to uri="log:facebook" /> -->
         </route>
 	
     </routeContext>
