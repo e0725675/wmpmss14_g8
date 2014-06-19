@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.text.NumberFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -25,10 +26,8 @@ import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.activation.DataHandler;
-import javax.activation.FileDataSource;
-
 import org.apache.camel.Exchange;
+import org.apache.camel.Header;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
@@ -47,9 +46,10 @@ import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.ui.HorizontalAlignment;
 import org.jfree.ui.RectangleEdge;
 import org.jfree.ui.TextAnchor;
-import org.jfree.util.Log;
 
+import at.tuwien.sentimentanalyzer.beans.ReportGenerator.SwearwordReportContent.SwearInformation;
 import at.tuwien.sentimentanalyzer.entities.AggregatedMessages;
+import at.tuwien.sentimentanalyzer.entities.AggregatedMessages.Author;
 import at.tuwien.sentimentanalyzer.entities.Message.Sentiment;
 import at.tuwien.sentimentanalyzer.entities.Message.Source;
 
@@ -60,6 +60,9 @@ import com.itextpdf.text.Font;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.tool.xml.XMLWorkerHelper;
 /**
@@ -69,6 +72,7 @@ import com.itextpdf.tool.xml.XMLWorkerHelper;
  *
  */
 public class ReportGenerator {
+	
 	public ReportGenerator() {
 
 	}
@@ -84,8 +88,136 @@ public class ReportGenerator {
 		public String imgMessagesTotal = "imgMessagesTotal";
 		public List<String> imgWordcountsPerSource = new ArrayList<String>();
 	}
+	public static class SwearwordReportContent {
+		public static class SwearInformation {
+			public HashMap<String,Integer> usedSwearWordsDecapitalized = new HashMap<String,Integer>();
+			public List<Date> recordedOffences = new ArrayList<Date>();
+			
+			public static SwearInformation getSample() {
+				SwearInformation out = new SwearInformation();
+				return out;
+			}
+		}
+		public HashMap<Author,SwearInformation> userInformation = new HashMap<Author,SwearInformation>();
+		
+		
+		
+	}
 	
-	
+	public void generateSwearwordPDFReport(Exchange exchange,SwearwordReportContent body, @Header("from") String from, @Header("to") String to, @Header("email") String email) throws IOException, DocumentException {
+		SwearwordReportContent testContent = body;//this.swearwordContentMocker.nextSwearwordReportContent();
+		
+		exchange.setOut(exchange.getIn());
+		DateFormat inDfFull = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
+		DateFormat inDfSimple = new SimpleDateFormat("yyyy.MM.dd");
+		Date d_from;
+		try {
+			d_from = inDfFull.parse(from);
+		} catch (ParseException e) {
+			try {
+				d_from = inDfSimple.parse(from);
+			} catch(ParseException e1) {
+				throw new ReportGeneratorException("Parameter 'from' has an invalid format: "+from);
+			}
+		}
+		Date d_to;
+		try {
+			d_to = inDfFull.parse(to);
+		} catch (ParseException e) {
+			try {
+				d_to = inDfSimple.parse(to);
+			} catch(ParseException e1) {
+				throw new ReportGeneratorException("Parameter 'to' has an invalid format: "+to);
+			}
+		}
+		
+		String s_from = inDfFull.format(d_from);
+		String s_to = inDfFull.format(d_to);
+		
+		String baseFolder = "";
+		File file = null;
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
+		do {
+			Date date = new Date();
+			baseFolder = "swearwordReports/"+
+					df.format(date)+"_"+
+					ReportGenerator.getRandomAlphaNumericString(4)+
+					"_from_"+df.format(d_from)+
+					"_to_"+df.format(d_to);
+			file = new File(baseFolder);
+			
+		} while(file.exists());
+		file.mkdirs();
+		File outFile = new File(baseFolder+"/swearwordReport.pdf");
+		
+		Document document = new Document(PageSize.A4, 0, 0, 0, 0);
+		PdfWriter writer;
+		try {
+			writer = PdfWriter.getInstance(document, new FileOutputStream(outFile));
+		} catch (FileNotFoundException e) {
+			throw new ReportGeneratorException("FileNotFoundException on FileOutputStream creation of "+outFile.getPath(),e);
+		} catch (DocumentException e) {
+			throw new ReportGeneratorException("DocumentException on PdfWriter.getInstance",e);
+		}
+		document.open();
+		Paragraph p = new Paragraph();
+		p.add("Swearword Report");
+		p.setAlignment(Paragraph.ALIGN_CENTER);
+		Font font = new Font(Font.FontFamily.HELVETICA, 30);
+		p.setFont(font);
+		document.add(p);
+		
+		Paragraph p2 = new Paragraph();
+		p2.add(s_from + " - " + s_to);
+		p2.setAlignment(Paragraph.ALIGN_CENTER);
+		Font font2 = new Font(Font.FontFamily.HELVETICA, 20);
+		p2.setFont(font2);
+		document.add(p2);
+		
+		
+		
+		
+		ArrayList<Author> users = new ArrayList<Author>(testContent.userInformation.keySet());
+		Collections.sort(users);
+		PdfPTable table = new PdfPTable(3);
+		Font titleCellFont = new Font();
+		titleCellFont.setStyle(Font.BOLD);
+		Font normalCellFont = new Font();
+		//title
+		Phrase ph1 = new Phrase("Source");
+		ph1.setFont(titleCellFont);
+		table.addCell(new PdfPCell(ph1));
+		
+		Phrase ph2 = new Phrase("User");
+		ph2.setFont(titleCellFont);
+		table.addCell(new PdfPCell(ph2));
+		
+		Phrase ph3 = new Phrase("Offences");
+		ph3.setFont(titleCellFont);
+		table.addCell(new PdfPCell(ph3));
+		
+		for (Author u : users) {
+			Phrase phu1 = new Phrase(u.getSource().toString());
+			phu1.setFont(normalCellFont);
+			table.addCell(new PdfPCell(phu1));
+			
+			Phrase phu2 = new Phrase(u.getName());
+			phu2.setFont(normalCellFont);
+			table.addCell(new PdfPCell(phu2));
+			
+			SwearInformation si = testContent.userInformation.get(u);
+			Phrase phu3 = new Phrase(""+si.recordedOffences.size());
+			phu3.setFont(normalCellFont);
+			table.addCell(new PdfPCell(phu3));
+		}
+		
+		document.add(table);
+		
+		document.close();
+		writer.close();
+		exchange.getOut().setHeader("reportfilename", outFile.getPath());
+	}
+		
 	/**
 	 * Generates an PDF report for AggregatedMessage
 	 * @param body
@@ -102,7 +234,7 @@ public class ReportGenerator {
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
 		do {
 			Date date = new Date();
-			baseFolder = "htmlMessageReports/"+
+			baseFolder = "messageReports/"+
 					df.format(date)+"_"+
 					ReportGenerator.getRandomAlphaNumericString(4)+
 					"_from_"+df.format(body.getMinTimePosted())+
@@ -302,8 +434,8 @@ public class ReportGenerator {
 
 
 		List<Tuple<String, Number>> sentimentCountsTotal = new ArrayList<Tuple<String, Number>>();
-		if (agm.getSentimentCounts().size() != 3) {
-			throw new ReportGeneratorException("Invalid SentimentCountsSize. should be 3 but was "+agm.getSentimentCounts().size());
+		if (agm.getSentimentCounts().size() != 3 && agm.getSentimentCounts().size() != 4) {
+			throw new ReportGeneratorException("Invalid SentimentCountsSize. should be 3 or 4 (with invalid ones) but was "+agm.getSentimentCounts().size());
 		}
 		SortedSet<Sentiment> sentimentkeyset = new TreeSet<Sentiment>(agm.getSentimentCounts().keySet());
 		//Collections.sort(sentimentkeyset);

@@ -23,7 +23,8 @@ public class TestAggregatedMesssage {
 	@Test
 	public void test() {
 		List<Message>testMessages = testMessages();
-		AggregatedMessages agg = AggregatorConvertor.messagesToAggregateMessages(testMessages);
+		AggregatorConvertor agc = new AggregatorConvertor();
+		AggregatedMessages agg = agc.messagesToAggregateMessages(testMessages);
 		assertNotNull(agg);
 		
 		int actual = agg.getWordCounts().get("hello");

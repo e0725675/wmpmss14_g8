@@ -13,7 +13,7 @@ import at.tuwien.sentimentanalyzer.entities.Message.Source;
 import at.tuwien.sentimentanalyzer.sample.SimpleGroupMap;
 
 public class AggregatedMessages {
-	public static class Author {
+	public static class Author implements Comparable<Author>{
 		public Author(String name, Source source) {
 			this.name = name;
 			this.source = source;
@@ -65,6 +65,15 @@ public class AggregatedMessages {
 			} else if (!source.equals(other.source))
 				return false;
 			return true;
+		}
+		@Override
+		public int compareTo(Author o) {
+			int compare = this.source.compareTo(o.source);
+			if (compare == 0) {
+				return this.name.compareTo(o.name);
+			} else {
+				return compare;
+			}
 		}
 	}
 	private HashMap<Author, Integer> authors = new HashMap<Author, Integer>();

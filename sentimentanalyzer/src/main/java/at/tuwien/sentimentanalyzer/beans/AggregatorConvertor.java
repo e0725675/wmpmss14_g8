@@ -19,9 +19,9 @@ import at.tuwien.sentimentanalyzer.sample.SimpleGroupMap;
 public class AggregatorConvertor {
 	public static Logger log = Logger.getLogger(AggregatorConvertor.class);
 
-	public static AggregatedMessages messagesToAggregateMessages(List<Message> msgList){
+	public AggregatedMessages messagesToAggregateMessages(List<Message> msgList){
 
-		log.info("Aggregated msg: " + msgList);
+		log.trace("Aggregated msg: " + msgList);
 
 		AggregatedMessages agg = new AggregatedMessages();
 		HashMap<Author, Integer> authorMap = new HashMap<>();
@@ -132,7 +132,7 @@ public class AggregatorConvertor {
 		if(wordCountMap !=null){
 			agg.setWordCounts(wordCountMap);
 		}
-		log.info("New Aggregated msg: " + agg);
+		log.trace("New Aggregated msg: " + agg);
 
 		return agg;
 

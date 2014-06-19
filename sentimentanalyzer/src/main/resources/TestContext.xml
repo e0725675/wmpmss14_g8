@@ -7,7 +7,7 @@
 <!--  	<bean id="expCheckUsersBlocked" class="at.tuwien.sentimentanalyzer.sample.ExpCheckUsersBlocked" /> -->
     <!-- This routeContext only contains experiments and testing stuff -->
     <routeContext id="TestRoutes" xmlns="http://camel.apache.org/schema/spring">
-        <route>
+        <route id="mailTestoute">
 			<!-- Just for testing. if you open .../sentimentanalyzer/hello?name=<something> a message will be sent to
 				workflow@applepublic.tv -->
 			<from uri="servlet:///hello"/>

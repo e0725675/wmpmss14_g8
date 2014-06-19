@@ -66,7 +66,7 @@
 	
 	<camelContext id="MAIN-CAMEL-CONTEXT" xmlns="http://camel.apache.org/schema/spring">
 		<!-- references to other routeContexts - dont forget to link the file as well!!! -->
-<!-- 		<routeContextRef ref="SentimentRoutes"/> -->
+		<routeContextRef ref="SentimentRoutes"/>
 		<!--<routeContextRef ref="FacebookRoutes"/>-->
 <!-- 		<routeContextRef ref="TestRoutes"/> -->
 <!-- 		<routeContextRef ref="ProfaneRoutes"/> -->
@@ -102,6 +102,11 @@
 		</constructor-arg>
 	</bean>
 	
+	<bean id="swearwordContentMocker" class="at.tuwien.sentimentanalyzer.beans.SwearwordContentMocker" scope="singleton">
+		<constructor-arg index="0" value= "mock_swearwordlist.txt"/>
+		<constructor-arg index="1" value= "mock_userlist.txt"/>
+	</bean>
+	
 	<bean id="reportGenerator" class="at.tuwien.sentimentanalyzer.beans.ReportGenerator" />
 	
 	<bean id="mailHandler" class="at.tuwien.sentimentanalyzer.beans.MailHandler" />
@@ -109,5 +114,6 @@
     <bean id="swearChecker" class="at.tuwien.sentimentanalyzer.beans.SwearChecker" >
     	<constructor-arg ref="dataSource"/>
     </bean>
-    
+    <bean id="messageAggregationStrategy" class="at.tuwien.sentimentanalyzer.converters.MessageAggregationStrategy"/>
+    <bean id="aggregatorConvertor" class="at.tuwien.sentimentanalyzer.beans.AggregatorConvertor"/>
 </beans>

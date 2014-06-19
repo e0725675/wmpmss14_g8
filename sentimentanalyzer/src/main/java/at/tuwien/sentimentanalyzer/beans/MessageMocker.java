@@ -35,6 +35,8 @@ public class MessageMocker {
 	List<String> dictionary = new ArrayList<String>();
 	List<List<String>>mandatory_dics = new ArrayList<List<String>>();
 	Random r = new Random();
+	
+	
 	/**
 	 * 
 	 * @param userFile - file with a list of users to use
@@ -88,7 +90,7 @@ public class MessageMocker {
 		}
 		return list.get(r.nextInt(list.size()));
 	}
-	private static <T> List<T> getRandomElements(List<T> list, Random r, int numElements) {
+	public static <T> List<T> getRandomElements(List<T> list, Random r, int numElements) {
 		if (list == null ||list.isEmpty() || r == null) {
 			throw new RuntimeException("invalid input parameter");
 		}
@@ -151,6 +153,10 @@ public class MessageMocker {
 		log.debug("next message");
 		return out;
 	}
+	
+
+	
+	
 	/**
 	 * Generates a random AggregatedMessages
 	 * @param numberOfMessagesIncluded - number of messages that will be generated

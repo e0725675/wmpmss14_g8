@@ -11,7 +11,7 @@ public class MailRouteBuilder extends RouteBuilder{
 	@Override
 	public void configure() throws Exception {
 		from("servlet:///addtodailylist").
-		routeId("addtodailylist").
+			routeId("addtodailylist").
 		choice().
 			when(header("mail")).
 				transform(simple("Added ${header.mail} to the daily recipient list.")).
@@ -21,7 +21,7 @@ public class MailRouteBuilder extends RouteBuilder{
 		to("bean:mailHandler?method=addRecipientToDailyList");
 		
 		from("servlet:///removefromdailylist").
-		routeId("removefromdailylist").
+			routeId("removefromdailylist").
 		choice().
 			when(header("mail")).
 				transform(simple("Removed ${header.mail} from the daily recipient list.")).
@@ -32,7 +32,7 @@ public class MailRouteBuilder extends RouteBuilder{
 		
 		
 		from("servlet:///addtoweeklylist").
-		routeId("addtoweeklylist").
+			routeId("addtoweeklylist").
 		choice().
 			when(header("mail")).
 				transform(simple("Added ${header.mail} to the weekly recipient list.")).
@@ -42,7 +42,7 @@ public class MailRouteBuilder extends RouteBuilder{
 		to("bean:mailHandler?method=addRecipientToWeeklyList");
 		
 		from("servlet:///removefromweeklylist").
-		routeId("removefromweeklylist").
+			routeId("removefromweeklylist").
 		choice().
 			when(header("mail")).
 				transform(simple("Removed ${header.mail} from the weekly recipient list.")).

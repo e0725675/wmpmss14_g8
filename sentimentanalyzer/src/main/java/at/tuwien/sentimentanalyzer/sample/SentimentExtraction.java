@@ -1,5 +1,7 @@
 package at.tuwien.sentimentanalyzer.sample;
 
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.util.List;
 import java.util.Properties;
 
@@ -23,8 +25,19 @@ public class SentimentExtraction {
 		Properties props = new Properties();
 		props.put("annotators", "tokenize, ssplit, parse, pos, sentiment");  //tokenize, ssplit, pos, lemma, ner, parse, dcoref
 		
+		// trick to disable annoying printouts
+		// this is your print stream, store the reference
+		PrintStream err = System.err;
+		// now make all writes to the System.err stream silent 
+		System.setErr(new PrintStream(new OutputStream() {
+		    public void write(int b) {
+		    }
+		}));
+
+		// YOUR CODE HERE
+
+		
 		StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
-			
 		edu.stanford.nlp.pipeline.Annotation doc = new edu.stanford.nlp.pipeline.Annotation(text);
 		pipeline.annotate(doc);
 			
@@ -34,7 +47,10 @@ public class SentimentExtraction {
 			Tree tree = sentence.get(SentimentCoreAnnotations.AnnotatedTree.class);
 			senti = RNNCoreAnnotations.getPredictedClass(tree);				
 		}
-
+		
+		// set everything bck to its original state afterwards
+		System.setErr(err); 
+		
 		return senti;
 	}
 

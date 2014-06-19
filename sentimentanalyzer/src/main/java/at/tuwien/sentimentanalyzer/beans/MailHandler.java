@@ -16,6 +16,7 @@ import org.apache.log4j.Logger;
 public class MailHandler {
 	private static Logger log = Logger.getLogger(MailHandler.class);
 	
+	public static final String REGEXMAIL = "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$";
 	public class InvalidMailFormatException extends Exception {
 
 		/**
@@ -41,7 +42,7 @@ public class MailHandler {
 		if (mail == null) {
 			throw new InvalidMailFormatException("Email is null");
 		}
-		if (!Pattern.matches( "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$", mail )) {
+		if (!Pattern.matches( REGEXMAIL, mail )) {
 			throw new InvalidMailFormatException("Invalid email "+mail);
 		}
 		log.info("Adding "+mail+" to daily recipient list.");
@@ -66,7 +67,7 @@ public class MailHandler {
 		if (mail == null) {
 			throw new InvalidMailFormatException("Email is null");
 		}
-		if (!Pattern.matches( "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$", mail )) {
+		if (!Pattern.matches( REGEXMAIL, mail )) {
 			throw new InvalidMailFormatException("Invalid email "+mail);
 		}
 		log.info("Adding "+mail+" to weekly recipient list.");
@@ -91,7 +92,7 @@ public class MailHandler {
 		if(reportfilename == null) {
 			throw new RuntimeException("reportfilename is null");
 		}	
-		log.info("addAttachment: filename:"+reportfilename);
+		log.debug("addAttachment: filename:"+reportfilename);
 		File f = new File(reportfilename);
 		if(!f.exists()) {
 			throw new FileNotFoundException("The file "+reportfilename+" does not exist");
@@ -120,7 +121,7 @@ public class MailHandler {
 		String toUri;
 		toUri = recipients;
 		//toUri = "smtps://smtp.gmail.com:465?password=wmpmSS2014&username=workflow@applepublic.tv"+recipients;
-		log.info("touri string: "+toUri);
+		log.debug("daily touri string: "+toUri);
 		exchange.getOut().setHeader("touri", toUri);
 	}
 	/**
@@ -142,6 +143,7 @@ public class MailHandler {
 			}
 			recipients+=mail;
 		}
+		log.debug("weekly touri string: "+recipients);
 		//String toUri = "smtps://smtp.gmail.com:465?password=wmpmSS2014&username=workflow@applepublic.tv"+recipients;
 		exchange.getOut().setHeader("touri", recipients);
 	}
