@@ -13,7 +13,7 @@
 		 <!-- https://camel.apache.org/message-filter.html .stop -->
 		 <bean ref="messageMocker" method="nextMessage"></bean>
 		 <bean ref="swearChecker" method="logSwearChecker"></bean>
-<!-- 		 <to uri="mock:result" /> -->
+ 		 <to uri="direct:incomingMessages"/>
         </route>
         
     </routeContext>
