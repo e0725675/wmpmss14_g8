@@ -10,24 +10,20 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.text.NumberFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
-import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
-import java.util.SortedSet;
-import java.util.TreeSet;
+import java.util.SortedMap;
+import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.camel.Exchange;
-import org.apache.camel.Header;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
@@ -47,22 +43,15 @@ import org.jfree.ui.HorizontalAlignment;
 import org.jfree.ui.RectangleEdge;
 import org.jfree.ui.TextAnchor;
 
-import at.tuwien.sentimentanalyzer.beans.ReportGenerator.SwearwordReportContent.SwearInformation;
 import at.tuwien.sentimentanalyzer.entities.AggregatedMessages;
-import at.tuwien.sentimentanalyzer.entities.AggregatedMessages.Author;
 import at.tuwien.sentimentanalyzer.entities.Message.Sentiment;
-import at.tuwien.sentimentanalyzer.entities.Message.Source;
 
-import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.Phrase;
-import com.itextpdf.text.pdf.PdfPCell;
-import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.tool.xml.XMLWorkerHelper;
 /**
@@ -72,7 +61,6 @@ import com.itextpdf.tool.xml.XMLWorkerHelper;
  *
  */
 public class ReportGenerator {
-	
 	public ReportGenerator() {
 
 	}
@@ -83,169 +71,28 @@ public class ReportGenerator {
 	 */
 	private static class ImageSources {
 		public String imgSentimentpercentagesTotal = "imgSentimentpercentagesTotal";
-		public List<String> imgSentimentpercentagesPerSource = new ArrayList<String>();
 		public String imgWordcountsTotal = "imgWordcountsTotal";
 		public String imgMessagesTotal = "imgMessagesTotal";
-		public List<String> imgWordcountsPerSource = new ArrayList<String>();
 	}
-	public static class SwearwordReportContent {
-		public static class SwearInformation {
-			public HashMap<String,Integer> usedSwearWordsDecapitalized = new HashMap<String,Integer>();
-			public List<Date> recordedOffences = new ArrayList<Date>();
-			
-			public static SwearInformation getSample() {
-				SwearInformation out = new SwearInformation();
-				return out;
-			}
-		}
-		public HashMap<Author,SwearInformation> userInformation = new HashMap<Author,SwearInformation>();
-		
-		
-		
-	}
-	
-	public void generateSwearwordPDFReport(Exchange exchange,SwearwordReportContent body, @Header("from") String from, @Header("to") String to, @Header("email") String email) throws IOException, DocumentException {
-		SwearwordReportContent testContent = body;//this.swearwordContentMocker.nextSwearwordReportContent();
-		
-		exchange.setOut(exchange.getIn());
-		DateFormat inDfFull = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
-		DateFormat inDfSimple = new SimpleDateFormat("yyyy.MM.dd");
-		Date d_from;
-		try {
-			d_from = inDfFull.parse(from);
-		} catch (ParseException e) {
-			try {
-				d_from = inDfSimple.parse(from);
-			} catch(ParseException e1) {
-				throw new ReportGeneratorException("Parameter 'from' has an invalid format: "+from);
-			}
-		}
-		Date d_to;
-		try {
-			d_to = inDfFull.parse(to);
-		} catch (ParseException e) {
-			try {
-				d_to = inDfSimple.parse(to);
-			} catch(ParseException e1) {
-				throw new ReportGeneratorException("Parameter 'to' has an invalid format: "+to);
-			}
-		}
-		
-		String s_from = inDfFull.format(d_from);
-		String s_to = inDfFull.format(d_to);
-		
-		String baseFolder = "";
-		File file = null;
-		DateFormat df = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
-		do {
-			Date date = new Date();
-			baseFolder = "swearwordReports/"+
-					df.format(date)+"_"+
-					ReportGenerator.getRandomAlphaNumericString(4)+
-					"_from_"+df.format(d_from)+
-					"_to_"+df.format(d_to);
-			file = new File(baseFolder);
-			
-		} while(file.exists());
-		file.mkdirs();
-		File outFile = new File(baseFolder+"/swearwordReport.pdf");
-		
-		Document document = new Document(PageSize.A4, 0, 0, 0, 0);
-		PdfWriter writer;
-		try {
-			writer = PdfWriter.getInstance(document, new FileOutputStream(outFile));
-		} catch (FileNotFoundException e) {
-			throw new ReportGeneratorException("FileNotFoundException on FileOutputStream creation of "+outFile.getPath(),e);
-		} catch (DocumentException e) {
-			throw new ReportGeneratorException("DocumentException on PdfWriter.getInstance",e);
-		}
-		document.open();
-		Paragraph p = new Paragraph();
-		p.add("Swearword Report");
-		p.setAlignment(Paragraph.ALIGN_CENTER);
-		Font font = new Font(Font.FontFamily.HELVETICA, 30);
-		p.setFont(font);
-		document.add(p);
-		
-		Paragraph p2 = new Paragraph();
-		p2.add(s_from + " - " + s_to);
-		p2.setAlignment(Paragraph.ALIGN_CENTER);
-		Font font2 = new Font(Font.FontFamily.HELVETICA, 20);
-		p2.setFont(font2);
-		document.add(p2);
-		
-		
-		
-		
-		ArrayList<Author> users = new ArrayList<Author>(testContent.userInformation.keySet());
-		Collections.sort(users);
-		PdfPTable table = new PdfPTable(3);
-		Font titleCellFont = new Font();
-		titleCellFont.setStyle(Font.BOLD);
-		Font normalCellFont = new Font();
-		//title
-		Phrase ph1 = new Phrase("Source");
-		ph1.setFont(titleCellFont);
-		table.addCell(new PdfPCell(ph1));
-		
-		Phrase ph2 = new Phrase("User");
-		ph2.setFont(titleCellFont);
-		table.addCell(new PdfPCell(ph2));
-		
-		Phrase ph3 = new Phrase("Offences");
-		ph3.setFont(titleCellFont);
-		table.addCell(new PdfPCell(ph3));
-		
-		for (Author u : users) {
-			Phrase phu1 = new Phrase(u.getSource().toString());
-			phu1.setFont(normalCellFont);
-			table.addCell(new PdfPCell(phu1));
-			
-			Phrase phu2 = new Phrase(u.getName());
-			phu2.setFont(normalCellFont);
-			table.addCell(new PdfPCell(phu2));
-			
-			SwearInformation si = testContent.userInformation.get(u);
-			Phrase phu3 = new Phrase(""+si.recordedOffences.size());
-			phu3.setFont(normalCellFont);
-			table.addCell(new PdfPCell(phu3));
-		}
-		
-		document.add(table);
-		
-		document.close();
-		writer.close();
-		exchange.getOut().setHeader("reportfilename", outFile.getPath());
-	}
-		
 	/**
 	 * Generates an PDF report for AggregatedMessage
-	 * @param body
+	 * @param agm
 	 * @return path of the generated PDF
 	 * @throws IOException
 	 * @throws DocumentException 
 	 */
-	public void generateAggregatedMessagesPDFReport(Exchange exchange,AggregatedMessages body) throws IOException, DocumentException {
-		exchange.setOut(exchange.getIn());
-		body.validate();
-		
+	public String generateAggregatedMessagesPDFReport(AggregatedMessages agm) throws IOException, DocumentException {
 		String baseFolder = "";
 		File file = null;
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
 		do {
 			Date date = new Date();
-			baseFolder = "messageReports/"+
-					df.format(date)+"_"+
-					ReportGenerator.getRandomAlphaNumericString(4)+
-					"_from_"+df.format(body.getMinTimePosted())+
-					"_to_"+df.format(body.getMaxTimePosted());
+			baseFolder = "htmlMessageReports/"+df.format(date)+"_"+ReportGenerator.getRandomAlphaNumericString(4);
 			file = new File(baseFolder);
 		} while(file.exists());
-		
-		
-		ImageSources imageSources = ReportGenerator.generateChartImages(baseFolder, body);
+
+		ImageSources imageSources = ReportGenerator.generateChartImages(baseFolder, agm);
 		File outFile = new File(baseFolder+"/report.pdf");
-		stringToFile(body.toString(), baseFolder+"/aggregatedMessage.txt");
 		Document document = new Document(PageSize.A4, 0, 0, 0, 0);
 		PdfWriter writer;
 		try {
@@ -267,32 +114,11 @@ public class ReportGenerator {
 		imgSentimentpercentagesTotal.setAlignment(Image.ALIGN_CENTER);
 		imgSentimentpercentagesTotal.scaleToFit(300, 300);
 		document.add(imgSentimentpercentagesTotal);
-		
-		Paragraph pss = new Paragraph();
-		pss.setAlignment(Paragraph.ALIGN_CENTER);
-		for (String s : imageSources.imgSentimentpercentagesPerSource) {
-			Image imgSentimentpercentagesSource = Image.getInstance(s);
-			imgSentimentpercentagesSource.scaleToFit(200, 200);
-			pss.add(new Chunk(imgSentimentpercentagesSource,0,0,true));
-		}
-		//document.add(Chunk.NEWLINE);
-		document.add(pss);
-		document.add(Chunk.NEXTPAGE);
-		
+
 		Image imgWordcountsTotal = Image.getInstance(imageSources.imgWordcountsTotal);
 		imgWordcountsTotal.setAlignment(Image.ALIGN_CENTER);
 		imgWordcountsTotal.scaleToFit(300, 300);
 		document.add(imgWordcountsTotal);
-		
-		Paragraph pws = new Paragraph();
-		pws.setAlignment(Paragraph.ALIGN_CENTER);
-		for (String s : imageSources.imgWordcountsPerSource) {
-			Image imgWordCountsSource = Image.getInstance(s);
-			imgWordCountsSource.scaleToFit(200, 200);
-			pws.add(new Chunk(imgWordCountsSource,0,0,true));
-		}
-		document.add(pws);
-		document.add(Chunk.NEXTPAGE);
 		
 		Image imgMessagesTotal = Image.getInstance(imageSources.imgMessagesTotal);
 		imgMessagesTotal.setAlignment(Image.ALIGN_CENTER);
@@ -301,13 +127,7 @@ public class ReportGenerator {
 		
 		document.close();
 		writer.close();
-		exchange.getOut().setHeader("reportfilename", outFile.getPath());
-	}
-
-	public static void stringToFile(String string, String filename) throws FileNotFoundException {
-		PrintWriter out = new PrintWriter(filename);
-		out.print(string);
-		out.close();
+		return outFile.getPath();
 	}
 
 	/**
@@ -350,7 +170,7 @@ public class ReportGenerator {
 	 * @param <S>
 	 * @param <T>
 	 */
-	public static class Tuple<S extends Comparable<S>,T extends Number> implements Comparable<Tuple<S,T>> {
+	private static class Tuple<S extends Comparable<S>,T extends Comparable<T>> implements Comparable<Tuple<S,T>> {
 		public Tuple(S s, T t) {
 			super();
 			this.s = s;
@@ -364,20 +184,9 @@ public class ReportGenerator {
 		public T getT() {
 			return t;
 		}
-		// a negative integer, zero, 
-		// or a positive integer as this object is less 
-		// than, equal to, or greater than the specified object. 
 		@Override
 		public int compareTo(Tuple<S,T> o) {
-			Number other = o.t;
-			if (this.t == other) {
-				return 0;
-			}
-			if (this.t.doubleValue() < other.doubleValue()) {
-				return -1;
-			} else {
-				return 1;
-			}
+			return this.s.compareTo(o.s);
 		}
 		@Override
 		public String toString() {
@@ -386,7 +195,7 @@ public class ReportGenerator {
 
 
 	}
-	private static final int MAXWORDCOUNT = 20;
+
 	/**
 	 * Generates chart images
 	 * @param targetFolder
@@ -398,107 +207,56 @@ public class ReportGenerator {
 		ImageSources out = new ImageSources();
 		File folder = new File(targetFolder);
 		folder.mkdirs();
-		ArrayList<Tuple<String, Number>> wordCountsTotal;
-		wordCountsTotal = new ArrayList<Tuple<String, Number>>();
-		int wordcounter = 0;
-		int totalwordcounts = 0;
+		ArrayList<Tuple<Integer, String>> l;
+		l = new ArrayList<Tuple<Integer, String>>();
 		for (String key : agm.getWordCounts().keySet()) {
-			int i=agm.getWordCounts().get(key);
-			totalwordcounts+=i;
-			wordcounter++;
-			Tuple<String, Number> t = new Tuple<String, Number>(key+" ("+i+")",i);
-			wordCountsTotal.add(t);
-			if (wordcounter>= MAXWORDCOUNT) {
-				break;
-			}
+			Tuple<Integer, String> t = new Tuple<Integer, String>(agm.getWordCounts().get(key), key);
+			l.add(t);
 		}
-		Collections.sort(wordCountsTotal);
-		Collections.reverse(wordCountsTotal);
-	
-		
-		List<Tuple<String, Number>> l_sourceCounts = new ArrayList<Tuple<String, Number>>();
-		int totalsourcecounts = 0;
-		for (Source key : agm.getSourceCounts().keySet()) {
-			int i=agm.getSourceCounts().get(key);
-			totalsourcecounts+=i;
-			Tuple<String, Number> t = new Tuple<String, Number>(key.toString()+" ("+i+")",i);
-			l_sourceCounts.add(t);
+		Collections.sort(l);
+		Collections.reverse(l);
+		TreeMap<String, Integer> wctotalmap = new TreeMap<String, Integer>();
+		for (int i=0; i<Math.min(l.size(), 10);i++) {
+			Tuple<Integer, String> t = l.get(i);
+			wctotalmap.put(t.getT(), t.getS());
 		}
-		Collections.sort(l_sourceCounts);
-		Collections.reverse(l_sourceCounts);
-//		TreeMap<String, Number> mtotalmap = new TreeMap<String, Number>();
-//		for (int i=0; i<Math.min(l.size(), 10);i++) {
-//			Tuple<String, Number> t = l.get(i);
-//			mtotalmap.put(t.getS(), t.getT());
-//		}
+
+		l = new ArrayList<Tuple<Integer, String>>();
+		for (String key : agm.getSourceCounts().keySet()) {
+			Tuple<Integer, String> t = new Tuple<Integer, String>(agm.getSourceCounts().get(key), key);
+			l.add(t);
+		}
+		Collections.sort(l);
+		Collections.reverse(l);
+		TreeMap<String, Integer> mtotalmap = new TreeMap<String, Integer>();
+		for (int i=0; i<Math.min(l.size(), 10);i++) {
+			Tuple<Integer, String> t = l.get(i);
+			mtotalmap.put(t.getT(), t.getS());
+		}
 
 
-		List<Tuple<String, Number>> sentimentCountsTotal = new ArrayList<Tuple<String, Number>>();
-		if (agm.getSentimentCounts().size() != 3 && agm.getSentimentCounts().size() != 4) {
-			throw new ReportGeneratorException("Invalid SentimentCountsSize. should be 3 or 4 (with invalid ones) but was "+agm.getSentimentCounts().size());
+		ArrayList<Tuple<Integer, Sentiment>> l2 = new ArrayList<Tuple<Integer, Sentiment>>();
+		if (agm.getSentimentCounts().size() != 3) {
+			throw new ReportGeneratorException("Invalid SentimentCountsSize. should be 3 but was "+agm.getSentimentCounts().size());
 		}
-		SortedSet<Sentiment> sentimentkeyset = new TreeSet<Sentiment>(agm.getSentimentCounts().keySet());
-		//Collections.sort(sentimentkeyset);
-		int totalsentiments = 0;
-		for (Sentiment key : sentimentkeyset) {
-			int i=agm.getSentimentCounts().get(key);
-			totalsentiments+=i;
-			Tuple<String, Number> t = new Tuple<String ,Number>(key.toString()+" ("+i+")", i);
-			sentimentCountsTotal.add(t);
+		for (Sentiment key : agm.getSentimentCounts().keySet()) {
+			Tuple<Integer, Sentiment> t = new Tuple<Integer, Sentiment>(agm.getSentimentCounts().get(key), key);
+			l2.add(t);
 		}
-		//Collections.sort(sentimentCountsTotal);
-		//Collections.reverse(sentimentCountsTotal);
+		Collections.sort(l);
+		Collections.reverse(l);
+		TreeMap<Sentiment, Integer> senttotalmap = new TreeMap<Sentiment, Integer>();
+		for (int i=0; i<Math.min(l2.size(), 10);i++) {
+			Tuple<Integer, Sentiment> t = l2.get(i);
+			senttotalmap.put(t.getT(), t.getS());
+		}
 
 		//log.info("treemap:"+mtotalmap.size()+" "+mtotalmap.toString());
-		out.imgWordcountsTotal = ReportGenerator.createPieChartImage(targetFolder+"/wordcountsTotal.png", wordCountsTotal, "Wordcounts"+" ("+totalwordcounts+")", null, 800, 600);
-		out.imgMessagesTotal = ReportGenerator.createBarChartImage(targetFolder+"/messagesTotal.png", l_sourceCounts, "Messages per Source"+" ("+totalsourcecounts+")", null, "Sources", "Number of Messages", 800, 600);
-		out.imgSentimentpercentagesTotal = ReportGenerator.createPieChartImage(targetFolder+"/sentimentsTotal.png", sentimentCountsTotal, "Sentiments"+" ("+totalsentiments+")", null, 800, 600);
+		out.imgWordcountsTotal = ReportGenerator.createPieChartImage(targetFolder+"/wordcountsTotal.png", wctotalmap, "Wordcounts", null, 800, 600);
+		out.imgMessagesTotal = ReportGenerator.createBarChartImage(targetFolder+"/messagesTotal.png", mtotalmap, "Messages per Source", null, "Sources", "Number of Messages", 800, 600);
+		out.imgSentimentpercentagesTotal = ReportGenerator.createPieChartImage(targetFolder+"/sentimentsTotal.png", senttotalmap, "Sentiments", null, 800, 600);
 		//ReportGenerator.createPieChartImage(targetFolder+"/messagesTotal.png", wctotalmap, "Wordcounts per Source", null, 800, 600);
 
-		
-		// per source
-		List<Source> sources = new ArrayList<Source>(agm.getSourceCounts().keySet());
-		Collections.sort(sources);
-		for (Source source : sources) {
-			// sentiments
-			List<Tuple<String,Number>> sentimentCounts = new ArrayList<Tuple<String,Number>>();
-			HashMap<Sentiment, Integer> sentimentsPerSource = agm.getSentimentCountsBySource().getByGroupKeyMapped(source);
-			int counter = 0;
-			SortedSet<Sentiment> sentimentPerSourcekeyset = new TreeSet<Sentiment>(sentimentsPerSource.keySet());
-			int totalSentimentsPerSource=0;
-			for (Sentiment s : sentimentPerSourcekeyset) {
-				int i = sentimentsPerSource.get(s);
-				totalSentimentsPerSource+=i;
-				sentimentCounts.add(new Tuple<String,Number>(s.toString()+" ("+i+")", i));
-				counter++;
-				if (counter > 10) {
-					break;
-				}
-			}
-			Collections.sort(sentimentCounts);
-			Collections.reverse(sentimentCounts);
-			out.imgSentimentpercentagesPerSource.add(ReportGenerator.createPieChartImage(targetFolder+"/sentiments"+source+".png", sentimentCounts, "Sentiments "+source+" ("+totalSentimentsPerSource+")", null, 800, 600));
-			
-			//wordcounts
-			List<Tuple<String,Number>> wordCounts = new ArrayList<Tuple<String,Number>>();
-			HashMap<String, Integer> wordsPerSource = agm.getWordCountsBySource().getByGroupKeyMapped(source);
-			counter = 0;
-			int totalWordsPerSource=0;
-			for (String s : wordsPerSource.keySet()) {
-				int i = wordsPerSource.get(s);
-				totalWordsPerSource+=i;
-				wordCounts.add(new Tuple<String,Number>(s+" ("+i+")", i));
-				counter++;
-				if (counter > 10) {
-					break;
-				}
-			}
-			Collections.sort(wordCounts);
-			Collections.reverse(wordCounts);
-			out.imgWordcountsPerSource.add(ReportGenerator.createPieChartImage(targetFolder+"/wordcountsTotal"+source+".png", wordCounts, "Wordcounts "+source+" ("+totalWordsPerSource+")", null, 800, 600));
-		}
-		
-		//out.imgSentimentpercentagesPerSource = ReportGenerator.createPieChartImage(targetFolder+"/sentimentsPerSource.png", sentimentsPerSource, "Wordcounts", null, 800, 600);
 		return out;
 	}
 	private static char[] alphaNumericCharacters;
@@ -529,11 +287,11 @@ public class ReportGenerator {
 	 * @param heightPx
 	 * @return
 	 */
-	public static String createPieChartImage(String targetFile, List<Tuple<String,Number>> namesAndValues, String title, String subTitle, int widthPx, int heightPx) {
+	public static String createPieChartImage(String targetFile, SortedMap<? extends Comparable<?>, ? extends Number> namesAndValues, String title, String subTitle, int widthPx, int heightPx) {
 
 		DefaultPieDataset dpd = new DefaultPieDataset();
-		for (Tuple<String, ? extends Number> entry : namesAndValues) {
-			dpd.setValue(entry.getS(), entry.getT());
+		for (Comparable<?> key : namesAndValues.keySet()) {
+			dpd.setValue(key, namesAndValues.get(key));
 		}
 		JFreeChart chart = ChartFactory.createPieChart(
 				title,  // chart title
@@ -602,16 +360,17 @@ public class ReportGenerator {
 	 * @return
 	 */
 	public static String createBarChartImage(String targetFile, 
-			List<Tuple<String,Number>> namesAndValues, 
+			SortedMap<? extends Comparable<?>, ? extends Number> namesAndValues, 
 			String title, String subTitle, String categoryAxisLabel, 
 			String valueAxisLabel, int widthPx, int heightPx) {
 
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 
-		for (Tuple<String,Number> name : namesAndValues) {
-			dataset.addValue(name.getT(), name.getS(), "");
+		List<Comparable<?>> c = new LinkedList<Comparable<?>>(namesAndValues.keySet());
+		for (int i=c.size()-1; i>=0; i--) {
+			Number value = namesAndValues.get(c.get(i));
+			dataset.addValue(value, c.get(i), "");
 		}
-		
 		JFreeChart bchart = ChartFactory.createBarChart(
 				title, 
 				categoryAxisLabel, 

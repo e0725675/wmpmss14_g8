@@ -83,19 +83,19 @@ public class SwearChecker {
 			ResultSet rs0 = stmt.getResultSet();
 			log.info("We have " +rs0);
 		}
-		
+//		A small test to see if the database tracks the swearing users correctly
 		String source = "MessageMocker";
 		String testUser = "paleaccepting";
 		
 		if(message.getAuthor().equals(testUser) && message.getSource().equals(source)){
 			if(isUserBlocked(message)){
-				log.info(testUser+ "THE FCKER SWORE!");
+				log.info(testUser+ "THE FUCKER SWORE!");
 			}
 		}
 	
 		
 	}
-//	Nothing is being logged from here below. Why?
+
 	public boolean isUserBlocked(Message message) throws SQLException {
 		String username = message.getAuthor();
 		String source = message.getSource();
@@ -160,7 +160,7 @@ public class SwearChecker {
 			}
 			rs3.close();
 			stmt3.close();
-			log.info("These users currently have swear entries: "+blockedUsers);
+			log.info("The user swear list currently: "+blockedUsers);
 			return false;
 		}
 	}

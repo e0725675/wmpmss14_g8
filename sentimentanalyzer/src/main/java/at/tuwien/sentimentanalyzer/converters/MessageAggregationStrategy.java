@@ -4,14 +4,14 @@ import java.util.ArrayList;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.processor.aggregate.AggregationStrategy;
-
+@Deprecated
 public class MessageAggregationStrategy implements AggregationStrategy {
-
+	@Deprecated
 	public MessageAggregationStrategy() {
 		// TODO Auto-generated constructor stub
 	}
 
-
+	@Deprecated
 	@Override
 	public Exchange aggregate(Exchange oldExchange, Exchange newExchange) {
 		Object newBody = newExchange.getIn().getBody();

@@ -1,35 +1,26 @@
 package at.tuwien.sentimentanalyzer.entities;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-
-import at.tuwien.sentimentanalyzer.entities.Message.Sentiment;
-import at.tuwien.sentimentanalyzer.entities.Message.Source;
-import at.tuwien.sentimentanalyzer.sample.SimpleGroupMap;
 
 public class AggregatedMessages {
-	public static class Author implements Comparable<Author>{
-		public Author(String name, Source source) {
+	public static class Author {
+		public Author(String name, String source) {
 			this.name = name;
 			this.source = source;
 		}
 		private String name;
-		private Source source;
+		private String source;
 		public String getName() {
 			return name;
 		}
 		public void setName(String name) {
 			this.name = name;
 		}
-		public Source getSource() {
+		public String getSource() {
 			return source;
 		}
-		public void setSource(Source source) {
+		public void setSource(String source) {
 			this.source = source;
 		}
 		@Override
@@ -66,23 +57,12 @@ public class AggregatedMessages {
 				return false;
 			return true;
 		}
-		@Override
-		public int compareTo(Author o) {
-			int compare = this.source.compareTo(o.source);
-			if (compare == 0) {
-				return this.name.compareTo(o.name);
-			} else {
-				return compare;
-			}
-		}
 	}
 	private HashMap<Author, Integer> authors = new HashMap<Author, Integer>();
 	private Date minTimePosted = new Date();
 	private Date maxTimePosted = new Date();
-	private SimpleGroupMap<Source, String, Integer> wordCountsBySource = new SimpleGroupMap<Source, String, Integer>();
-	private SimpleGroupMap<Source, Message.Sentiment, Integer> sentimentCountsBySource = new SimpleGroupMap<Source, Message.Sentiment, Integer>();
 	private HashMap<String, Integer> wordCounts = new HashMap<String, Integer>();
-	private HashMap<Source, Integer> sourceCounts = new HashMap<Source, Integer>();
+	private HashMap<String, Integer> sourceCounts = new HashMap<String, Integer>();
 	private HashMap<Message.Sentiment, Integer> sentimentCounts = new HashMap<Message.Sentiment, Integer>();
 	public HashMap<Author, Integer> getAuthors() {
 		return authors;
@@ -108,10 +88,10 @@ public class AggregatedMessages {
 	public void setWordCounts(HashMap<String, Integer> wordCounts) {
 		this.wordCounts = wordCounts;
 	}
-	public HashMap<Source, Integer> getSourceCounts() {
+	public HashMap<String, Integer> getSourceCounts() {
 		return sourceCounts;
 	}
-	public void setSourceCounts(HashMap<Source, Integer> sourceCounts) {
+	public void setSourceCounts(HashMap<String, Integer> sourceCounts) {
 		this.sourceCounts = sourceCounts;
 	}
 	public HashMap<Message.Sentiment, Integer> getSentimentCounts() {
@@ -122,36 +102,5 @@ public class AggregatedMessages {
 		this.sentimentCounts = sentimentCounts;
 	}
 	
-	public void validate() {
-		if (!this.sentimentCounts.containsKey(Sentiment.NEGATIVE)) {
-			this.sentimentCounts.put(Sentiment.NEGATIVE, 0);
-		}
-		if (!this.sentimentCounts.containsKey(Sentiment.POSITIVE)) {
-			this.sentimentCounts.put(Sentiment.POSITIVE, 0);
-		}
-		if (!this.sentimentCounts.containsKey(Sentiment.NEUTRAL)) {
-			this.sentimentCounts.put(Sentiment.NEUTRAL, 0);
-		}
-	}
-	public SimpleGroupMap<Source, Message.Sentiment, Integer> getSentimentCountsBySource() {
-		return sentimentCountsBySource;
-	}
-	public void setSentimentCountsBySource(SimpleGroupMap<Source, Message.Sentiment, Integer> sentimentCountsBySource) {
-		this.sentimentCountsBySource = sentimentCountsBySource;
-	}
-	public SimpleGroupMap<Source, String, Integer> getWordCountsBySource() {
-		return wordCountsBySource;
-	}
-	public void setWordCountsBySource(SimpleGroupMap<Source, String, Integer> wordCountsBySource) {
-		this.wordCountsBySource = wordCountsBySource;
-	}
-	@Override
-	public String toString() {
-		return "AggregatedMessages [authors=" + authors + ", minTimePosted="
-				+ minTimePosted + ", maxTimePosted=" + maxTimePosted
-				+ ", wordCountsBySource=" + wordCountsBySource
-				+ ", sentimentCountsBySource=" + sentimentCountsBySource
-				+ ", wordCounts=" + wordCounts + ", sourceCounts="
-				+ sourceCounts + ", sentimentCounts=" + sentimentCounts + "]";
-	}
+	
 }
