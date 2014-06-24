@@ -1,27 +1,22 @@
 package at.tuwien.sentimentanalyzer.sample;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import at.tuwien.sentimentanalyzer.beans.WordTagger;
+import at.tuwien.sentimentanalyzer.entities.Message;
 
 public class TestWordTagger {
 
 	public static void main(String[] args) {
 		WordTagger tagger = new WordTagger();
-		HashMap<String, List<String>> csv  = new HashMap<>();
-		ArrayList<String> post  = new ArrayList<>();
+		Message msg  = new Message();
+//		ArrayList<String> post  = new ArrayList<>();
+			
+		msg.setMessage("This is a test! Does it work?");
 		
-		post.add("test");
-		post.add("This stuff sucks it's really shit!!!");
-		csv.put("test", post);
-		
-		csv = tagger.addWordtype(csv);
+		msg = tagger.addWordtype(msg);
 		
 		System.out.println("************RESULTS****************");
-		for(Map.Entry<String, List<String>> entry: csv.entrySet())
-			System.out.println(entry.getValue().get(1));
+//		//for(Map.Entry<String, List<String>> entry: csv.entrySet())
+//		//	System.out.println(entry.getValue().get(1));
+		System.out.println(msg);
 	}
 }

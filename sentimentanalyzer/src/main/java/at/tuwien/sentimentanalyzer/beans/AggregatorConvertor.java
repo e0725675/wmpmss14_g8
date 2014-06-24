@@ -12,57 +12,44 @@ import at.tuwien.sentimentanalyzer.entities.AggregatedMessages;
 import at.tuwien.sentimentanalyzer.entities.AggregatedMessages.Author;
 import at.tuwien.sentimentanalyzer.entities.Message;
 import at.tuwien.sentimentanalyzer.entities.Message.Sentiment;
+import at.tuwien.sentimentanalyzer.entities.Message.Source;
+import at.tuwien.sentimentanalyzer.sample.SimpleGroupMap;
 
 
 public class AggregatorConvertor {
 	public static Logger log = Logger.getLogger(AggregatorConvertor.class);
-	
-	public static AggregatedMessages messagesToAggregateMessages(List<Message> msgList){
-		
-		log.info("Aggregated msg: " + msgList);
-		
+
+	public AggregatedMessages messagesToAggregateMessages(List<Message> msgList){
+
+		log.trace("Aggregated msg: " + msgList);
+
 		AggregatedMessages agg = new AggregatedMessages();
 		HashMap<Author, Integer> authorMap = new HashMap<>();
 		Date maxDate = null;
 		Date minDate = null;
 		HashMap<Sentiment, Integer>sentimentMap = new HashMap<>();
-		HashMap<String, Integer> sourceMap = new HashMap<String, Integer>();
+		HashMap<Source, Integer> sourceMap = new HashMap<Source, Integer>();
 		HashMap<String, Integer> wordCountMap = new HashMap<String, Integer>();
-		
-		for(int i=0;i<msgList.size();i++){
-			if(msgList.get(i).getAuthor()!=null || msgList.get(i).getSource()!=null){
-				String msgAuthor = msgList.get(i).getAuthor();
-				String msgSource = msgList.get(i).getSource();
+		SimpleGroupMap<Source, String, Integer> wordCountsBySource = new SimpleGroupMap<Source, String, Integer>();
+		SimpleGroupMap<Source, Message.Sentiment, Integer> sentimentCountsBySource = new SimpleGroupMap<Source, Message.Sentiment, Integer>();
+
+		for(Message message : msgList){
+			if(message.getAuthor()!=null || message.getSource()!=null){
+				String msgAuthor = message.getAuthor();
+				Source msgSource = message.getSource();
 				Author auth = new Author(msgAuthor, msgSource);
-				
+
 				if(authorMap.containsKey(auth)){
 					authorMap.put(auth, authorMap.get(auth)+1);
 				}
-				
+
 				else{
 					authorMap.put(auth, 1);
 				}			
 			}
-			if(msgList.get(i).getTimePosted()!=null){
-				Date d = msgList.get(i).getTimePosted();
-				if(minDate ==null || d.compareTo(minDate)<=0){
-					minDate = d;
-				}
-				if(maxDate ==null || d.compareTo(maxDate)>=0){
-					maxDate = d;
-				}
-			}
-			
-			Sentiment senti = msgList.get(i).getSentiment();
-			if(sentimentMap.containsKey(senti)){
-				sentimentMap.put(senti, sentimentMap.get(senti)+1);
-			}
-			else{
-				sentimentMap.put(senti, 1);
-			}
-			if(msgList.get(i).getSource()!=null){
-				String source = msgList.get(i).getSource();
-				
+			if(message.getSource()!=null){
+				Source source = message.getSource();
+
 				if(sourceMap.containsKey(source)){
 					sourceMap.put(source, sourceMap.get(source)+1);
 				}
@@ -70,8 +57,48 @@ public class AggregatorConvertor {
 					sourceMap.put(source, 1);
 				}
 			}
-			if(msgList.get(i).getWordcounts()!=null){
-				for(Map.Entry<String, Integer>entry: msgList.get(i).getWordcounts().entrySet()){
+			if(message.getTimePosted()!=null){
+				Date d = message.getTimePosted();
+				if(minDate ==null || d.compareTo(minDate)<=0){
+					minDate = d;
+				}
+				if(maxDate ==null || d.compareTo(maxDate)>=0){
+					maxDate = d;
+				}
+			}
+
+			Sentiment senti = message.getSentiment();
+
+			// add sentiments by source
+			Integer scount = sentimentCountsBySource.get(message.getSource(), senti);
+			if (scount == null) {
+				scount = 1;
+			} else {
+				scount++;
+			}
+			sentimentCountsBySource.put(message.getSource(), senti, scount);
+
+			// add sentiments
+			if(sentimentMap.containsKey(senti)){
+				sentimentMap.put(senti, sentimentMap.get(senti)+1);
+			}
+			else{
+				sentimentMap.put(senti, 1);
+			}
+
+			if(message.getWordcounts()!=null){
+
+				for(Map.Entry<String, Integer>entry: message.getWordcounts().entrySet()){
+					// add wordcounts by source
+					Integer wcount = wordCountsBySource.get(message.getSource(), entry.getKey());
+					if (wcount == null) {
+						wcount = entry.getValue();
+					} else {
+						wcount+=entry.getValue();
+					}
+					wordCountsBySource.put(message.getSource(), entry.getKey(), wcount);
+					
+					// add wordcounts
 					if(wordCountMap.containsKey(entry.getKey())){
 						int oldValue = wordCountMap.get(entry.getKey());
 						int newValue = entry.getValue();
@@ -82,8 +109,11 @@ public class AggregatorConvertor {
 					}
 				}
 			}
-			
+
 		}
+		agg.setSentimentCountsBySource(sentimentCountsBySource);
+		agg.setWordCountsBySource(wordCountsBySource);
+		
 		if(authorMap!=null){
 			agg.setAuthors(authorMap);
 		}
@@ -102,11 +132,11 @@ public class AggregatorConvertor {
 		if(wordCountMap !=null){
 			agg.setWordCounts(wordCountMap);
 		}
-		log.info("New Aggregated msg: " + agg);
-		
+		log.trace("New Aggregated msg: " + agg);
+
 		return agg;
-		
+
 	}
-	
+
 
 }

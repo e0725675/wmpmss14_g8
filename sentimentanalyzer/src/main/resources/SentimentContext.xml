@@ -8,70 +8,18 @@
 	<bean id="wordTagger" class="at.tuwien.sentimentanalyzer.beans.WordTagger" />
 	<bean id="sentimentExtraction" class="at.tuwien.sentimentanalyzer.beans.SentimentBean" />
 	<bean id="wordCounter" class="at.tuwien.sentimentanalyzer.beans.WordCounter" />
-	<bean id="aggregatorStrategy" class="at.tuwien.sentimentanalyzer.converters.MessageAggregationStrategy"/>
-	<bean id="toAggregateMessage" class="at.tuwien.sentimentanalyzer.beans.AggregatorConvertor"/>
-<!-- 	<bean id="reportCreator" class="at.tuwien.sentimentanalyzer.beans.ReportCreator" /> -->
-	<!-- <bean id="commentsFilter" class="at.tuwien.sentimentanalyzer.beans.CommentsFilter" 
-		/> -->
+
 	
 	<!-- this is the included XML file where we include only the routeContext -->
 	<routeContext id="SentimentRoutes" xmlns="http://camel.apache.org/schema/spring">
 
 		
-		<route>
-<!-- 			<from uri="file://searches/?delete=true"/> -->
-<!-- 			<unmarshal> -->
-<!-- 				<csv /> -->
-<!-- 			</unmarshal> -->
+		<route id="sentimentExtractionRoute">
 			<from uri="direct:incomingMessages" />
 			<bean ref="sentimentExtraction" />
 			<bean ref="wordCounter" />
-			<to uri="log:result" />
-			<to uri="seda:aggregatorQueue?multipleConsumers=true" />
+			<to uri="direct:aggregatorQueue" />
 		</route>
-
-<!--  		<route> -->
-<!-- 			<from uri="seda:sentimentQueue?multipleConsumers=true" /> -->
-<!--			<marshal> -->
-<!--				<csv /> -->
-<!--			</marshal> -->
-<!--			<to uri="log:csv" /> -->
-
-			<!-- Note it simply overwrites the old file at the moment. Create a bean 
-				to read the file and add the new data (I think) -->
-<!--			<to -->
-<!--				uri="file://sentimented/?fileName={{search.term}}_${date:now:yyyyMMddhhmmssSSS}.csv&amp;fileExist=Append" /> -->
-
-<!--		</route> -->
-		
-		<route>
-			<from uri="seda:aggregatorQueue?multipleConsumers=true" />
-			<aggregate strategyRef="aggregatorStrategy" completionInterval="10000">
-            		<correlationExpression>
-                		<constant>true</constant>
-            		</correlationExpression>
-        		<to uri="direct:incomingAggregator1"/>
-        		<to uri="log:incomingAggregator"/>
-        	</aggregate>
-		</route>
-		
-		<route>
-			<from uri="direct:incomingAggregator1"/>
-			<bean ref="toAggregateMessage"/>
-			<to uri="direct:outgoingAggregator1"/>
-		</route>
-		<route>
-			<from uri="direct:outgoingAggregator1"/>
-			<to uri="log:outGoingAggregator"/>
-		</route>
-
-
-		<!-- TODO: add aggregator to from, change bean ref for csv-handler <route> 
-			<from uri="bean:"/> <filter> <method ref="commentsFilter" method="filterURL"/> 
-			<to uri="bean:sentimentExtraction"/> </filter> <bean ref="messageToMapBean"/> 
-			<to uri="log:mapper" /> <marshal> <csv /> </marshal> <to uri="log:csv" /> 
-			</route> -->
-
 
 	</routeContext>
 
