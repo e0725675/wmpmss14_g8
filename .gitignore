@@ -29,3 +29,5 @@ dependency-reduced-pom.xml
 /ChartTest/barchart_demo.png
 /sentimentanalyzer/swearwordReports
 /sentimentanalyzer/messageReports
+/sentimentanalyzer/derbydb
+.metadata
