@@ -12,8 +12,8 @@
 	http://camel.apache.org/schema/spring
 	http://camel.apache.org/schema/spring/camel-spring-2.13.0.xsd
 	http://www.springframework.org/schema/tx
-	http://www.springframework.org/schema/tx/spring-tx-3.0.xsd" default-autowire="byName">
-	<context:annotation-config />
+	http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+	
 	<!-- import the routes from another XML file -->
 	<import resource="TestContext.xml"/>
 	<import resource="SentimentContext.xml"/>
@@ -22,7 +22,7 @@
 
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 		<property name="driverClassName" value="org.apache.derby.jdbc.EmbeddedDriver"/>
-		<property name="url" value="jdbc:derby:target/derbydb;create=true"/>
+		<property name="url" value="jdbc:derby:memory:orders;create=true"/>
 		<property name="username" value=""/>
 		<property name="password" value=""/>
 	</bean>
@@ -37,7 +37,6 @@
 		<constructor-arg ref="sessionFactory"/>
 		<constructor-arg ref="transactionTemplate"/>
 	</bean>
-	
 	
 	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory"/>
@@ -69,8 +68,8 @@
 		<!-- references to other routeContexts - dont forget to link the file as well!!! -->
 		<routeContextRef ref="SentimentRoutes"/>
 		<!--<routeContextRef ref="FacebookRoutes"/>-->
-<!-- 		<routeContextRef ref="TestRoutes"/> -->
-<!-- 		<routeContextRef ref="ProfaneRoutes"/> -->
+		<routeContextRef ref="TestRoutes"/>
+		<routeContextRef ref="ProfaneRoutes"/>
 	</camelContext>
 
 	<camel:sslContextParameters id="sslContextParameters">
@@ -103,18 +102,9 @@
 		</constructor-arg>
 	</bean>
 	
-	<bean id="swearwordContentMocker" class="at.tuwien.sentimentanalyzer.beans.SwearwordContentMocker" scope="singleton">
-		<constructor-arg index="0" value= "mock_swearwordlist.txt"/>
-		<constructor-arg index="1" value= "mock_userlist.txt"/>
-	</bean>
-	
 	<bean id="reportGenerator" class="at.tuwien.sentimentanalyzer.beans.ReportGenerator" />
-	
-	<bean id="mailHandler" class="at.tuwien.sentimentanalyzer.beans.MailHandler" />
     
     <bean id="swearChecker" class="at.tuwien.sentimentanalyzer.beans.SwearChecker" >
     	<constructor-arg ref="dataSource"/>
     </bean>
-    <bean id="messageAggregationStrategy" class="at.tuwien.sentimentanalyzer.converters.MessageAggregationStrategy"/>
-    <bean id="aggregatorConvertor" class="at.tuwien.sentimentanalyzer.beans.AggregatorConvertor"/>
 </beans>
