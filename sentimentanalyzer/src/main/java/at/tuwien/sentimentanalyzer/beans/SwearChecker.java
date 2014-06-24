@@ -19,6 +19,7 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.apache.camel.Exchange;
 import org.apache.log4j.Logger;
 
 import at.tuwien.sentimentanalyzer.entities.Message;
@@ -54,7 +55,9 @@ public class SwearChecker {
 		stmt.close();
 	}
 	
-	public void logSwearChecker(Message message) throws SQLException {
+	public void logSwearChecker(Exchange exchange) throws SQLException {
+		exchange.setOut(exchange.getIn());
+		Message message = (Message) exchange.getIn().getBody();
 		log.info("Checking for swear word in the following message: " +message);
 //		If no message logs error as SQL Exception
 		String m = message.getMessage();

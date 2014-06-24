@@ -6,10 +6,9 @@ public class SwearFilterRouteBuilder extends RouteBuilder{
 
 	@Override
 	public void configure() throws Exception {
-		from("direct:ProfaneRoutes").
+		from("direct:filterMessageQueue").
 			routeId("SwearFilterRoutes").
-	    beanRef("messageMocker", "nextMessage").
-	    filter().method("swearChecker", "isUserBlocked").to("direct:incomingMessages");
+	    filter().method("swearChecker", "isUserBlocked").to("direct:filteredMessages");
 	}
 }
 

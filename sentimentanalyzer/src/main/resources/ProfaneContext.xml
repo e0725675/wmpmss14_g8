@@ -9,11 +9,10 @@
     <routeContext id="ProfaneRoutes" xmlns="http://camel.apache.org/schema/spring">
         <!-- searches for the profanity in camel message -->
         <route id="ProfaneRoutes">
-		 <from uri="timer:swearChecker?period=5000" />
+		 <from uri="direct:incomingMessages" />
 		 <!-- https://camel.apache.org/message-filter.html .stop -->
-		 <bean ref="messageMocker" method="nextMessage"></bean>
 		 <bean ref="swearChecker" method="logSwearChecker"></bean>
-		 <to uri="direct:incomingMessages" />
+		 <to uri="direct:filterMessageQueue" />
         </route>
     </routeContext>
  

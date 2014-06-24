@@ -16,10 +16,12 @@ public class WordCounter {
 		
 		
 			for(String word : message.getMessage().toLowerCase().split(" ")){
-				if(countableWords.containsKey(word)){
-					countableWords.put(word, countableWords.get(word) + 1);
-				}else{
-					countableWords.put(word,1);
+				if (word.contains("_NN") || word.contains("_VB") || word.contains("_JJ") || word.contains("_RB")) {
+					if(countableWords.containsKey(word)){
+						countableWords.put(word, countableWords.get(word) + 1);
+					}else{
+						countableWords.put(word,1);
+					}
 				}
 			}
 		message.setWordcounts(countableWords);

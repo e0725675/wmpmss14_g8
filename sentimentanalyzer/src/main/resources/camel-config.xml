@@ -70,7 +70,7 @@
 		<routeContextRef ref="SentimentRoutes"/>
 		<!--<routeContextRef ref="FacebookRoutes"/>-->
 <!-- 		<routeContextRef ref="TestRoutes"/> -->
-<!-- 		<routeContextRef ref="ProfaneRoutes"/> -->
+		<routeContextRef ref="ProfaneRoutes"/>
 	</camelContext>
 
 	<camel:sslContextParameters id="sslContextParameters">

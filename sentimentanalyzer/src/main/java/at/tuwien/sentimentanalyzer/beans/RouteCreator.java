@@ -8,6 +8,7 @@ import at.tuwien.sentimentanalyzer.routebuilders.MessageReporterRouteBuilder;
 import at.tuwien.sentimentanalyzer.routebuilders.ProfaneReporterRouteBuilder;
 import at.tuwien.sentimentanalyzer.routebuilders.RedditRouteBuilder;
 import at.tuwien.sentimentanalyzer.routebuilders.SwearCheckerRouteBuilder;
+import at.tuwien.sentimentanalyzer.routebuilders.SwearFilterRouteBuilder;
 import at.tuwien.sentimentanalyzer.routebuilders.TwitterRouteBuilder;
 /**
  * A helper class since this is the only way to get access to the camel context
@@ -28,7 +29,7 @@ public class RouteCreator  {
 			context.addRoutes(new MessageReporterRouteBuilder());
 			context.addRoutes(new TwitterRouteBuilder());
 			context.addRoutes(new RedditRouteBuilder());
-			//context.addRoutes(new SwearCheckerRouteBuilder());
+			context.addRoutes(new SwearFilterRouteBuilder());
 			context.addRoutes(new MailRouteBuilder());
 			context.addRoutes(new ProfaneReporterRouteBuilder());
 			

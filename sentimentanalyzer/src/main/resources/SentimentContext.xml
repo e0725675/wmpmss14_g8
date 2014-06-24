@@ -15,8 +15,9 @@
 
 		
 		<route id="sentimentExtractionRoute">
-			<from uri="direct:incomingMessages" />
+			<from uri="direct:filteredMessages" />
 			<bean ref="sentimentExtraction" />
+			<bean ref="wordTagger" />
 			<bean ref="wordCounter" />
 			<to uri="direct:aggregatorQueue" />
 		</route>
