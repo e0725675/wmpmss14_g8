@@ -12,7 +12,7 @@ import at.tuwien.sentimentanalyzer.entities.Message;
  */
 
 public class WordCounter {
-	private static Logger log = Logger.getLogger(WordCounter.class);
+
 	public Message countWords(Message message) {
 		
 		HashMap<String, Integer> countableWords = new HashMap<String, Integer>();
@@ -38,7 +38,7 @@ public class WordCounter {
 						|| word.endsWith("_RBS")
 						) {
 					//log.info("word1: "+word+"#");
-					String wordMod = (word.split("_")[0]);
+					String wordMod = (word.split("_")[0]).toLowerCase();
 					//log.info("word2: "+wordMod+"#");
 					if(countableWords.containsKey(wordMod)){
 						countableWords.put(wordMod, countableWords.get(wordMod) + 1);
