@@ -6,7 +6,6 @@
     ">
 	<bean id="sentimentBean" class="at.tuwien.sentimentanalyzer.beans.SentimentBean" />
 	<bean id="wordTagger" class="at.tuwien.sentimentanalyzer.beans.WordTagger" />
-	<bean id="sentimentExtraction" class="at.tuwien.sentimentanalyzer.beans.SentimentBean" />
 	<bean id="wordCounter" class="at.tuwien.sentimentanalyzer.beans.WordCounter" />
 
 	
@@ -16,9 +15,16 @@
 		
 		<route id="sentimentExtractionRoute">
 			<from uri="direct:filteredMessages" />
-			<bean ref="sentimentExtraction" />
+<!-- 			<log message="beforesentimentBean" loggingLevel="INFO"/> -->
+			<bean ref="sentimentBean" />
+<!-- 			<log message="aftersentimentBean" loggingLevel="INFO"/> -->
+<!-- 			<to uri="log:untagged"/> -->
 			<bean ref="wordTagger" />
+<!-- 			<to uri="log:tagged"/> -->
+<!-- 			<log message="afterwordTagger" loggingLevel="INFO"/> -->
 			<bean ref="wordCounter" />
+<!-- 			<log message="afterwordCounter" loggingLevel="INFO"/> -->
+<!-- 			<to uri="log:taggedAndCounted"/> -->
 			<to uri="direct:aggregatorQueue" />
 		</route>
 

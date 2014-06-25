@@ -1,5 +1,6 @@
 package at.tuwien.sentimentanalyzer.beans;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -16,15 +17,16 @@ public class RedditConvertor {
 	/**
 	 * @author LG
 	 */
-	public Message getMessage(RedditMessage redditMessage){
+	public List<Message> getMessage(RedditMessage redditMessage){
 		
-		Message msg = new Message();
+		List<Message> out = new ArrayList<Message>();
 		
 		List<Children> children = redditMessage.getData().getChildren();
 		for(Children child: children){
 			if(child==null){
 				//log.warn("Child is null..");
 			} else{
+				Message msg = new Message();
 				Data secondData = child.getData();
 				log.trace("Title: " + secondData.getTitle());
 				log.trace("Created: " + secondData.getCreated());
@@ -47,13 +49,13 @@ public class RedditConvertor {
 					msg.setAuthor(secondData.getAuthor());
 				}
 				
-				
+				out.add(msg);
 			}
 			
 		}
 	
 		//log.info("Reddit message: " + msg);
-		return msg;
+		return out;
 	}
 	
 

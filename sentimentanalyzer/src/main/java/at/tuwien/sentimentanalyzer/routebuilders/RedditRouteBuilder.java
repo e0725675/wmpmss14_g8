@@ -23,12 +23,15 @@ public class RedditRouteBuilder extends RouteBuilder{
 	@Override
 	public void configure() throws Exception {
 		GsonDataFormat formatMessage = new GsonDataFormat(RedditMessage.class);
-		from("timer:redditTimer?period=5000").
+		from("timer:redditTimer?period=20000").
 			routeId("redditRoute").
-		to("http4://www.reddit.com/search.json?q={{search.term}}&sort=new&limit=1&t=hour").
+		to("http4://www.reddit.com/search.json?q={{search.term}}&sort=new&limit=20&t=hour").
 		unmarshal(formatMessage).
 		beanRef("redditConvertor", "getMessage").
-		process(new Processor() {
+//		to("log:unsplitted").
+		split(body()).
+//		to("log:splitted").
+		process(new Processor() { // set message header ID
 			
 			@Override
 			public void process(Exchange exchange) throws Exception {

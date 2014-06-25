@@ -4,7 +4,6 @@ import org.apache.log4j.Logger;
 
 import at.tuwien.sentimentanalyzer.entities.Message;
 import at.tuwien.sentimentanalyzer.entities.Message.Sentiment;
-import at.tuwien.sentimentanalyzer.sample.SentimentExtraction;
 
 public class SentimentBean {
 	public static Logger log = Logger.getLogger(SentimentBean.class);
