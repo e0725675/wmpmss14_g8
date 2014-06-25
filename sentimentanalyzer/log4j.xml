@@ -2,31 +2,31 @@
 <!DOCTYPE log4j:configuration SYSTEM 'log4j.dtd'>
 
 <log4j:configuration xmlns:log4j='http:jakarta.apache.orglog4j'>
- <appender name='console-log4jdbc' class='org.apache.log4j.ConsoleAppender'>
-  <param name='Target' value='System.out' >
-  <layout class='org.apache.log4j.PatternLayout'>
-   <param name='ConversionPattern' value='%m%n' >
-  <layout>
- <appender>
+<!--  <appender name='console-log4jdbc' class='org.apache.log4j.ConsoleAppender'> -->
+<!--   <param name='Target' value='System.out' > -->
+<!--   <layout class='org.apache.log4j.PatternLayout'> -->
+<!--    <param name='ConversionPattern' value='%m%n' > -->
+<!--   <layout> -->
+<!--  <appender> -->
 
 
 <!--  <logger name='jdbc.sqlonly' additivity='false'> -->
 <!--   <level value='debug' > -->
 <!--   <appender-ref ref='console-log4jdbc' > -->
 <!--  <logger> -->
- <logger name='jdbc.sqltiming' additivity='false'>
-  <level value='info' >
-  <appender-ref ref='console-log4jdbc' >
- <logger>
+<!--  <logger name='jdbc.sqltiming' additivity='false'> -->
+<!--   <level value='info' > -->
+<!--   <appender-ref ref='console-log4jdbc' > -->
+<!--  <logger> -->
 <!--  <logger name='jdbc.connection' additivity='false'> -->
 <!--   <level value='info' > -->
 <!--   <appender-ref ref='console-log4jdbc' > -->
 <!--  <logger> -->
 
  <!-- log4jdbc option log the jdbc results as a table -->
- <logger name='jdbc.resultsettable' additivity='false'>
-  <level value='info' >
-  <appender-ref ref='console-log4jdbc' >
- <logger>
+<!--  <logger name='jdbc.resultsettable' additivity='false'> -->
+<!--   <level value='info' > -->
+<!--   <appender-ref ref='console-log4jdbc' > -->
+<!--  <logger> -->
 
 <log4j:configuration>
