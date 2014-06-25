@@ -1,4 +1,4 @@
-package at.tuwien.sentimentanalyzer.sample;
+package at.tuwien.sentimentanalyzer.beans;
 
 import java.io.OutputStream;
 import java.io.PrintStream;

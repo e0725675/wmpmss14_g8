@@ -1,5 +1,7 @@
 package at.tuwien.sentimentanalyzer.sample;
 
+import at.tuwien.sentimentanalyzer.beans.SentimentExtraction;
+
 /*
  * Author: Lucas Gerrand
  * lucasgerrand@gmail.com

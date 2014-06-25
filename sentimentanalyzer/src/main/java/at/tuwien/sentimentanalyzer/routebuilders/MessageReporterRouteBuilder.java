@@ -18,7 +18,7 @@ public class MessageReporterRouteBuilder extends RouteBuilder{
 		
 		// split incoming messages to daily and weekly aggregators
 		from("direct:aggregatorQueue").
-		log(LoggingLevel.INFO,"aggregatorQueue").
+		log(LoggingLevel.DEBUG,"aggregatorQueue").
 		multicast().
 		to("direct:aggregatorDaily", "direct:aggregatorWeekly");
 		

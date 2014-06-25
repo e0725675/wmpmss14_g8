@@ -11,7 +11,9 @@
         <route id="ProfaneRoutes">
 		 <from uri="direct:incomingMessages" />
 		 <!-- https://camel.apache.org/message-filter.html .stop -->
+		 <log message="beforeLogSwearChecker" loggingLevel="DEBUG"/>
 		 <bean ref="swearChecker" method="logSwearChecker"></bean>
+		 <log message="afterLogSwearChecker" loggingLevel="DEBUG"/>
 		 <to uri="direct:filterMessageQueue" />
         </route>
     </routeContext>

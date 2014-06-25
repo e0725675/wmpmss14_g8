@@ -214,11 +214,11 @@
 			<version>5.4.4</version>
 			<!--<scope>system</scope> <systemPath>${project.basedir}/lib/xmlworker-5.4.4/xmlworker-5.4.4.jar</systemPath> -->
 		</dependency>
-<!-- 		<dependency>
+		<dependency>
 			<groupId>org.lazyluke</groupId>
 			<artifactId>log4jdbc-remix</artifactId>
 			<version>0.2.7</version>
-		</dependency> -->
+		</dependency>
 	</dependencies>
 	<build>
 		<finalName>sentimentanalyzer</finalName>
