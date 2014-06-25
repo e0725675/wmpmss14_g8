@@ -101,13 +101,7 @@ public class SwearChecker {
 	
 		
 	}
-//	Nothing is being logged from here below. Why?
-// Clemente: because this method is never called from anywhere
-//                   |	
-//	                 |    
-//					 |
-//	                 |
-//					 V
+
 	public boolean isUserBlocked(String source, String username) throws SQLException {
 		log.info("The following user swore: " +username);
 //		Checks to see if the user has 10 total swears in db using variable 'ResultSet rs'.
