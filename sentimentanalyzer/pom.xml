@@ -174,7 +174,11 @@
 			<artifactId>camel-gson</artifactId>
 			<version>2.10.0</version>
 		</dependency>
-
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-test</artifactId>
+			<version>${camel-version}</version>
+		</dependency>
 		<!-- Stanford NLP for Sentiment -->
 		<dependency>
 			<groupId>edu.stanford.nlp</groupId>

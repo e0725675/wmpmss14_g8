@@ -27,7 +27,6 @@
 		<property name="password" value=""/>
 	</bean>
 
-
 	<bean id="hibernate" class="org.apacheextras.camel.component.hibernate.HibernateComponent">
 		<property name="sessionFactory" ref="sessionFactory"/>
 		<property name="transactionStrategy" ref="springTransactionStrategy"/>
@@ -63,6 +62,7 @@
 	
 	<bean id="properties" class="org.apache.camel.component.properties.PropertiesComponent">
     	<property name="location" value="/search.properties"/>
+    	<property name="facebook" value="/facebook.properties"/>
 	</bean>
 	
 	<camelContext id="MAIN-CAMEL-CONTEXT" xmlns="http://camel.apache.org/schema/spring">
