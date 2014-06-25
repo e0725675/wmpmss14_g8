@@ -22,7 +22,7 @@ public class TestWordCounter {
 		
 		System.out.println("************RESULTS****************");
 		
-		Message countedWordsMSG = counter.CountWords(msg1);
+		Message countedWordsMSG = counter.countWords(msg1);
 		
 		for(Map.Entry<String, Integer> map: countedWordsMSG.getWordcounts().entrySet())
 			System.out.println(map.getKey() + ": " + map.getValue());

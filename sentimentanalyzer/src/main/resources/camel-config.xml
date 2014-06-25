@@ -66,7 +66,6 @@
 	
 	<bean id="properties" class="org.apache.camel.component.properties.PropertiesComponent">
     	<property name="location" value="/search.properties"/>
-    	<property name="facebook" value="/facebook.properties"/>
 	</bean>
 	
 	<camelContext id="MAIN-CAMEL-CONTEXT" xmlns="http://camel.apache.org/schema/spring">
