@@ -1,7 +1,12 @@
 package at.tuwien.sentimentanalyzer.beans;
 
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Properties;
 
 import at.tuwien.sentimentanalyzer.entities.Message;
 
@@ -45,11 +50,23 @@ public class CommentsFilter {
 //			if ( entry.getValue().get(0).equals("") ) //TODO: add clientname
 //				csv.remove(entry.getKey());
 //		}
-		boolean isClient = false;
+		Properties properties = new Properties();
+		BufferedInputStream stream;
+		try {
+			stream = new BufferedInputStream(new FileInputStream("client.properties"));
+			properties.load(stream);
+			stream.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		String client = properties.getProperty("reddit.client");
 		
-		if (msg.getAuthor().equals("TODO"))
-			isClient = true;
+		boolean isNotClient = true;
 		
-		return isClient;	
+		//if (msg.getSource())
+		if (msg.getAuthor().equals(client))
+			isNotClient = false;
+		
+		return isNotClient;	
 	}
 }
