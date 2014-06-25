@@ -7,7 +7,6 @@ import at.tuwien.sentimentanalyzer.routebuilders.MailRouteBuilder;
 import at.tuwien.sentimentanalyzer.routebuilders.MessageReporterRouteBuilder;
 import at.tuwien.sentimentanalyzer.routebuilders.ProfaneReporterRouteBuilder;
 import at.tuwien.sentimentanalyzer.routebuilders.RedditRouteBuilder;
-import at.tuwien.sentimentanalyzer.routebuilders.SwearCheckerRouteBuilder;
 import at.tuwien.sentimentanalyzer.routebuilders.SwearFilterRouteBuilder;
 import at.tuwien.sentimentanalyzer.routebuilders.TwitterRouteBuilder;
 /**
