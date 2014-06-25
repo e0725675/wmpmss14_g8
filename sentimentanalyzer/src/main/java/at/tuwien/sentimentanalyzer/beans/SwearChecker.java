@@ -79,7 +79,7 @@ public class SwearChecker {
 //			When match is found, entry is stored in table 'Users'.
 //			Added Column item 'containsCussword is then set to 'TRUE'.			
 			PreparedStatement stmt = this.con.prepareStatement("INSERT INTO Users (username, source, timeposted, hasswears) VALUES (?,?,?, ?)");
-			stmt.setString(1, message.getAuthor());
+			stmt.setString(1, message.getAuthor().toString());
 			stmt.setString(2, message.getSource().toString());
 			java.sql.Date tp = new java.sql.Date(message.getTimePosted().getTime());
 			stmt.setDate(3, tp);
@@ -94,8 +94,8 @@ public class SwearChecker {
 		String testUser = "paleaccepting";
 		
 		if(message.getAuthor().equals(testUser) && message.getSource().equals(source)){
-			if(isUserBlocked(message.getSource().toString(), message.getAuthor())){
-				log.info(testUser+ "THE FCKER SWORE!");
+			if(isUserBlocked(message.getSource().toString(), message.getAuthor().toString())){
+				log.info(testUser+ "THE FUCKER SWORE!");
 			}
 		}
 	
