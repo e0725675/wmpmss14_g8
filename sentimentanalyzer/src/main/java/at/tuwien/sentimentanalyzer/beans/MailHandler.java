@@ -147,4 +147,9 @@ public class MailHandler {
 		//String toUri = "smtps://smtp.gmail.com:465?password=wmpmSS2014&username=workflow@applepublic.tv"+recipients;
 		exchange.getOut().setHeader("touri", recipients);
 	}
+	
+	public void removeMessageBody(Exchange exchange) {
+		exchange.setOut(exchange.getIn());
+		exchange.getOut().setBody(null);
+	}
 }

@@ -1,7 +1,9 @@
 package at.tuwien.sentimentanalyzer.beans;
 
-import at.tuwien.sentimentanalyzer.entities.Message;
+import java.io.OutputStream;
+import java.io.PrintStream;
 
+import at.tuwien.sentimentanalyzer.entities.Message;
 import edu.stanford.nlp.tagger.maxent.MaxentTagger;
 
 /*
@@ -15,6 +17,17 @@ public class WordTagger {
 	public Message addWordtype (Message msg){
 	//public HashMap<String, List<String>> addWordtype (HashMap<String, List<String>> csv){ //List<String> textList
 		//List<String> taggedList = new ArrayList<String>();
+		// trick to disable annoying printouts
+		// this is your print stream, store the reference
+		PrintStream err = System.err;
+		// now make all writes to the System.err stream silent 
+		System.setErr(new PrintStream(new OutputStream() {
+		    public void write(int b) {
+		    }
+		}));
+
+				// YOUR CODE HERE
+		
 		
 		MaxentTagger tagger = new MaxentTagger("taggers/english-left3words-distsim.tagger");
 		
@@ -28,6 +41,10 @@ public class WordTagger {
 		msg.setMessage(tagger.tagString(msg.getMessage()));
 		
 		//return csv;
+		
+		
+		// set everything back to its original state afterwards
+		System.setErr(err);
 		
 		return msg;
 	}

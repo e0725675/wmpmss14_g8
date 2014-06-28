@@ -3,7 +3,6 @@ package at.tuwien.sentimentanalyzer.beans;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
@@ -43,16 +42,17 @@ public class SwearwordContentMocker {
 			authors.add(author);
 		}
 		HashMap<Author,SwearInformation> userInformation = new HashMap<Author,SwearInformation>();
-		int offset =  777600;
-		long end = new Date().getTime();
+//		int offset =  777600;
+//		long end = new Date().getTime();
 		for (Author a : authors) {
 			SwearInformation si = new SwearInformation();
-			List<Date> offs = si.recordedOffences;
+			int offs = si.recordedOffences;
 			int numOff = r.nextInt(MAXOFFENCES+5);
-			for (int i=0; i<numOff; i++) {
-				Date date = new Date(end-new Long(r.nextInt(offset)));
-				offs.add(date);
-			}
+			offs = numOff;
+//			for (int i=0; i<numOff; i++) {
+//				Date date = new Date(end-new Long(r.nextInt(offset)));
+//				offs.add(date);
+//			}
 			si.recordedOffences = offs;
 			
 			int numWords = r.nextInt(MAXWORDS);

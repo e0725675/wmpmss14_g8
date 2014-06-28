@@ -70,7 +70,18 @@ public class MessageMocker {
 		
 		this.users = MessageMocker.fileToList(f_userFile);
 		this.dictionary = MessageMocker.fileToList(f_dictionaryFile);
-		log.info("MessageMocker initialized with: "+userFile+" "+dictionaryFile);
+		String dicsizes = "";
+		boolean first = true;
+		for (List<String> dics : this.mandatory_dics) {
+			if (first == false) {
+				dicsizes+=","+dics.size();
+			} else {
+				first = false;
+				dicsizes+=dics.size();
+			}
+			
+		}
+		log.info("MessageMocker initialized with: "+userFile+"("+this.users.size()+") "+dictionaryFile+"("+this.dictionary.size()+") and "+this.mandatory_dics.size()+" extra dictionaries ("+dicsizes+")");
 	}
 	public static List<String> fileToList(File f) throws IOException {
 		ArrayList<String> out = new ArrayList<String>();
@@ -116,6 +127,9 @@ public class MessageMocker {
 	public Message nextMessage() {
 		Message out = new Message();
 		String user = MessageMocker.getRandomElement(users, r);
+		if (user == null) {
+			throw new RuntimeException("User is null");
+		}
 		int wordCount=1 +r.nextInt(MAX_EXTRA_WORDS);
 		ArrayList<String> words = new ArrayList<String>();
 		for (List<String> dic : mandatory_dics) {
@@ -149,7 +163,7 @@ public class MessageMocker {
 		out.setTimePosted(new Date());
 		out.setMessage(message);
 		int i_src = r.nextInt(4)+1;
-		out.setSource(new Source("MessageMocker "+i_src));
+		out.setSource(new Source("MessageMocker "+0));
 		log.debug("next message");
 		return out;
 	}

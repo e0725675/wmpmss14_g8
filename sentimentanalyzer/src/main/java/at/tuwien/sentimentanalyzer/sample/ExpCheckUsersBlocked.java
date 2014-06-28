@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.apache.camel.Exchange;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -30,7 +31,7 @@ public class ExpCheckUsersBlocked {
 		}
 		String out = "";
 		for (String user : users) {
-			boolean blocked = swearChecker.isUserBlocked("MessageMocker", user);
+			boolean blocked = swearChecker.checkUserBlocked("MessageMocker", user);
 			out+=user+" blocked: "+blocked+"\n";
 		}
 		return out;

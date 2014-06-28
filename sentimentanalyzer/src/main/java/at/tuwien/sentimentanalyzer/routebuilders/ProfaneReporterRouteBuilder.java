@@ -3,6 +3,7 @@ package at.tuwien.sentimentanalyzer.routebuilders;
 import static org.apache.camel.builder.PredicateBuilder.and;
 import static org.apache.camel.builder.PredicateBuilder.not;
 
+import org.apache.camel.LoggingLevel;
 import org.apache.camel.builder.RouteBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -20,18 +21,30 @@ public class ProfaneReporterRouteBuilder extends RouteBuilder{
 	public void configure() throws Exception {
 		
 		///getSwearwordReport?email=mymail@mail.com&from=2014.06.01&to=2014.06.02
-		from("servlet:///getSwearwordReport")
-		.routeId("swearwordReportRoute")
-		.choice()
-			.when(not(and(
+		from("servlet:///getSwearwordReport").
+		routeId("swearwordReportRoute").
+		choice().
+			when(not(and(
 					header("email").regex(MailHandler.REGEXMAIL),
 					header("from"),
 					header("to")
-					)))
-				.transform(simple("Invalid or missing parameter(s).\nExample: ../getSwearwordReport?email=mymail@mail.com&from=2014.06.01&to=2014.06.02"))
-			.otherwise()
-			.beanRef("swearwordContentMocker","nextSwearwordReportContent")
-			.beanRef("reportGenerator", "generateSwearwordPDFReport");
+					))).
+				transform(simple("Invalid or missing parameter(s).\nExample: ../getSwearwordReport?email=mymail@mail.com&from=2014.06.01&to=2014.06.02")).
+			otherwise().
+			//.beanRef("swearwordContentMocker","nextSwearwordReportContent").
+			beanRef("swearChecker","getSwearReport").
+			beanRef("reportGenerator", "generateSwearwordPDFReport").
+			log(LoggingLevel.INFO, "Creating Swearreport").
+			//beanRef("mailHandler","addAttachment").
+			setBody(simple("Swear Report")).
+			choice().
+			when(header("email").isEqualTo("")).
+			otherwise().
+				to("log:toumessage").
+				log(LoggingLevel.INFO, "email=${header.email}...").
+				log("smtps://smtp.gmail.com:465?to=${header.email}&password=wmpmSS2014&username=workflow@applepublic.tv&subject=Swearreport&from=workflow@applepublic.tv").
+				recipientList(";;;"). //not actuallly recipient list. needed so i can dynamically create URL
+					simple("smtps://smtp.gmail.com:465?to=${header.email}&password=wmpmSS2014&username=workflow@applepublic.tv&subject=Swearreport&from=workflow@applepublic.tv");
 			
 		
 //		// split incoming messages to daily and weekly aggregators
