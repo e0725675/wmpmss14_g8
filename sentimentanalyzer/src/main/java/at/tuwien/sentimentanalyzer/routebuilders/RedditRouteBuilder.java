@@ -23,9 +23,9 @@ public class RedditRouteBuilder extends RouteBuilder{
 	@Override
 	public void configure() throws Exception {
 		GsonDataFormat formatMessage = new GsonDataFormat(RedditMessage.class);
-		from("timer:redditTimer?period=20000").
+		from("timer:redditTimer?period={{reddit.period}}").
 			routeId("redditRoute").
-		to("http4://www.reddit.com/search.json?q={{search.term}}&sort=new&limit=20&t=hour").
+		to("{{reddit.path}}").
 		unmarshal(formatMessage).
 		beanRef("redditConvertor", "getMessage").
 //		to("log:unsplitted").

@@ -15,4 +15,3 @@ public class SwearFilterRouteBuilder extends RouteBuilder{
 				to("direct:filteredMessages");
 	}
 }
-

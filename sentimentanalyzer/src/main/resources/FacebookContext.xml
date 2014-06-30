@@ -9,7 +9,7 @@
     <routeContext id="FacebookRoutes" xmlns="http://camel.apache.org/schema/spring">
 		<!-- only returns the feed of the plachutta page -->
         <route id="facebookSearchPlachutta">
-			<from uri="timer:FacebookTimer?period=3s"/>
+			<from uri="timer:FacebookTimer?period={{facebook.period}}"/>
 			<to uri="https://graph.facebook.com/v2.0//123939137654782/feed?access_token={{facebook.AppID}}|{{facebook.AppSecret}}" />
 			<convertBodyTo type="java.lang.String" />
  			<to uri="log:facebook" /> 
