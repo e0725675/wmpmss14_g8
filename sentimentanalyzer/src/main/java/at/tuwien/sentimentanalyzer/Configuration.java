@@ -1,33 +1,58 @@
 package at.tuwien.sentimentanalyzer;
 
-import org.apache.camel.CamelContext;
-import org.apache.camel.component.properties.PropertiesComponent;
+//import org.apache.camel.CamelContext;
+//import org.apache.camel.component.properties.PropertiesComponent;
+import org.apache.commons.configuration.ConfigurationException;
 
 public class Configuration {
-	public CamelContext context = null;
-	private static Configuration instance = null;
-	private Configuration(CamelContext context) {
-		this.context = context;
-		PropertiesComponent pc = new PropertiesComponent();
-		pc.setCamelContext(context);
-		
-		pc.setLocation("file:src/main/resources/config.properties");
-		context.addComponent("properties", pc);
-	}
+	//public CamelContext context = null;
+	//private static Configuration instance = null;
+	private PropertiesLoader pl;
+//	private Configuration(CamelContext context) {
+//		this.context = context;
+//		PropertiesComponent pc = new PropertiesComponent();
+//		pc.setCamelContext(context);
+//		
+//		pc.setLocation("file:src/main/resources/config.properties");
+//		context.addComponent("properties", pc);
+//	}
 	
-	 public static void Init(CamelContext context) {
-        if (instance == null) {
-            instance = new Configuration(context);
-        }
-	 }
+	 //public static void Init(CamelContext context) {
+     //   if (instance == null) {
+     //       instance = new Configuration(context);
+     //   }
+	 //}
 	
-	public static int ResolveInt(String Key){
+	public Configuration() {
+		String filePath = "file:src/main/resources/config.properties";
 		try {
-			return Integer.parseInt(instance.context.resolvePropertyPlaceholders(Key));
-		}catch (Exception e) {
+			pl = new PropertiesLoader(filePath);
+		} catch (ConfigurationException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}return -1;
+		}
 	}
+	
+//	public static int ResolveInt(String Key){
+//		try {
+//			return Integer.parseInt(instance.context.resolvePropertyPlaceholders(Key));
+//		}catch (Exception e) {
+//			e.printStackTrace();
+//		}return -1;
+//	}
+	public String getMailPath() {
+		return pl.getString("mail.path");
+	}
+	
+	public String getDailyInterval() {
+		return pl.getString("mail.dailyInterval");
+	}
+	
+	public String getWeeklyPath() {
+		return pl.getString("mail.weeklyInterval");
+	}
+	
+	
 	// make sure properties are not missing when file is loaded!!
 	
 	
