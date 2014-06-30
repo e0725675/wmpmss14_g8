@@ -80,7 +80,7 @@ public class SwearChecker {
 //			When match is found, entry is stored in table 'Users'.
 //			Added Column item 'containsCussword is then set to 'TRUE'.			
 			PreparedStatement stmt = this.con.prepareStatement("INSERT INTO Users (username, source, timeposted, hasswears) VALUES (?,?,?,?)");
-			stmt.setString(1, message.getAuthor());
+			stmt.setString(1, message.getAuthor().toString());
 			stmt.setString(2, message.getSource().toString());
 			java.sql.Date tp = new java.sql.Date(message.getTimePosted().getTime());
 			stmt.setDate(3, tp);
@@ -106,19 +106,18 @@ public class SwearChecker {
 		cal.setTime(date);
 		cal.add(Calendar.DATE, -2);
 		date = cal.getTime();
-		PreparedStatement stmt = this.con.prepareStatement("SELECT count(*) FROM (SELECT * FROM Users WHERE username = ? AND source = ? AND timeposted > ? AND hasswears = ?) as Y");
+		PreparedStatement stmt = this.con.prepareStatement("SELECT count(*) FROM Users WHERE username = ? AND source = ? AND timeposted > ? AND hasswears = ?");
 		stmt.setString(1, username);
 		stmt.setString(2, source);
 		stmt.setDate(3, new java.sql.Date(date.getTime()));
 		stmt.setBoolean(4, true);
 		stmt.execute();
-		ResultSet rs = stmt.getResultSet();
+		ResultSet rs = stmt.executeQuery();
 		rs.next();
 		int count1 = rs.getInt(1);
-//		What is rs.getInt(1)? See it in the log.txt
 
 		if (count1 > 2) {
-			log.debug("Result set for 3 entries with swears: "+rs);
+			log.debug("Result set for 3 entries with swears: "+count1);
 			log.debug("User "+username+" from "+source+" is blocked");
 			return true;
 		}
@@ -129,7 +128,7 @@ public class SwearChecker {
 		stmt2.setString(1, username);
 		stmt2.setString(2, source);
 		stmt2.execute();
-		ResultSet rs2 = stmt2.getResultSet();
+		ResultSet rs2 = stmt2.executeQuery();
 		rs2.next();
 		
 		int count2 = rs2.getInt(1);
@@ -147,8 +146,7 @@ public class SwearChecker {
 					"SELECT username FROM Users WHERE hasswears = TRUE",
 					ResultSet.TYPE_SCROLL_INSENSITIVE,
 					ResultSet.CONCUR_READ_ONLY);
-			//stmt3.setString(1, username);
-			//stmt3.setString(2, source);
+
 			ResultSet rs3 = stmt3.executeQuery();
 
 			List<String> blockedUsers = new ArrayList<String>();
