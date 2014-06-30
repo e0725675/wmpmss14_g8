@@ -56,10 +56,10 @@ public class SwearChecker {
 	}
 	
 	public void logSwearChecker(Exchange exchange) throws SQLException {
-		log.trace("logSwearChecker start");
+		log.debug("logSwearChecker start");
 		exchange.setOut(exchange.getIn());
 		Message message = (Message) exchange.getIn().getBody();
-		log.trace("Checking for swear word in the following message: " +message);
+		log.debug("Checking for swear word in the following message: " +message);
 //		If no message logs error as SQL Exception
 		String m = message.getMessage();
 //		Variable to step through the message removing
@@ -79,8 +79,8 @@ public class SwearChecker {
 		if (containsCussword) {
 //			When match is found, entry is stored in table 'Users'.
 //			Added Column item 'containsCussword is then set to 'TRUE'.			
-			PreparedStatement stmt = this.con.prepareStatement("INSERT INTO Users (username, source, timeposted, hasswears) VALUES (?,?,?, ?)");
-			stmt.setString(1, message.getAuthor().toString());
+			PreparedStatement stmt = this.con.prepareStatement("INSERT INTO Users (username, source, timeposted, hasswears) VALUES (?,?,?,?)");
+			stmt.setString(1, message.getAuthor());
 			stmt.setString(2, message.getSource().toString());
 			java.sql.Date tp = new java.sql.Date(message.getTimePosted().getTime());
 			stmt.setDate(3, tp);
@@ -90,20 +90,12 @@ public class SwearChecker {
 			stmt.close();
 			//log.info("We have " +rs0);
 		}
-		
-		String source = "MessageMocker";
-		String testUser = "paleaccepting";
-		
-//		if(message.getAuthor().equals(testUser) && message.getSource().equals(source)){
-//			if(isUserBlocked(message.getSource().toString(), message.getAuthor().toString())){
-//				log.debug(testUser+ "THE FUCKER SWORE!");
-//			}
-//		}
-		log.trace("logSwearChecker end");
+
+		log.debug("logSwearChecker end");
 	}
 
 	public boolean isUserBlocked(String source, String username) throws SQLException {
-		log.trace("isUserBlocked: " +username+" "+source);
+		log.debug("isUserBlocked: " +username+" "+source);
 //		Checks to see if the user has 10 total swears in db using variable 'ResultSet rs'.
 //		if so, logs it.
 //		Then checks to see if the user has 5 consecutive swears in db using variable 'ResultSet rs2'.
@@ -114,7 +106,7 @@ public class SwearChecker {
 		cal.setTime(date);
 		cal.add(Calendar.DATE, -2);
 		date = cal.getTime();
-		PreparedStatement stmt = this.con.prepareStatement("SELECT count(*) FROM Users WHERE username = ? AND source = ? AND timeposted > ? AND hasswears = ?");
+		PreparedStatement stmt = this.con.prepareStatement("SELECT count(*) FROM (SELECT * FROM Users WHERE username = ? AND source = ? AND timeposted > ? AND hasswears = ?) as Y");
 		stmt.setString(1, username);
 		stmt.setString(2, source);
 		stmt.setDate(3, new java.sql.Date(date.getTime()));
@@ -125,8 +117,8 @@ public class SwearChecker {
 		int count1 = rs.getInt(1);
 //		What is rs.getInt(1)? See it in the log.txt
 
-		if (count1 > 10) {
-			log.trace("Result set for 10 entries with swears: "+rs);
+		if (count1 > 2) {
+			log.debug("Result set for 3 entries with swears: "+rs);
 			log.debug("User "+username+" from "+source+" is blocked");
 			return true;
 		}
@@ -141,34 +133,33 @@ public class SwearChecker {
 		rs2.next();
 		
 		int count2 = rs2.getInt(1);
-//		What is rs2.getInt(1)? See it in the log.txt
 		rs2.close();
 		stmt2.close();
-		if (count2 > 5) {
-			log.trace("Result set for 5 consecutive swear detection: " +count2);
+		if (count2 > 1) {
+			log.debug("Result set for 2 consecutive swear detection: " +count2);
 			log.debug("User "+username+" from "+source+" is blocked");
 			return true;
 		}
 
 		
 		else {
-//			PreparedStatement stmt3 = this.con.prepareStatement(
-//					"SELECT username FROM Users WHERE hasswears = TRUE",
-//					ResultSet.TYPE_SCROLL_INSENSITIVE,
-//					ResultSet.CONCUR_READ_ONLY);
-//			//stmt3.setString(1, username);
-//			//stmt3.setString(2, source);
-//			ResultSet rs3 = stmt3.executeQuery();
-//
-//			List<String> blockedUsers = new ArrayList<String>();
-//			rs3.next();
-//			while (!rs3.isAfterLast()) {
-//				blockedUsers.add(rs3.getString(1));
-//				rs3.next();
-//			}
-//			rs3.close();
-//			stmt3.close();
-//			log.trace("These users currently have swear entries: "+blockedUsers);
+			PreparedStatement stmt3 = this.con.prepareStatement(
+					"SELECT username FROM Users WHERE hasswears = TRUE",
+					ResultSet.TYPE_SCROLL_INSENSITIVE,
+					ResultSet.CONCUR_READ_ONLY);
+			//stmt3.setString(1, username);
+			//stmt3.setString(2, source);
+			ResultSet rs3 = stmt3.executeQuery();
+
+			List<String> blockedUsers = new ArrayList<String>();
+			rs3.next();
+			while (!rs3.isAfterLast()) {
+				blockedUsers.add(rs3.getString(1));
+				rs3.next();
+			}
+			rs3.close();
+			stmt3.close();
+			log.debug("These users currently have swear entries: "+blockedUsers);
 			log.debug("User "+username+" from "+source+" is not blocked");
 			return false;
 		}
