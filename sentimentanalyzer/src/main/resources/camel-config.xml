@@ -64,10 +64,6 @@
 
 	<tx:annotation-driven transaction-manager="transactionManager" />
 	
-	<bean id="properties" class="org.apache.camel.component.properties.PropertiesComponent">
-    	<property name="location" value="/search.properties"/>
-	</bean>
-	
 	<camelContext id="MAIN-CAMEL-CONTEXT" xmlns="http://camel.apache.org/schema/spring">
 		<!-- references to other routeContexts - dont forget to link the file as well!!! -->
 		<routeContextRef ref="SentimentRoutes"/>
@@ -89,10 +85,6 @@
 	
 	<bean id="routeCreator" class="at.tuwien.sentimentanalyzer.beans.RouteCreator">
 		<constructor-arg ref="MAIN-CAMEL-CONTEXT" />
-	</bean>
-	
-	<bean id="mainProperties" class="at.tuwien.sentimentanalyzer.PropertiesLoader">
-		<constructor-arg value="main.properties" />
 	</bean>
 	
 	<bean id="messageMocker" class="at.tuwien.sentimentanalyzer.beans.MessageMocker" scope="singleton">
