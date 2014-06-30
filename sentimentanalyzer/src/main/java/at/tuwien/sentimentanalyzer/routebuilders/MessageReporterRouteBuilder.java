@@ -4,6 +4,7 @@ import org.apache.camel.LoggingLevel;
 import org.apache.camel.builder.RouteBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import at.tuwien.sentimentanalyzer.Configuration;
 import at.tuwien.sentimentanalyzer.converters.MessageAggregationStrategy;
 /**
  * Twitter polling
@@ -14,8 +15,7 @@ public class MessageReporterRouteBuilder extends RouteBuilder{
 	@Autowired
 	MessageAggregationStrategy messageAggregationStrategy;
 	@Override
-	public void configure() throws Exception {
-		
+	public void configure() throws Exception {		
 		// split incoming messages to daily and weekly aggregators
 		from("direct:aggregatorQueue").
 		log(LoggingLevel.DEBUG,"aggregatorQueue").
@@ -27,7 +27,7 @@ public class MessageReporterRouteBuilder extends RouteBuilder{
 		log(LoggingLevel.TRACE, "aggregateMessagesDaily in").
 		aggregate(constant(true)).
 			aggregationStrategyRef("messageAggregationStrategy").
-			completionInterval(30000).
+			completionInterval(Configuration.ResolveInt("{{mail.dailyInterval}}")).
 			beanRef("aggregatorConvertor","messagesToAggregateMessages").
 			log(LoggingLevel.INFO, "Creating Daily Report").
 			to("direct:outGoingAggregatorDaily");
@@ -37,7 +37,7 @@ public class MessageReporterRouteBuilder extends RouteBuilder{
 		log(LoggingLevel.TRACE, "aggregateMessagesWeekly in").
 		aggregate(constant(true)).
 			aggregationStrategyRef("messageAggregationStrategy").
-			completionInterval(500000).
+			completionInterval(Configuration.ResolveInt("{{mail.weeklyInterval}}")).
 			beanRef("aggregatorConvertor","messagesToAggregateMessages").
 			log(LoggingLevel.INFO, "Creating Weekly Report").
 			to("direct:outGoingAggregatorWeekly");
@@ -58,8 +58,7 @@ public class MessageReporterRouteBuilder extends RouteBuilder{
 			when(header("touri").isEqualTo("")).
 			otherwise().
 				recipientList(";;;"). //not actuallly recipient list. needed so i can dynamically create URL
-					simple("smtps://smtp.gmail.com:465?password=wmpmSS2014&username=workflow@applepublic.tv&subject=report&from=workflow@applepublic.tv&to=${header.touri}");
-
+					simple("${properties:mail.path}");
 		
 		
 		
@@ -73,7 +72,6 @@ public class MessageReporterRouteBuilder extends RouteBuilder{
 			when(header("touri").isEqualTo("")).
 			otherwise().
 				recipientList(";;;"). //not actuallly recipient list. needed so i can dynamically create URL
-					simple("smtps://smtp.gmail.com:465?password=wmpmSS2014&username=workflow@applepublic.tv&subject=report&from=workflow@applepublic.tv&to=${header.touri}");
-	}
-	
+					simple("${properties:mail.path}");
+	}	
 }
