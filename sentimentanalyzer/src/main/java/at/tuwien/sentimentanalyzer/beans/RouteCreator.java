@@ -3,6 +3,7 @@ package at.tuwien.sentimentanalyzer.beans;
 import org.apache.camel.CamelContext;
 import org.apache.log4j.Logger;
 
+import at.tuwien.sentimentanalyzer.Configuration;
 import at.tuwien.sentimentanalyzer.routebuilders.MailRouteBuilder;
 import at.tuwien.sentimentanalyzer.routebuilders.MessageReporterRouteBuilder;
 import at.tuwien.sentimentanalyzer.routebuilders.ProfaneReporterRouteBuilder;
@@ -24,13 +25,15 @@ public class RouteCreator  {
 		log.info("RouteCreator created ");
 		
 		try {
+			Configuration.Init(context);
+			
 			// Add routes from the following RouteBuilders
 			context.addRoutes(new MessageReporterRouteBuilder());
 			context.addRoutes(new TwitterRouteBuilder());
 			context.addRoutes(new RedditRouteBuilder());
 			context.addRoutes(new SwearFilterRouteBuilder());
 			context.addRoutes(new MailRouteBuilder());
-			context.addRoutes(new ProfaneReporterRouteBuilder());
+			context.addRoutes(new ProfaneReporterRouteBuilder());			
 			
 			// YOU CAN ADD MORE ROUTEBUILDERS HERE!!!!!!!!!
 			
