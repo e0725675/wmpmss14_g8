@@ -4,27 +4,33 @@ package at.tuwien.sentimentanalyzer.beans;
  * Customized sorting of messages (i.i. checks message, flags swear words in message, flags account if swearing exceeds daily limit or list.)
  */
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.sql.Array;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Set;
 
 import javax.sql.DataSource;
 
 import org.apache.camel.Exchange;
 import org.apache.log4j.Logger;
 
+import at.tuwien.sentimentanalyzer.beans.ReportGenerator.SwearwordReportContent;
+import at.tuwien.sentimentanalyzer.beans.ReportGenerator.SwearwordReportContent.SwearInformation;
+import at.tuwien.sentimentanalyzer.entities.AggregatedMessages.Author;
 import at.tuwien.sentimentanalyzer.entities.Message;
+import at.tuwien.sentimentanalyzer.entities.Message.Source;
 
 public class SwearChecker {
+	private static final int MAXCONSECUTIVESWEARCOUNT = 5;
+	private static final int MAXTOTAlSWEARCOUNT = 10;
+	private static final int PASTDAYS = 2;
+	
 	private static Logger log = Logger.getLogger(SwearChecker.class);
 //	Create local logging element 'log'
 	private ArrayList<String> cussWords;
@@ -50,7 +56,13 @@ public class SwearChecker {
 		
 		
 		con = dataSource.getConnection();
-		PreparedStatement stmt = con.prepareStatement("CREATE TABLE Users (id int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), username VARCHAR(200) NOT NULL, source VARCHAR(200) NOT NULL, timeposted DATE NOT NULL, hasswears BOOLEAN NOT NULL,PRIMARY KEY(ID))");
+		PreparedStatement stmt = con.prepareStatement("CREATE TABLE Users ("
+				+ "id int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), "
+				+ "username VARCHAR(200) NOT NULL, "
+				+ "source VARCHAR(200) NOT NULL, "
+				+ "timeposted DATE NOT NULL, "
+				+ "hasswears BOOLEAN NOT NULL,"
+				+ "PRIMARY KEY(ID))");
 		stmt.execute();
 		stmt.close();
 	}
@@ -90,11 +102,34 @@ public class SwearChecker {
 			stmt.close();
 			//log.debug("We have " +rs0);
 		}
-
-		log.debug("logSwearChecker end");
+		
+//		String source = "MessageMocker";
+//		String testUser = "paleaccepting";
+//		
+//		if(message.getAuthor().equals(testUser) && message.getSource().equals(source)){
+//			if(isUserBlocked(message.getSource().toString(), message.getAuthor().toString())){
+//				log.debug(testUser+ "THE FUCKER SWORE!");
+//			}
+//		}
+		log.trace("logSwearChecker end");
 	}
 
-	public boolean isUserBlocked(String source, String username) throws SQLException {
+	public boolean isUserBlocked(Exchange exchange) throws SQLException {
+		exchange.setOut(exchange.getIn());
+		if (!(exchange.getIn().getBody() instanceof Message)) {
+			throw new RuntimeException("Input exchange body is not a Message");
+		}
+		Message m = (Message) exchange.getIn().getBody();
+		String user = m.getAuthor();
+		String source = m.getSource().toString();
+		return this.checkUserBlocked(source, user);
+	}
+	public boolean checkUserBlocked(String source, String username) throws SQLException {
+		if (source == null) throw new RuntimeException("Input source is null");
+		if (source.isEmpty()) throw new RuntimeException("Input source is empty");
+		if (username == null) throw new RuntimeException("Input username is null");
+		if (username.isEmpty()) throw new RuntimeException("Input username is empty");
+		
 		log.debug("isUserBlocked: " +username+" "+source);
 //		Checks to see if the user has 10 total swears in db using variable 'ResultSet rs'.
 //		if so, logs it.
@@ -104,63 +139,173 @@ public class SwearChecker {
 		java.util.Date date = new java.util.Date();
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(date);
-		cal.add(Calendar.DATE, -2);
+		cal.add(Calendar.DATE, -PASTDAYS);
 		date = cal.getTime();
-		PreparedStatement stmt = this.con.prepareStatement("SELECT count(*) FROM Users WHERE username = ? AND source = ? AND timeposted > ? AND hasswears = ?");
+		// Get the amount of swearposts from the user from the past 2 days
+		PreparedStatement stmt = this.con.prepareStatement("SELECT count(*) FROM Users WHERE "
+				+ "username = ? AND "
+				+ "source = ? AND "
+				+ "timeposted > ? AND "
+				+ "hasswears = TRUE",
+				ResultSet.TYPE_SCROLL_INSENSITIVE, 
+				ResultSet.CONCUR_READ_ONLY);
 		stmt.setString(1, username);
 		stmt.setString(2, source);
 		stmt.setDate(3, new java.sql.Date(date.getTime()));
-		stmt.setBoolean(4, true);
 		stmt.execute();
 		ResultSet rs = stmt.executeQuery();
 		rs.next();
 		int count1 = rs.getInt(1);
-
-		if (count1 > 2) {
-			log.debug("Result set for 3 entries with swears: "+count1);
+		// if user has posted more than 10 times during the past 2 days he is blocked
+		if (count1 > MAXTOTAlSWEARCOUNT) {
+			log.trace("Result set for "+MAXTOTAlSWEARCOUNT+" entries with swears: "+rs);
 			log.debug("User "+username+" from "+source+" is blocked");
 			return true;
 		}
 		rs.close();
 		stmt.close();
 		
-		PreparedStatement stmt2 = this.con.prepareStatement("SELECT count(*) FROM (SELECT * FROM Users WHERE username = ? AND source = ? AND hasswears = TRUE ORDER BY timeposted DESC FETCH FIRST 10 ROWS ONLY) as X");
+		// Check whether the user has had 5 consecutive swearposts in the past 2 days
+		// get all posts from the past 2 days
+		PreparedStatement stmt2 = this.con.prepareStatement("SELECT hasswears FROM Users WHERE "
+				+ "username = ? AND "
+				+ "source = ? AND "
+				+ "timeposted > ? "
+				+ "ORDER BY timeposted DESC",
+				ResultSet.TYPE_SCROLL_INSENSITIVE, 
+				ResultSet.CONCUR_READ_ONLY);
 		stmt2.setString(1, username);
 		stmt2.setString(2, source);
+		stmt2.setDate(3, new java.sql.Date(date.getTime()));
 		stmt2.execute();
 		ResultSet rs2 = stmt2.executeQuery();
-		rs2.next();
+		int consecutivecounter = 0;
+		while(rs2.next()) {
+			boolean hasswears = rs2.getBoolean(1);
+			if (hasswears) {
+				consecutivecounter++;
+			} else {
+				consecutivecounter = 0;
+			}
+			if (consecutivecounter>MAXCONSECUTIVESWEARCOUNT) {
+				log.debug("User "+username+" from "+source+" has more than "+MAXCONSECUTIVESWEARCOUNT+
+						" consecutive swear posts and is blocked");
+				return true;
+			}
+		}
 		
-		int count2 = rs2.getInt(1);
 		rs2.close();
 		stmt2.close();
-		if (count2 > 1) {
-			log.debug("Result set for 2 consecutive swear detection: " +count2);
-			log.debug("User "+username+" from "+source+" is blocked");
-			return true;
-		}
-
+		log.debug("User "+username+" from "+source+" is not blocked");
+		return false;
 		
-		else {
-			PreparedStatement stmt3 = this.con.prepareStatement(
-					"SELECT username FROM Users WHERE hasswears = TRUE",
-					ResultSet.TYPE_SCROLL_INSENSITIVE,
-					ResultSet.CONCUR_READ_ONLY);
-
-			ResultSet rs3 = stmt3.executeQuery();
-
-			List<String> blockedUsers = new ArrayList<String>();
-			rs3.next();
-			while (!rs3.isAfterLast()) {
-				blockedUsers.add(rs3.getString(1));
-				rs3.next();
-			}
-			rs3.close();
-			stmt3.close();
-			log.debug("These users currently have swear entries: "+blockedUsers);
-			log.debug("User "+username+" from "+source+" is not blocked");
-			return false;
-		}
 	}
 	
+	public SwearwordReportContent getSwearReport() throws SQLException {
+		log.debug("getSwearReport start");
+		SwearwordReportContent out = new SwearwordReportContent();
+		
+		java.util.Date date = new java.util.Date();
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		cal.add(Calendar.DATE, -PASTDAYS);
+		date = cal.getTime();
+		
+		HashMap<Author, SwearInformation> userInformation = new HashMap<Author, SwearInformation>();
+
+		HashMap<Author,Integer> totalSwearCounts = new HashMap<Author,Integer>();
+		HashMap<Author,Integer> consecutiveSwearCounts = new HashMap<Author,Integer>();
+		HashMap<Author,Boolean> isBlocked = new HashMap<Author,Boolean>();
+		
+		
+		PreparedStatement stmt2 = this.con.prepareStatement("SELECT username,source,hasswears FROM Users WHERE "
+				+ "timeposted > ? "
+				+ "ORDER BY timeposted DESC",
+				ResultSet.TYPE_SCROLL_INSENSITIVE, 
+				ResultSet.CONCUR_READ_ONLY);
+		stmt2.setDate(1, new java.sql.Date(date.getTime()));
+		stmt2.execute();
+		
+		ResultSet rs2 = stmt2.getResultSet();
+		
+		while(rs2.next()) {
+			String user = rs2.getString(1);
+			String source = rs2.getString(2);
+			boolean hasswears = rs2.getBoolean(3);
+			Author author = new Author(user, new Source(source));
+			
+			if (hasswears) {
+				Boolean blocked = isBlocked.get(author);
+				if ( blocked== null || blocked == false ) {
+					// consecutive
+					Integer consec = consecutiveSwearCounts.get(author);
+					if (consec == null) {
+						consec = 0;
+					}
+					consec++;
+					if (consec >MAXCONSECUTIVESWEARCOUNT) {
+						log.debug("User "+source+":"+user+" has more than "+MAXCONSECUTIVESWEARCOUNT+" consecutive swears and is blocked.");
+						isBlocked.put(author, true);
+						continue;
+					} else {
+						consecutiveSwearCounts.put(author, consec);
+					}
+					
+					
+					// total
+					
+					Integer total = totalSwearCounts.get(author);
+					if (total == null) {
+						total = 0;
+					}
+					total++;
+					if (total > MAXTOTAlSWEARCOUNT) {
+
+						log.debug("User "+source+":"+user+" has more than "+MAXTOTAlSWEARCOUNT+" total swears and is blocked.");
+						isBlocked.put(author, true);
+						continue;
+					} else {
+						totalSwearCounts.put(author, total);
+					}
+				}
+			} else {
+				consecutiveSwearCounts.put(author, 0);
+			}
+		}
+		rs2.close();
+		stmt2.close();
+		Set<Author> authors = isBlocked.keySet();
+		
+		log.debug("There are "+authors.size()+ " blocked users");
+		
+		for (Author author : authors) {
+			boolean blocked = isBlocked.get(author);
+			if (blocked) {
+				SwearInformation sw = new SwearInformation();
+				PreparedStatement stmt = this.con.prepareStatement("SELECT count(*) FROM Users WHERE "
+						+ "hasswears = TRUE AND "
+						+ "username = ? AND "
+						+ "source = ? AND "
+						+ "timeposted > ?",
+						ResultSet.TYPE_SCROLL_INSENSITIVE, 
+						ResultSet.CONCUR_READ_ONLY);
+				stmt.setString(1, author.getName());
+				stmt.setString(2, author.getSource().toString());
+				stmt.setDate(3, new java.sql.Date(date.getTime()));
+				stmt.execute();
+				ResultSet rs = stmt.getResultSet();
+				rs.next();
+				int count = rs.getInt(1);
+				log.debug("User "+author.getSource()+":"+author.getName()+" has "+count+" total swears.");
+				sw.recordedOffences = count;
+				userInformation.put(author, sw);
+				rs.close();
+				stmt.close();
+			}
+		}
+		
+		out.userInformation = userInformation;
+		log.debug("getSwearReport end");
+		return out;
+	}
 }

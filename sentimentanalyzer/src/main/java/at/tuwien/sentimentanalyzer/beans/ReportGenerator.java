@@ -91,7 +91,7 @@ public class ReportGenerator {
 	public static class SwearwordReportContent {
 		public static class SwearInformation {
 			public HashMap<String,Integer> usedSwearWordsDecapitalized = new HashMap<String,Integer>();
-			public List<Date> recordedOffences = new ArrayList<Date>();
+			public int recordedOffences = 0;
 			
 			public static SwearInformation getSample() {
 				SwearInformation out = new SwearInformation();
@@ -104,7 +104,11 @@ public class ReportGenerator {
 		
 	}
 	
-	public void generateSwearwordPDFReport(Exchange exchange,SwearwordReportContent body, @Header("from") String from, @Header("to") String to, @Header("email") String email) throws IOException, DocumentException {
+	public void generateSwearwordPDFReport(Exchange exchange,SwearwordReportContent body, @Header("start") String from, @Header("end") String to, @Header("toemail") String email) throws IOException, DocumentException {
+		if (to == null) throw new RuntimeException("start date is null");
+		if (from == null) throw new RuntimeException("end date is null");
+		if (email == null) throw new RuntimeException("email is null");
+		
 		SwearwordReportContent testContent = body;//this.swearwordContentMocker.nextSwearwordReportContent();
 		
 		exchange.setOut(exchange.getIn());
@@ -117,7 +121,7 @@ public class ReportGenerator {
 			try {
 				d_from = inDfSimple.parse(from);
 			} catch(ParseException e1) {
-				throw new ReportGeneratorException("Parameter 'from' has an invalid format: "+from);
+				throw new ReportGeneratorException("Parameter 'start' has an invalid format: "+from);
 			}
 		}
 		Date d_to;
@@ -127,7 +131,7 @@ public class ReportGenerator {
 			try {
 				d_to = inDfSimple.parse(to);
 			} catch(ParseException e1) {
-				throw new ReportGeneratorException("Parameter 'to' has an invalid format: "+to);
+				throw new ReportGeneratorException("Parameter 'end' has an invalid format: "+to);
 			}
 		}
 		
@@ -206,7 +210,7 @@ public class ReportGenerator {
 			table.addCell(new PdfPCell(phu2));
 			
 			SwearInformation si = testContent.userInformation.get(u);
-			Phrase phu3 = new Phrase(""+si.recordedOffences.size());
+			Phrase phu3 = new Phrase(""+si.recordedOffences);
 			phu3.setFont(normalCellFont);
 			table.addCell(new PdfPCell(phu3));
 		}

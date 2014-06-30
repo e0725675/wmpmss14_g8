@@ -47,6 +47,8 @@ public class RedditConvertor {
 
 				if(secondData.getAuthor()!=null){
 					msg.setAuthor(secondData.getAuthor());
+				} else {
+					log.warn("Reddit message has no author");
 				}
 				
 				out.add(msg);

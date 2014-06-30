@@ -1,6 +1,7 @@
 package at.tuwien.sentimentanalyzer.routebuilders;
 
 import org.apache.camel.Exchange;
+import org.apache.camel.LoggingLevel;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.gson.GsonDataFormat;
@@ -50,6 +51,7 @@ public class RedditRouteBuilder extends RouteBuilder{
 		idempotentConsumer(header("messageId"), MemoryIdempotentRepository.memoryIdempotentRepository(1000)).
 		skipDuplicate(false).
 		filter(property(Exchange.DUPLICATE_MESSAGE).isEqualTo(true)).
+			log(LoggingLevel.DEBUG,"duplicate message:").
 			to("log:duplicateRedditMessages?level=DEBUG").stop().end().
 		to("direct:incomingMessages");
 	}

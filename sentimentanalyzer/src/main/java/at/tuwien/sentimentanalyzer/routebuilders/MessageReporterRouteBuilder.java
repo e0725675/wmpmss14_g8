@@ -57,8 +57,11 @@ public class MessageReporterRouteBuilder extends RouteBuilder{
 		choice().
 			when(header("touri").isEqualTo("")).
 			otherwise().
+			log(LoggingLevel.INFO, "Daily report mail string: ${header.touri}...").
 				recipientList(";;;"). //not actuallly recipient list. needed so i can dynamically create URL
-					simple("${properties:mail.path}");
+					//simple("smtps://smtp.gmail.com:465?password=wmpmSS2014&username=workflow@applepublic.tv&subject=swearreport&from=workflow@applepublic.tv&to=e0725675@student.tuwien.ac.at");
+					simple("log:removemeNOW");//"smtps://smtp.gmail.com:465?password=wmpmSS2014&username=workflow@applepublic.tv&subject=report&from=workflow@applepublic.tv&to=${header.touri}");
+
 		
 		
 		
@@ -72,6 +75,7 @@ public class MessageReporterRouteBuilder extends RouteBuilder{
 			when(header("touri").isEqualTo("")).
 			otherwise().
 				recipientList(";;;"). //not actuallly recipient list. needed so i can dynamically create URL
-					simple("${properties:mail.path}");
-	}	
+					simple("log:removemeNOW2");//"smtps://smtp.gmail.com:465?password=wmpmSS2014&username=workflow@applepublic.tv&subject=report&from=workflow@applepublic.tv&to=${header.touri}");
+	}
+	
 }

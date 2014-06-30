@@ -48,7 +48,7 @@ public class SentimentExtraction {
 			senti = RNNCoreAnnotations.getPredictedClass(tree);				
 		}
 		
-		// set everything bck to its original state afterwards
+		// set everything back to its original state afterwards
 		System.setErr(err); 
 		
 		return senti;

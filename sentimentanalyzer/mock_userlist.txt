@@ -1,5 +1,6 @@
 extrasmallepidermis
 superbminnow
+<<<<<<< HEAD
 chattertwinkling
 skinnymany
 hocuspocusslow
@@ -18,3 +19,6 @@ cheshirehatching
 solidlabour
 cutssmiling
 eightathlete
+=======
+chattertwinkling
+>>>>>>> remotes/origin/clemente
