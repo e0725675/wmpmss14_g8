@@ -88,7 +88,7 @@ public class SwearChecker {
 			stmt.executeUpdate();
 			stmt.getResultSet();
 			stmt.close();
-			//log.info("We have " +rs0);
+			//log.debug("We have " +rs0);
 		}
 
 		log.debug("logSwearChecker end");

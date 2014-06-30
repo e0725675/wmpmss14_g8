@@ -449,7 +449,7 @@ public class ReportGenerator {
 		//Collections.sort(sentimentCountsTotal);
 		//Collections.reverse(sentimentCountsTotal);
 
-		//log.info("treemap:"+mtotalmap.size()+" "+mtotalmap.toString());
+		//log.debug("treemap:"+mtotalmap.size()+" "+mtotalmap.toString());
 		out.imgWordcountsTotal = ReportGenerator.createPieChartImage(targetFolder+"/wordcountsTotal.png", wordCountsTotal, "Wordcounts"+" ("+totalwordcounts+")", null, 800, 600);
 		out.imgMessagesTotal = ReportGenerator.createBarChartImage(targetFolder+"/messagesTotal.png", l_sourceCounts, "Messages per Source"+" ("+totalsourcecounts+")", null, "Sources", "Number of Messages", 800, 600);
 		out.imgSentimentpercentagesTotal = ReportGenerator.createPieChartImage(targetFolder+"/sentimentsTotal.png", sentimentCountsTotal, "Sentiments"+" ("+totalsentiments+")", null, 800, 600);
@@ -663,7 +663,7 @@ public class ReportGenerator {
 			}
 		}
 		try {
-			//log.info("Saving image");
+			//log.debug("Saving image");
 			ChartUtilities.saveChartAsPNG(outFile, bchart, widthPx, heightPx);
 		} catch (IOException e) {
 			throw new ReportGeneratorException("IOException occured on saving Chart to image file", e);

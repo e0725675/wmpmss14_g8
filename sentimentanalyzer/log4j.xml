@@ -11,7 +11,7 @@
 
 
  <logger name='jdbc.sqlonly' additivity='false'>
-  <level value='debug' >
+  <level value='warn' >
   <appender-ref ref='console-log4jdbc' >
  <logger>
 <!--  <logger name='jdbc.sqltiming' additivity='false'> -->
@@ -19,13 +19,13 @@
 <!--   <appender-ref ref='console-log4jdbc' > -->
 <!--  <logger> -->
  <logger name='jdbc.connection' additivity='false'>
-  <level value='debug' >
+  <level value='warn' >
   <appender-ref ref='console-log4jdbc' >
  <logger>
 
  log4jdbc option log the jdbc results as a table
  <logger name='jdbc.resultsettable' additivity='false'>
-  <level value='debug' >
+  <level value='warn' >
   <appender-ref ref='console-log4jdbc' >
  <logger>
 

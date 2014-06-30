@@ -54,7 +54,7 @@ public class RedditConvertor {
 			
 		}
 	
-		//log.info("Reddit message: " + msg);
+		//log.trace("Reddit message: " + msg);
 		return out;
 	}
 	

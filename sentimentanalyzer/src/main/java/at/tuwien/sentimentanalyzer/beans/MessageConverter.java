@@ -95,7 +95,7 @@ public class MessageConverter {
 		if (lists == null) {
 			throw new RuntimeException("input list is null");
 		}
-		log.info(lists);
+		log.debug(lists);
 		List<Message> out = new ArrayList<Message>();
 		for (List<String> l : lists) {
 			out.add(MessageConverter.listToMessage(l));

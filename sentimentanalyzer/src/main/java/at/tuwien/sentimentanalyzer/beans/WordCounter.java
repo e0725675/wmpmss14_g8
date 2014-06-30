@@ -37,9 +37,9 @@ public class WordCounter {
 						|| word.endsWith("_RBR")
 						|| word.endsWith("_RBS")
 						) {
-					//log.info("word1: "+word+"#");
+					//log.debug("word1: "+word+"#");
 					String wordMod = (word.split("_")[0]).toLowerCase();
-					//log.info("word2: "+wordMod+"#");
+					//log.debug("word2: "+wordMod+"#");
 					if(countableWords.containsKey(wordMod)){
 						countableWords.put(wordMod, countableWords.get(wordMod) + 1);
 					}else{

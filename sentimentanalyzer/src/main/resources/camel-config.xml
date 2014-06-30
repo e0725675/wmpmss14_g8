@@ -20,16 +20,16 @@
 	<import resource="FacebookContext.xml"/>
 	<import resource="ProfaneContext.xml"/>
 
- <bean id="dataSourceSpied" class="org.apache.commons.dbcp.BasicDataSource">
+ <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName" value="org.apache.derby.jdbc.EmbeddedDriver"/>
 		<property name="url" value="jdbc:derby:target/derbydb;create=true"/>
 		<property name="username" value=""/>
 		<property name="password" value=""/>
   </bean>
 
-  <bean id="dataSource" class="net.sf.log4jdbc.Log4jdbcProxyDataSource">
-    <constructor-arg ref="dataSourceSpied" />
-  </bean>
+<!--   <bean id="dataSource" class="net.sf.log4jdbc.Log4jdbcProxyDataSource"> -->
+<!--     <constructor-arg ref="dataSourceSpied" /> -->
+<!--   </bean> -->
 
 	<bean id="hibernate" class="org.apacheextras.camel.component.hibernate.HibernateComponent">
 		<property name="sessionFactory" ref="sessionFactory"/>
