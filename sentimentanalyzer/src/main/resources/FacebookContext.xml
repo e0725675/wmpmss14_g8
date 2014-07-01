@@ -5,16 +5,26 @@
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring-2.13.0.xsd
     ">
  
+ <bean id="gson" class="org.apache.camel.component.gson.GsonDataFormat">
+    <!-- we want to unmarshal to person pojo -->
+    <property name="unmarshalType" value="at.tuwien.sentimentanalyzer.entities.FacebookPOJO"/>
+    <!-- we want to map fields to use lower case and underscores -->
+    <!-- <property name="fieldNamingPolicy" value="LOWER_CASE_WITH_UNDERSCORES"/>  -->
+</bean>
+
     <!-- This is the included XML file where we include only the routeContext  -->
     <routeContext id="FacebookRoutes" xmlns="http://camel.apache.org/schema/spring">
 		<!-- only returns the feed of the plachutta page -->
+		<!-- define the gson data format, where we configure the data format using the properties -->
+
         <route id="facebookSearchPlachutta">
 			<from uri="timer:FacebookTimer?period={{facebook.period}}"/>
 			<log message="facebook-start"/>
-<!-- 			<to uri="https://graph.facebook.com/v2.0//{{facebook.client}}/feed?access_token={{facebook.AppID}}|{{facebook.AppSecret}}" />
+ 			<to uri="https://graph.facebook.com/v2.0//{{facebook.client}}/tagged?access_token={{facebook.AppID}}|{{facebook.AppSecret}}" />
 			<!-- https://graph.facebook.com/v2.0//Plachutta/tagged?access_token=329502517197810|7282801ff5f470986a1db0776f866622 -->
-			<to uri="facebook:search?oAuthAppId=&oAuthAppSecret=&oAuthAccessToken="/>
-			<convertBodyTo type="java.lang.String" />
+			<unmarshal ref="gson"/>
+			<!-- <convertBodyTo type="java.lang.String" />  -->
+			<bean ref="facebookConverter" method="getMessage" />
  			<to uri="log:facebook" /> 
  			<to uri="direct:incomingMessages" />
         </route>

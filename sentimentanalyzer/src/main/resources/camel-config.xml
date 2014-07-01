@@ -83,6 +83,8 @@
 	
 	<bean id="redditConvertor" class = "at.tuwien.sentimentanalyzer.beans.RedditConvertor" />
 	
+	<bean id="facebookConverter" class = "at.tuwien.sentimentanalyzer.beans.FacebookConverter" />
+	
 	<bean id="routeCreator" class="at.tuwien.sentimentanalyzer.beans.RouteCreator">
 		<constructor-arg ref="MAIN-CAMEL-CONTEXT" />
 	</bean>
