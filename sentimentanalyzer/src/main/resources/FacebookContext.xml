@@ -10,7 +10,10 @@
 		<!-- only returns the feed of the plachutta page -->
         <route id="facebookSearchPlachutta">
 			<from uri="timer:FacebookTimer?period={{facebook.period}}"/>
-			<to uri="https://graph.facebook.com/v2.0//{{facebook.client}}/feed?access_token={{facebook.AppID}}|{{facebook.AppSecret}}" />
+			<log message="facebook-start"/>
+<!-- 			<to uri="https://graph.facebook.com/v2.0//{{facebook.client}}/feed?access_token={{facebook.AppID}}|{{facebook.AppSecret}}" />
+			<!-- https://graph.facebook.com/v2.0//Plachutta/tagged?access_token=329502517197810|7282801ff5f470986a1db0776f866622 -->
+			<to uri="facebook:search?oAuthAppId=&oAuthAppSecret=&oAuthAccessToken="/>
 			<convertBodyTo type="java.lang.String" />
  			<to uri="log:facebook" /> 
  			<to uri="direct:incomingMessages" />
