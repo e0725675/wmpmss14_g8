@@ -19,7 +19,7 @@ public class TwitterRouteBuilder extends RouteBuilder{
 	public void configure() throws Exception {
 		from("timer:twitterTimer?period={{twitter.period}}").
 		routeId("twitterSearchRoute").
-		to("twitter://search?type=direct&numberOfPages={{twitter.numberOfPages}}&delay={{twitter.delay}}&keywords={{search.term}}&consumerKey={{twitter.APIKey}}&consumerSecret={{twitter.APISecret}}&accessToken={{twitter.AccessToken}}&accessTokenSecret={{twitter.AccessTokenSecret}}").
+		to("twitter://search?type=direct&numberOfPages={{twitter.numberOfPages}}&delay={{twitter.delay}}&keywords={{search.term.twitter}}&consumerKey={{twitter.APIKey}}&consumerSecret={{twitter.APISecret}}&accessToken={{twitter.AccessToken}}&accessTokenSecret={{twitter.AccessTokenSecret}}").
 		to("direct:twitterFilter");
 		
 

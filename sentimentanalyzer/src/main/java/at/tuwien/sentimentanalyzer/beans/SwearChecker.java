@@ -10,16 +10,22 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Set;
 
 import javax.sql.DataSource;
 
 import org.apache.camel.Exchange;
+import org.apache.camel.Header;
 import org.apache.log4j.Logger;
 
+import at.tuwien.sentimentanalyzer.beans.ReportGenerator.ReportGeneratorException;
 import at.tuwien.sentimentanalyzer.beans.ReportGenerator.SwearwordReportContent;
 import at.tuwien.sentimentanalyzer.beans.ReportGenerator.SwearwordReportContent.SwearInformation;
 import at.tuwien.sentimentanalyzer.entities.AggregatedMessages.Author;
@@ -201,15 +207,42 @@ public class SwearChecker {
 		
 	}
 	
-	public SwearwordReportContent getSwearReport() throws SQLException {
+	public SwearwordReportContent getSwearReport(@Header("start") String from, @Header("end") String to) throws SQLException {
+		if (from == null) throw new RuntimeException("start Date is null");
+		if (to == null) throw new RuntimeException("end Date is null");
+		
+		DateFormat inDfFull = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
+		DateFormat inDfSimple = new SimpleDateFormat("yyyy.MM.dd");
+		Date start;
+		try {
+			start = inDfFull.parse(from);
+		} catch (ParseException e) {
+			try {
+				start = inDfSimple.parse(from);
+			} catch(ParseException e1) {
+				throw new ReportGeneratorException("Parameter 'start' has an invalid format: "+from);
+			}
+		}
+		Date end;
+		try {
+			end = inDfFull.parse(to);
+		} catch (ParseException e) {
+			try {
+				end = inDfSimple.parse(to);
+			} catch(ParseException e1) {
+				throw new ReportGeneratorException("Parameter 'end' has an invalid format: "+to);
+			}
+		}
+		
+		
 		log.debug("getSwearReport start");
 		SwearwordReportContent out = new SwearwordReportContent();
 		
-		java.util.Date date = new java.util.Date();
-		Calendar cal = Calendar.getInstance();
-		cal.setTime(date);
-		cal.add(Calendar.DATE, -PASTDAYS);
-		date = cal.getTime();
+//		java.util.Date date = new java.util.Date();
+//		Calendar cal = Calendar.getInstance();
+//		cal.setTime(date);
+//		cal.add(Calendar.DATE, -PASTDAYS);
+//		date = cal.getTime();
 		
 		HashMap<Author, SwearInformation> userInformation = new HashMap<Author, SwearInformation>();
 
@@ -219,11 +252,13 @@ public class SwearChecker {
 		
 		
 		PreparedStatement stmt2 = this.con.prepareStatement("SELECT username,source,hasswears FROM Users WHERE "
-				+ "timeposted > ? "
+				+ "timeposted > ? AND "
+				+ "timeposted < ? "
 				+ "ORDER BY timeposted DESC",
 				ResultSet.TYPE_SCROLL_INSENSITIVE, 
 				ResultSet.CONCUR_READ_ONLY);
-		stmt2.setDate(1, new java.sql.Date(date.getTime()));
+		stmt2.setDate(1, new java.sql.Date(start.getTime()));
+		stmt2.setDate(2, new java.sql.Date(end.getTime()));
 		stmt2.execute();
 		
 		ResultSet rs2 = stmt2.getResultSet();
@@ -286,12 +321,14 @@ public class SwearChecker {
 						+ "hasswears = TRUE AND "
 						+ "username = ? AND "
 						+ "source = ? AND "
-						+ "timeposted > ?",
+						+ "timeposted > ? AND"
+						+ "timeposted < ?",
 						ResultSet.TYPE_SCROLL_INSENSITIVE, 
 						ResultSet.CONCUR_READ_ONLY);
 				stmt.setString(1, author.getName());
 				stmt.setString(2, author.getSource().toString());
-				stmt.setDate(3, new java.sql.Date(date.getTime()));
+				stmt.setDate(3, new java.sql.Date(start.getTime()));
+				stmt.setDate(4, new java.sql.Date(end.getTime()));
 				stmt.execute();
 				ResultSet rs = stmt.getResultSet();
 				rs.next();
@@ -303,7 +340,6 @@ public class SwearChecker {
 				stmt.close();
 			}
 		}
-		
 		out.userInformation = userInformation;
 		log.debug("getSwearReport end");
 		return out;
