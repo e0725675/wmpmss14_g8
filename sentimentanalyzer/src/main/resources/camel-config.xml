@@ -98,6 +98,8 @@
 		</constructor-arg>
 	</bean>
 	
+	<bean id="commentsFilter" class="at.tuwien.sentimentanalyzer.beans.CommentsFilter" />
+	
 	<bean id="swearwordContentMocker" class="at.tuwien.sentimentanalyzer.beans.SwearwordContentMocker" scope="singleton">
 		<constructor-arg index="0" value= "mock_swearwordlist.txt"/>
 		<constructor-arg index="1" value= "mock_userlist.txt"/>

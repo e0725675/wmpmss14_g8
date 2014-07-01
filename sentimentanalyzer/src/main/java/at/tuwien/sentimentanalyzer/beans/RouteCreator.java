@@ -3,7 +3,6 @@ package at.tuwien.sentimentanalyzer.beans;
 import org.apache.camel.CamelContext;
 import org.apache.log4j.Logger;
 
-import at.tuwien.sentimentanalyzer.Configuration;
 import at.tuwien.sentimentanalyzer.routebuilders.MailRouteBuilder;
 import at.tuwien.sentimentanalyzer.routebuilders.MessageReporterRouteBuilder;
 import at.tuwien.sentimentanalyzer.routebuilders.ProfaneReporterRouteBuilder;

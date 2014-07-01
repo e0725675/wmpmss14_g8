@@ -5,7 +5,6 @@ import org.apache.camel.builder.RouteBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
-import at.tuwien.sentimentanalyzer.Configuration;
 import at.tuwien.sentimentanalyzer.PropertiesLoader;
 import at.tuwien.sentimentanalyzer.converters.MessageAggregationStrategy;
 /**
