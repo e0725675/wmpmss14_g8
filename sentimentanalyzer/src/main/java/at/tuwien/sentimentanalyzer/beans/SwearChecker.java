@@ -321,7 +321,7 @@ public class SwearChecker {
 						+ "hasswears = TRUE AND "
 						+ "username = ? AND "
 						+ "source = ? AND "
-						+ "timeposted > ? AND"
+						+ "timeposted > ? AND "
 						+ "timeposted < ?",
 						ResultSet.TYPE_SCROLL_INSENSITIVE, 
 						ResultSet.CONCUR_READ_ONLY);
