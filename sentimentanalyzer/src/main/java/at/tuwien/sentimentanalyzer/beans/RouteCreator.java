@@ -25,7 +25,6 @@ public class RouteCreator  {
 		log.info("RouteCreator created ");
 		
 		try {
-			Configuration.Init(context);
 			
 			// Add routes from the following RouteBuilders
 			context.addRoutes(new MessageReporterRouteBuilder());

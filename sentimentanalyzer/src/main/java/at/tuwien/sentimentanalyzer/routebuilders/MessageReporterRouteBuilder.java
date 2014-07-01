@@ -3,8 +3,10 @@ package at.tuwien.sentimentanalyzer.routebuilders;
 import org.apache.camel.LoggingLevel;
 import org.apache.camel.builder.RouteBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 import at.tuwien.sentimentanalyzer.Configuration;
+import at.tuwien.sentimentanalyzer.PropertiesLoader;
 import at.tuwien.sentimentanalyzer.converters.MessageAggregationStrategy;
 /**
  * Twitter polling
@@ -14,20 +16,22 @@ import at.tuwien.sentimentanalyzer.converters.MessageAggregationStrategy;
 public class MessageReporterRouteBuilder extends RouteBuilder{
 	@Autowired
 	MessageAggregationStrategy messageAggregationStrategy;
+
 	@Override
-	public void configure() throws Exception {		
+	public void configure() throws Exception {
+		if (PropertiesLoader.configProperties == null) throw new RuntimeException("configProperties is null");
 		// split incoming messages to daily and weekly aggregators
 		from("direct:aggregatorQueue").
 		log(LoggingLevel.DEBUG,"aggregatorQueue").
 		multicast().
-		to("direct:aggregatorDaily", "direct:aggregatorWeekly");
+		to("direct:aggregatorDaily", "direct:aggregatorWeekly", "direct:aggregatorPoll");
 		
 		from("direct:aggregatorDaily").
 			routeId("aggregateMessagesDaily").
 		log(LoggingLevel.TRACE, "aggregateMessagesDaily in").
 		aggregate(constant(true)).
 			aggregationStrategyRef("messageAggregationStrategy").
-			completionInterval(Configuration.ResolveInt("{{mail.dailyInterval}}")).
+			completionInterval(PropertiesLoader.configProperties.getLong("mail.dailyInterval")).
 			beanRef("aggregatorConvertor","messagesToAggregateMessages").
 			log(LoggingLevel.INFO, "Creating Daily Report").
 			to("direct:outGoingAggregatorDaily");
@@ -37,11 +41,20 @@ public class MessageReporterRouteBuilder extends RouteBuilder{
 		log(LoggingLevel.TRACE, "aggregateMessagesWeekly in").
 		aggregate(constant(true)).
 			aggregationStrategyRef("messageAggregationStrategy").
-			completionInterval(Configuration.ResolveInt("{{mail.weeklyInterval}}")).
+			completionInterval(PropertiesLoader.configProperties.getLong("mail.weeklyInterval")).
 			beanRef("aggregatorConvertor","messagesToAggregateMessages").
 			log(LoggingLevel.INFO, "Creating Weekly Report").
 			to("direct:outGoingAggregatorWeekly");
-
+		
+		from("direct:aggregatorPoll").
+			routeId("aggregateMessagesPoll").
+		log(LoggingLevel.TRACE, "aggregateMessagesPoll in").
+		aggregate(constant(true)).
+			aggregationStrategyRef("messageAggregationStrategy").
+			completionPredicate(method("reportGenerator", "shouldSendMessageReport")).
+			beanRef("aggregatorConvertor","messagesToAggregateMessages").
+			log(LoggingLevel.INFO, "Creating Poll Report").
+			to("direct:outGoingAggregatorPoll");
 		
 		
 		//TODO: reactivate twitter
@@ -59,9 +72,8 @@ public class MessageReporterRouteBuilder extends RouteBuilder{
 			otherwise().
 			log(LoggingLevel.INFO, "Daily report mail string: ${header.touri}...").
 				recipientList(";;;"). //not actuallly recipient list. needed so i can dynamically create URL
-					//simple("smtps://smtp.gmail.com:465?password=wmpmSS2014&username=workflow@applepublic.tv&subject=swearreport&from=workflow@applepublic.tv&to=e0725675@student.tuwien.ac.at");
-					simple("log:removemeNOW");//"smtps://smtp.gmail.com:465?password=wmpmSS2014&username=workflow@applepublic.tv&subject=report&from=workflow@applepublic.tv&to=${header.touri}");
-
+					simple("smtps://{{mail.host}}:{{mail.port}}?password={{mail.password}}&username={{mail.username}}&subject=Sentimentreport&from={{mail.from}}&BCC=${header.touri}");
+		
 		
 		
 		
@@ -74,8 +86,23 @@ public class MessageReporterRouteBuilder extends RouteBuilder{
 		choice().
 			when(header("touri").isEqualTo("")).
 			otherwise().
+			log(LoggingLevel.INFO, "Weekly report mail string: ${header.touri}...").
 				recipientList(";;;"). //not actuallly recipient list. needed so i can dynamically create URL
-					simple("log:removemeNOW2");//"smtps://smtp.gmail.com:465?password=wmpmSS2014&username=workflow@applepublic.tv&subject=report&from=workflow@applepublic.tv&to=${header.touri}");
+					simple("smtps://{{mail.host}}:{{mail.port}}?password={{mail.password}}&username={{mail.username}}&subject=Sentimentreport&from={{mail.from}}&BCC=${header.touri}");
+	
+		
+		from("direct:outGoingAggregatorPoll").
+			routeId("generatePollReport").
+		//beanRef("messageMocker", "nextAggregatedMessage").
+		beanRef("reportGenerator", "generateAggregatedMessagesPDFReport").
+		beanRef("mailHandler","addAttachment").
+		setBody(simple("Poll Sentiment Report")).
+		log(LoggingLevel.INFO, "Poll report mail string: {{mail.email}}...").
+		recipientList(";;;"). //not actuallly recipient list. needed so i can dynamically create URL
+			simple("smtps://{{mail.host}}:{{mail.port}}?password={{mail.password}}&username={{mail.username}}&subject=Sentimentreport&from={{mail.from}}&to={{mail.email}}");
+
+	
+	
 	}
 	
 }

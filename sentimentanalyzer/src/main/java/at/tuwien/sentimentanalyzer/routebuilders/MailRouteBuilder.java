@@ -10,6 +10,13 @@ public class MailRouteBuilder extends RouteBuilder{
 
 	@Override
 	public void configure() throws Exception {
+		
+		from("servlet:///getMessageReport").
+		routeId("getMessageReport").
+		transform(simple("Sending current Message Report")).
+		to("bean:reportGenerator?method=sendMessageReport");
+		
+		
 		from("servlet:///addtodailylist").
 			routeId("addtodailylist").
 		choice().

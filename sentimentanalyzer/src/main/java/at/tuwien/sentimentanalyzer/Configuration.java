@@ -6,28 +6,28 @@ import org.apache.camel.component.properties.PropertiesComponent;
 public class Configuration {
 	public CamelContext context = null;
 	private static Configuration instance = null;
-	private Configuration(CamelContext context) {
-		this.context = context;
-		PropertiesComponent pc = new PropertiesComponent();
-		pc.setCamelContext(context);
-		
-		pc.setLocation("file:src/main/resources/config.properties");
-		context.addComponent("properties", pc);
-	}
+//	private Configuration(CamelContext context) {
+//		this.context = context;
+//		PropertiesComponent pc = new PropertiesComponent();
+//		pc.setCamelContext(context);
+//		
+//		pc.setLocation("file:src/main/resources/config.properties");
+//		context.addComponent("properties", pc);
+//	}
 	
-	 public static void Init(CamelContext context) {
-        if (instance == null) {
-            instance = new Configuration(context);
-        }
-	 }
+//	 public static void Init(CamelContext context) {
+//        if (instance == null) {
+//            instance = new Configuration(context);
+//        }
+//	 }
 	
-	public static int ResolveInt(String Key){
-		try {
-			return Integer.parseInt(instance.context.resolvePropertyPlaceholders(Key));
-		}catch (Exception e) {
-			e.printStackTrace();
-		}return -1;
-	}
+//	public static int ResolveInt(String Key){
+//		try {
+//			return Integer.parseInt(instance.context.resolvePropertyPlaceholders(Key));
+//		}catch (Exception e) {
+//			e.printStackTrace();
+//		}return -1;
+//	}
 	// make sure properties are not missing when file is loaded!!
 	
 	

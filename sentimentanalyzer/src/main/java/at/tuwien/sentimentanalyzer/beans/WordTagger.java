@@ -20,8 +20,14 @@ public class WordTagger {
 		// trick to disable annoying printouts
 		// this is your print stream, store the reference
 		PrintStream err = System.err;
+		PrintStream out = System.out;
+		
 		// now make all writes to the System.err stream silent 
 		System.setErr(new PrintStream(new OutputStream() {
+		    public void write(int b) {
+		    }
+		}));
+		System.setOut(new PrintStream(new OutputStream() {
 		    public void write(int b) {
 		    }
 		}));
@@ -45,7 +51,7 @@ public class WordTagger {
 		
 		// set everything back to its original state afterwards
 		System.setErr(err);
-		
+		System.setOut(out);
 		return msg;
 	}
 }

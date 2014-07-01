@@ -130,7 +130,7 @@ public class MailHandler {
 	 */
 	public void recipientListWeekly(Exchange exchange) {
 		exchange.setOut(exchange.getIn());
-		String recipients = "&BCC=";
+		String recipients = "";
 		if (this.dailyMail.isEmpty()) {
 			recipients = "";
 		}

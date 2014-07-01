@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import org.apache.camel.Exchange;
 import org.apache.log4j.Logger;
 
 import twitter4j.Status;
@@ -29,7 +30,11 @@ public class MessageConverter {
 	public static Message stringToMessage(String string) {
 		throw new UnsupportedOperationException("not yet implemented");
 	}
-	
+	public static void statusToMessageCamel(Exchange exchange) {
+		exchange.setOut(exchange.getIn());
+		Status body = (Status) exchange.getIn().getBody();
+		exchange.getOut().setBody(statusToMessage(body));
+	}
 	
 	public static Message statusToMessage(Status status) {
 		if (status == null) {
@@ -40,8 +45,13 @@ public class MessageConverter {
 		m.setAuthor(status.getUser().getName());
 		m.setMessage(status.getText());
 		m.setTimePosted(status.getCreatedAt());
-		m.setSource(null);
+		m.setSource(new Source("Twitter"));
 		log.trace("StatusToMessage"+m.toString());
+		if (m.getAuthor() == null) throw new RuntimeException("output Author is null");
+		if (m.getMessage() == null) throw new RuntimeException("output Message is null");
+		if (m.getTimePosted() == null) throw new RuntimeException("output TimePosted is null");
+		if (m.getAuthor().isEmpty()) throw new RuntimeException("output Author is empty");
+		if (m.getMessage().isEmpty()) throw new RuntimeException("output Message is empty");
 		return m;
 	}
 	

@@ -28,6 +28,7 @@ import java.util.regex.Pattern;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.Header;
+import org.apache.log4j.Logger;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
@@ -72,7 +73,7 @@ import com.itextpdf.tool.xml.XMLWorkerHelper;
  *
  */
 public class ReportGenerator {
-	
+	private static Logger log = Logger.getLogger(ReportGenerator.class);
 	public ReportGenerator() {
 
 	}
@@ -763,5 +764,19 @@ public class ReportGenerator {
 			super(msg, e);
 		}
 	}
-
+	private boolean shouldSendMessageReport = false;
+	public synchronized void sendMessageReport() {
+		log.info("sendMessageReport");
+		shouldSendMessageReport = true;
+	}
+	public synchronized boolean shouldSendMessageReport() {
+		log.trace("shouldSendMessageReport "+shouldSendMessageReport);
+		if (shouldSendMessageReport) {
+			shouldSendMessageReport = false;
+			log.info("shouldSendMessageReport true");
+			return true;
+		} else {
+			return false;
+		}
+	}
 }

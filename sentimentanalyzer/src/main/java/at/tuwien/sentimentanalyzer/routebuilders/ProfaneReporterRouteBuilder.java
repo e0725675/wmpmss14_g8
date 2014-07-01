@@ -19,12 +19,7 @@ public class ProfaneReporterRouteBuilder extends RouteBuilder{
 	//MessageAggregationStrategy messageAggregationStrategy;
 	@Override
 	public void configure() throws Exception {
-		
-		///getSwearwordReport?email=mymail@mail.com&from=2014.06.01&to=2014.06.02
-		//from("servlet:///getSwearwordReport").
-		//to("smtps://smtp.gmail.com:465?password=wmpmSS2014&username=workflow@applepublic.tv&subject=swearreport&from=workflow@applepublic.tv&to=e0725675@student.tuwien.ac.at");
-		//to("smtps://smtp.gmail.com:465?password=wmpmSS2014&username=workflow@applepublic.tv&subject=report&from=workflow@applepublic.tv&to=${header.touri}");
-//		
+
 		from("servlet:///getSwearwordReport").
 		//from("timer:timerXX?period=10000").
 		//log("testmail").
@@ -52,7 +47,7 @@ public class ProfaneReporterRouteBuilder extends RouteBuilder{
 				//log("smtps://smtp.gmail.com:465?to=${header.email}&password=wmpmSS2014&username=workflow@applepublic.tv&subject=Swearreport&from=workflow@applepublic.tv").
 //				//simple("smtps://smtp.gmail.com:465?password=wmpmSS2014&username=workflow@applepublic.tv&subject=report&from=workflow@applepublic.tv&to=${header.touri}");
 				recipientList(";;;"). //not actuallly recipient list. needed so i can dynamically create URL
-					simple("smtps://smtp.gmail.com:465?to=${header.toemail}&password=wmpmSS2014&username=workflow@applepublic.tv&subject=Swearreport&from=workflow@applepublic.tv");
+					simple("smtps://{{mail.host}}:{{mail.port}}?to=${header.toemail}&password={{mail.password}}&username={{mail.username}}&subject=Swearreport&from={{mail.from}}");
 	}
 	
 }

@@ -112,4 +112,7 @@
     </bean>
     <bean id="messageAggregationStrategy" class="at.tuwien.sentimentanalyzer.converters.MessageAggregationStrategy"/>
     <bean id="aggregatorConvertor" class="at.tuwien.sentimentanalyzer.beans.AggregatorConvertor"/>
+    <bean id="properties" class="org.apache.camel.component.properties.PropertiesComponent">
+    	<property name="location" value="file:src/main/resources/config.properties"/>
+	</bean>
 </beans>
