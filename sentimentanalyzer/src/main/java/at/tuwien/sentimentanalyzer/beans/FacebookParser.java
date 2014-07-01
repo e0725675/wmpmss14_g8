@@ -28,6 +28,7 @@ public class FacebookParser {
 	private static DateFormat facebookDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'+0000'");
 	private static Source source = new Source("Facebook");
 	public void parseJson(Exchange exchange) throws IOException, ParseException {
+		log.debug("parseJson");
 		exchange.setOut(exchange.getIn());
 		
 		String file = ReportGenerator.fileToString(new File("sample.facebook.txt"));
@@ -40,10 +41,11 @@ public class FacebookParser {
         for (Iterator<JsonNode> it = data.elements();it.hasNext();) {
         	out = parseFacebookMessage(it.next(), out);
         }
+        log.debug("parseJson parsed "+out.size()+" messages");
 		exchange.getOut().setBody(new ArrayList<Message>(out.values()));
 	}
 	private static HashMap<String,Message> parseFacebookMessage(JsonNode js, HashMap<String,Message> out) throws ParseException {
-        for (Iterator<JsonNode> it = js.elements();it.hasNext();) {
+		for (Iterator<JsonNode> it = js.elements();it.hasNext();) {
         	out = parseFacebookMessage(it.next(), out);
         }
 
@@ -74,5 +76,6 @@ public class FacebookParser {
 	public void extractMessageIdToHeader(Exchange exchange) {
 		exchange.setOut(exchange.getIn());
 		exchange.getOut().setHeader("messageId", exchange.getOut().getBody(Message.class).getId());
+		log.trace("extractMessageIdToHeader "+exchange.getOut().getBody(Message.class).getId());
 	}
 }

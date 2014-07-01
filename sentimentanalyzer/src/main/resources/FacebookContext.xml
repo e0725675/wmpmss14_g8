@@ -1,22 +1,43 @@
 ﻿<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring-2.13.0.xsd
     ">
- 
-    <!-- This is the included XML file where we include only the routeContext  -->
-    <routeContext id="FacebookRoutes" xmlns="http://camel.apache.org/schema/spring">
+
+	<bean id="gson" class="org.apache.camel.component.gson.GsonDataFormat">
+		<!-- we want to unmarshal to person pojo -->
+		<property name="unmarshalType"
+			value="at.tuwien.sentimentanalyzer.entities.FacebookPOJO" />
+		<!-- we want to map fields to use lower case and underscores -->
+		<!-- <property name="fieldNamingPolicy" value="LOWER_CASE_WITH_UNDERSCORES"/> -->
+	</bean>
+
+	<!-- This is the included XML file where we include only the routeContext -->
+	<routeContext id="FacebookRoutes" xmlns="http://camel.apache.org/schema/spring">
 		<!-- only returns the feed of the plachutta page -->
-        <route id="facebookSearchPlachutta">
-			<from uri="timer:FacebookTimer?period={{facebook.period}}"/>
-			<log message="facebook-start"/>
-<!-- 			<to uri="https://graph.facebook.com/v2.0//{{facebook.client}}/feed?access_token={{facebook.AppID}}|{{facebook.AppSecret}}" /> -->
+		<!-- define the gson data format, where we configure the data format using 
+			the properties -->
+
+		<route id="facebookSearchPlachutta">
+			<from uri="timer:FacebookTimer?period={{facebook.period}}" />
+			<log message="facebook-start" loggingLevel="DEBUG" />
+			<to
+				uri="https4://graph.facebook.com/v2.0//{{facebook.client}}/tagged?access_token={{facebook.AppID}}|{{facebook.AppSecret}}" />
 			<!-- https://graph.facebook.com/v2.0//Plachutta/tagged?access_token=329502517197810|7282801ff5f470986a1db0776f866622 -->
-<!-- 			<to uri="facebook:search?oAuthAppId=&oAuthAppSecret=&oAuthAccessToken="/> -->
-			<convertBodyTo type="java.lang.String" />
- 			<to uri="log:facebook" /> 
- 			<to uri="direct:incomingMessages" />
-        </route>
-    </routeContext>
+<!-- 			<unmarshal ref="gson" /> -->
+			<to uri="log:facebookstart?level=DEBUG"/>
+			<!-- <convertBodyTo type="java.lang.String" /> -->
+			<bean ref="facebookParser" method="parseJson" />
+			<pipeline>
+				<split streaming="false" parallelProcessing="false">
+					<simple>${body}</simple>
+					<bean ref="facebookParser" method="extractMessageIdToHeader" />
+					<to uri="direct:incomingMessages" />
+				</split>
+			</pipeline>
+			<to uri="log:facebook?level=DEBUG" />
+
+		</route>
+	</routeContext>
 </beans>

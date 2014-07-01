@@ -28,10 +28,10 @@ public class RedditRouteBuilder extends RouteBuilder{
 			routeId("redditRoute").
 		to("{{reddit.path}}").
 		unmarshal(formatMessage).
-		beanRef("redditConvertor", "getMessage").
+		beanRef("redditConvertor", "getMessage").pipeline().
 //		to("log:unsplitted").
 		split(body()).
-//		to("log:splitted").
+		to("log:splitted?level=DEBUG").
 		process(new Processor() { // set message header ID
 			
 			@Override

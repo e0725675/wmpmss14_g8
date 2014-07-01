@@ -57,6 +57,7 @@ public class RedditConvertor {
 		}
 	
 		//log.trace("Reddit message: " + msg);
+		log.debug("split into "+out.size()+" reddit messages");
 		return out;
 	}
 	

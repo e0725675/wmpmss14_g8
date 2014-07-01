@@ -773,7 +773,7 @@ public class ReportGenerator {
 		log.trace("shouldSendMessageReport "+shouldSendMessageReport);
 		if (shouldSendMessageReport) {
 			shouldSendMessageReport = false;
-			log.info("shouldSendMessageReport true");
+			log.debug("shouldSendMessageReport true");
 			return true;
 		} else {
 			return false;
