@@ -1,0 +1,2110 @@
+{
+   "data": [
+      {
+         "id": "427148870654080_613826328715517",
+         "from": {
+            "id": "619761431455340",
+            "name": "Peter Huber"
+         },
+         "to": {
+            "data": [
+               {
+                  "category": "Food/beverages",
+                  "name": "Plachutta Restaurants Wien (official)",
+                  "id": "427148870654080"
+               }
+            ]
+         },
+         "picture": "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xpf1/t1.0-1/p200x200/10421559_1428918307394592_6206344833172703483_n.jpg",
+         "link": "https://www.facebook.com/pages/Rauchersheriff-verliert-gegen-Mario-Plachutta-Spendenaufruf/1428907650728991",
+         "name": "Rauchersheriff verliert gegen Mario Plachutta - Spendenaufruf",
+         "description": "Ein Nichtrauchersch\u00fctzer hat gegen Mario Plachutta beim Obersten Gerichtshof verloren. Er muss Plachutta nun 5000 Euro an Prozesskosten ersetzen.",
+         "properties": [
+            {
+               "name": "Community",
+               "text": "10 like this"
+            }
+         ],
+         "icon": "https://fbstatic-a.akamaihd.net/rsrc.php/v2/yD/r/aS8ecmYRys0.gif",
+         "privacy": {
+            "value": ""
+         },
+         "type": "link",
+         "created_time": "2014-06-19T06:42:49+0000",
+         "updated_time": "2014-06-19T06:42:49+0000"
+      },
+      {
+         "id": "427148870654080_678538632181768",
+         "from": {
+            "id": "10202753556572367",
+            "name": "Johannes Silhan"
+         },
+         "to": {
+            "data": [
+               {
+                  "category": "Food/beverages",
+                  "name": "Plachutta Restaurants Wien (official)",
+                  "id": "427148870654080"
+               }
+            ]
+         },
+         "message": "Danke f\u00fcr einen tollen Sonntag!\nTrotz gezuckerter Erdbeeren einen Tisch im Gr\u00fcnspan um 12 Uhr reserviert. Schwerer Fehler! 1. warteten wir auf die Hauptspeisen eine dreiviertel Stunde! 2. Nochmals die Karte zwecks Nachspeisen geordert. Das wurde uns mit der Begr\u00fcndung verweigert, dass der Tisch bereits ab 13:30 Uhr wieder vergeben sei! \"Das ist bei uns am Sonntag immer so\". Hallo??? Dass dann npch der falsche Kaffee serviert wurde, f\u00e4llt da schon nicht mehr ins Gewicht. Aufgrund des Regenwetters dr\u00e4ngten sich dann auch schon gesch\u00e4tzte 100 Leute am Eingang, die auf ihre Tische warteten. Durch das Riesengedr\u00e4nge mit einem Dreij\u00e4hrigen - ganz toll!\nAber lieber Plachutta, ich werde euch helfen, derartige Szenen in Zukunft zu vermeiden - einfach weil ihr mich nie wiedersehen werdet! Verarschen kann ich mich selber besser und vor allem muss ich daf\u00fcr nichts bezahlen!",
+         "privacy": {
+            "value": ""
+         },
+         "type": "status",
+         "application": {
+            "name": "Facebook for iPad",
+            "namespace": "fbipad_",
+            "id": "173847642670370"
+         },
+         "created_time": "2014-05-11T12:32:50+0000",
+         "updated_time": "2014-05-14T07:09:15+0000",
+         "likes": {
+            "data": [
+               {
+                  "id": "243780332499573",
+                  "name": "Gabriele Simone"
+               },
+               {
+                  "id": "658455334242236",
+                  "name": "Thomas Gierlinger"
+               },
+               {
+                  "id": "10203876551411798",
+                  "name": "Christoph Appel"
+               },
+               {
+                  "id": "789095447791031",
+                  "name": "Gipsy Bodnarovsky"
+               },
+               {
+                  "id": "10202753556572367",
+                  "name": "Johannes Silhan"
+               }
+            ],
+            "paging": {
+               "cursors": {
+                  "after": "MTAyMDI3NTM1NTY1NzIzNjc=",
+                  "before": "MjQzNzgwMzMyNDk5NTcz"
+               }
+            }
+         },
+         "comments": {
+            "data": [
+               {
+                  "id": "678538632181768_679084218793876",
+                  "from": {
+                     "category": "Food/beverages",
+                     "name": "Plachutta Restaurants Wien (official)",
+                     "id": "427148870654080"
+                  },
+                  "message": "Sehr geehrter Herr Silhan,\nes tut uns Leid, dass wir Ihren Erwartungen beim gestrigen Besuch nicht entsprechen konnten. Ihr beschriebener Ablauf gen\u00fcgt auch nicht unseren Service-Anspr\u00fcchen. Wir w\u00fcrden uns freuen, wenn Sie unsere Gastst\u00e4tten dennoch erneut besuchen w\u00fcrden. Wir hoffen, dass wir Sie bei Ihrem n\u00e4chsten Besuch von unserem guten Service \u00fcberzeugen d\u00fcrfen.",
+                  "can_remove": false,
+                  "created_time": "2014-05-12T12:11:20+0000",
+                  "like_count": 0,
+                  "user_likes": false
+               },
+               {
+                  "id": "678538632181768_679085828793715",
+                  "from": {
+                     "id": "10202753556572367",
+                     "name": "Johannes Silhan"
+                  },
+                  "message": "Wenn ein Tisch nur f\u00fcr eineinhalb Stunden zur Verf\u00fcgung steht, ist darauf bei der Reservierung hinzuweisen, was definitiv nicht passiert ist.\nWenn so ein Fehler passiert, dann muss ich mich spontan bem\u00fchen, eine L\u00f6sung f\u00fcr den Kunden zu finden. Sinnlose Diskussionen \u00e0 la \"das ist bei uns immer so\" und \"wissen sie noch, wer die Reservierung entgegengenommen hat?\" sind da fehl am Platz. Ein gutes Service erkennt man daran, wie mit Problemen umgegangen wird. Hier haben Sie auf ganzer Linie versagt.",
+                  "can_remove": false,
+                  "created_time": "2014-05-12T12:16:56+0000",
+                  "like_count": 0,
+                  "user_likes": false
+               },
+               {
+                  "id": "678538632181768_679097705459194",
+                  "from": {
+                     "category": "Food/beverages",
+                     "name": "Plachutta Restaurants Wien (official)",
+                     "id": "427148870654080"
+                  },
+                  "message": "Sehr geehrter Herr Silhan,\nes tut uns sehr leid, dass unsere Reservierungsabteilung vergessen hat Ihnen mitzuteilen, dass der Tisch limitiert ist.\nWir werden mit der zust\u00e4ndigen Mitarbeiterin sprechen, damit dies in Zukunft nicht mehr vorkommt.",
+                  "can_remove": false,
+                  "created_time": "2014-05-12T12:52:59+0000",
+                  "like_count": 0,
+                  "user_likes": false
+               },
+               {
+                  "id": "678538632181768_679104108791887",
+                  "from": {
+                     "id": "10204011050018455",
+                     "name": "Georg Pearl"
+                  },
+                  "message": "Ohje! Jetzt wird wieder der Chef auszuckern und die zust\u00e4ndige Mitarbeiterin wird gefeuert",
+                  "can_remove": false,
+                  "created_time": "2014-05-12T13:06:01+0000",
+                  "like_count": 12,
+                  "user_likes": false
+               },
+               {
+                  "id": "678538632181768_679214042114227",
+                  "from": {
+                     "id": "589694967814439",
+                     "name": "Anna Maria Nym"
+                  },
+                  "message": "wurde schon... das Telefon und die Telefonanlage ebenso.. #plachuttan",
+                  "can_remove": false,
+                  "created_time": "2014-05-12T18:11:53+0000",
+                  "like_count": 0,
+                  "user_likes": false
+               },
+               {
+                  "id": "678538632181768_679884055380559",
+                  "from": {
+                     "id": "317982631701551",
+                     "name": "La Patria"
+                  },
+                  "message": "Bei diesen Andrang auf den Gr\u00fcnspan muss das Lokal ja sehr beliebt sein und wahrscheinlich auch Qualit\u00e4t liefern!!",
+                  "can_remove": false,
+                  "created_time": "2014-05-14T07:09:15+0000",
+                  "like_count": 1,
+                  "user_likes": false
+               }
+            ],
+            "paging": {
+               "cursors": {
+                  "after": "Ng==",
+                  "before": "MQ=="
+               }
+            }
+         }
+      },
+      {
+         "id": "427148870654080_677216052314026",
+         "from": {
+            "id": "796171180415520",
+            "name": "Harald Schwarz"
+         },
+         "to": {
+            "data": [
+               {
+                  "category": "Food/beverages",
+                  "name": "Plachutta Restaurants Wien (official)",
+                  "id": "427148870654080"
+               }
+            ]
+         },
+         "message": "Frage zum Trinkgeld behalten oder nicht: Ich dachte immer, dass gegebenes Trinkgeld mit welchem ich meinem Kellner meine Zufriedenheit ausdr\u00fccke, auch diesem geh\u00f6rt! Sehe ich das falsch?Wenn sich dies der Chef f\u00fcr sich selbst beh\u00e4lt oder sein Personal dazu zwingt 11 Stunden zu arbeiten um in den Genuss davon zu kommen, so finde ich das auch nicht korrekt!",
+         "privacy": {
+            "value": ""
+         },
+         "type": "status",
+         "created_time": "2014-05-08T09:46:48+0000",
+         "updated_time": "2014-06-24T16:08:18+0000",
+         "likes": {
+            "data": [
+               {
+                  "id": "1465180290391390",
+                  "name": "Iris Pilz"
+               },
+               {
+                  "id": "658455334242236",
+                  "name": "Thomas Gierlinger"
+               }
+            ],
+            "paging": {
+               "cursors": {
+                  "after": "NjU4NDU1MzM0MjQyMjM2",
+                  "before": "MTQ2NTE4MDI5MDM5MTM5MA=="
+               }
+            }
+         },
+         "comments": {
+            "data": [
+               {
+                  "id": "677216052314026_680623701973261",
+                  "from": {
+                     "id": "10201728728134615",
+                     "name": "Rebeka Halus"
+                  },
+                  "message": "Das mit dem Trinkgeld entscheidet jeder Chef selbst, eigentlich gibt man es der Person von der man bedient wird, klar, aber das hei\u00dft noch lange nicht das es auch diese zum Schluss erh\u00e4lt. Spreche aus eigener Erfahrung ;)",
+                  "can_remove": false,
+                  "created_time": "2014-05-15T21:07:22+0000",
+                  "like_count": 0,
+                  "user_likes": false
+               },
+               {
+                  "id": "677216052314026_680768398625458",
+                  "from": {
+                     "id": "796171180415520",
+                     "name": "Harald Schwarz"
+                  },
+                  "message": "Wenn das branchen\u00fcblich ist grenzt das ja schon an N\u00f6tigung! Wenn es dem Kellner sowieso nicht zu gute kommt sollte man es sich ernsthaft \u00fcberlegen, \u00fcberhaupt kein Trinkgeld zu geben, bevor man es einem profitgierigen Lokalinhaber in den Rachen schiebt! Alternative w\u00e4re vielleicht, es dem Kellner NACH dem zahlen, beim weggehen, zu \u00fcbergeben bzw. den Kellner gezielt fragen, ob er sich das Trinkgeld behalten kann oder nicht! Unter solchen Umst\u00e4nden w\u00fcrde ich, als Kellner, Trinkgeld gar nicht annehmen!",
+                  "can_remove": false,
+                  "created_time": "2014-05-16T06:55:45+0000",
+                  "like_count": 0,
+                  "user_likes": false
+               },
+               {
+                  "id": "677216052314026_680959281939703",
+                  "from": {
+                     "id": "891009847582880",
+                     "name": "Gottlieb Mulligan"
+                  },
+                  "message": "es ist branchen\u00fcblich, da\u00df die trinkgelder nach einem punktesystem verteilt werden.  der picolo bekommt die wenigsten, der oberkellner bekommt die meisten anteile. \nw\u00e4re das nicht so, w\u00fcrden zum beispiel, empfang, garderobe, oder die k\u00f6che nie, oder nur selten in den genu\u00df von trinkgeldern kommen.",
+                  "can_remove": false,
+                  "created_time": "2014-05-16T15:45:32+0000",
+                  "like_count": 0,
+                  "user_likes": false
+               },
+               {
+                  "id": "677216052314026_680971545271810",
+                  "from": {
+                     "id": "796171180415520",
+                     "name": "Harald Schwarz"
+                  },
+                  "message": "Gottlieb, wie ich schon oben schrieb, mit dem Trinkgeld will ich dem Kellner, der mich zu meiner Zufriedenheit bedient hat, etwas Gutes tun. Die anderen, haben mich nicht bedient, bekommen ihr Gehalt u. interessieren mich nicht wirklich. Au\u00dferdem, an der Garderobe w\u00fcrde ich ja extra ein Trinkgeld bezahlen!",
+                  "can_remove": false,
+                  "created_time": "2014-05-16T16:20:04+0000",
+                  "like_count": 1,
+                  "user_likes": false
+               },
+               {
+                  "id": "677216052314026_680972465271718",
+                  "from": {
+                     "id": "891009847582880",
+                     "name": "Gottlieb Mulligan"
+                  },
+                  "message": "blacky, wie oft warst du schon, wenn es dir geschmeckt hat, in der k\u00fcche und hast den k\u00f6chen und hilfskr\u00e4ften ein pers\u00f6nliches trinkgeld gegeben?",
+                  "can_remove": false,
+                  "created_time": "2014-05-16T16:23:10+0000",
+                  "like_count": 0,
+                  "user_likes": false
+               },
+               {
+                  "id": "677216052314026_680973745271590",
+                  "from": {
+                     "id": "796171180415520",
+                     "name": "Harald Schwarz"
+                  },
+                  "message": "Eigentlich noch gar nicht u. ich kenne auch niemanden der das bisher gegeben hat. Anderseits erinnere mich noch daran, in unserer Jugend einen Zusatz auf den Speisekarten div. Restaurants gelesen zu haben: Preise inkl. 10\u0025 Bedienungszuschlag! Wei\u00df nicht ob das das heute noch so ist, aber da w\u00fcrden ja die von Dir beschriebenen anderen Angestellten ihren Anteil ja vom Chef bekommen u. mein Kellner soll das ihm  von mir zugedachte Trinkgeld behalten!",
+                  "can_remove": false,
+                  "created_time": "2014-05-16T16:27:22+0000",
+                  "like_count": 0,
+                  "user_likes": false
+               },
+               {
+                  "id": "677216052314026_680975081938123",
+                  "from": {
+                     "id": "891009847582880",
+                     "name": "Gottlieb Mulligan"
+                  },
+                  "message": "das l\u00e4uft aber in der gehobenen gastronomie und hotelerie anders ab. wenn da ein mitarbeiter das trinkgeld einsteckt und nicht korrekt in den gemeinschaftstopf abrechnet ist das ein fristloser k\u00fcndigungsgrund wegen diebstahl. \nabgesehen davon, die 10\u0025 bedienungszuschlag gibt es schon lange nicht mehr.",
+                  "can_remove": false,
+                  "created_time": "2014-05-16T16:31:26+0000",
+                  "like_count": 0,
+                  "user_likes": false
+               },
+               {
+                  "id": "677216052314026_698429460192685",
+                  "from": {
+                     "id": "10203520863795877",
+                     "name": "Hannes  Slanec"
+                  },
+                  "message": "Also nun mal langsam...wenn ich Koch lerne muss ich mich damit anfreunden dass ich kein Trinkgeld bekomme.....\nIch habe in vielen Branchen gearbeitet und au\u00dfer in der Gastro bekommt man nirgens Trinkgeld, also was soll das.\n\nNUR ICH bestimme was mit dem Trinkgeld DAS ICH GEBE passiert.\n\nIch schenke es dem Kellner und wenn es dem weggenommen wird so hat man direkt mich bestohlen.\n\nIch soll ja niemanden draufkommen dass er das macht.\n\nMein Geschenk - meine Regeln....das Lokal hat GAORNIX zu bestimmen wenn ich Geld verschenke GOARNIX!!!",
+                  "can_remove": false,
+                  "created_time": "2014-06-24T16:08:18+0000",
+                  "like_count": 2,
+                  "user_likes": false
+               }
+            ],
+            "paging": {
+               "cursors": {
+                  "after": "OA==",
+                  "before": "MQ=="
+               }
+            }
+         }
+      },
+      {
+         "id": "427148870654080_676793975689567",
+         "from": {
+            "id": "317982631701551",
+            "name": "La Patria"
+         },
+         "to": {
+            "data": [
+               {
+                  "category": "Food/beverages",
+                  "name": "Plachutta Restaurants Wien (official)",
+                  "id": "427148870654080"
+               }
+            ]
+         },
+         "message": "Liebe Leute, ihr ruft hier auf um ein Unternehmen zu boykottieren, weil es einen Mitarbeiter zu Unrecht behandelt hat.\nBevor man hier sich ausl\u00e4sst sollte man alle Hintergr\u00fcnde genau kennen und nicht gleich auf den Wagen aufspringen den die Medien lenken.\nPlachutta ist f\u00fcr mich eine \u00f6sterreichische Marke und ist sicher mit viel Einsatz und Flei\u00df geschaffen worden.\nDavon Profitiert nicht nur die Familie Plachutta und seine Mitarbeiter, auch die Stadt Wien.\nDie Institution nicht zu besuchen w\u00fcrde noch weitere Arbeitspl\u00e4tze gef\u00e4hrden und niemanden dienlich sein.\nBei meinen n\u00e4chsten Wienaufenthalt geh\u00f6rt zu meinen Programm ein  Besuch in einen der nobleren und nat\u00fcrlich treueren Plachuttalokalen in der Innenstadt, aber auch im Gr\u00fcnspan dem Lokal dass auch der kleineren Brieftasche erm\u00f6glicht Plachutta zu erleben. Freu mich schon auf das gute Backhenderl dort.",
+         "privacy": {
+            "value": ""
+         },
+         "type": "status",
+         "created_time": "2014-05-07T07:36:43+0000",
+         "updated_time": "2014-05-14T16:35:46+0000",
+         "likes": {
+            "data": [
+               {
+                  "id": "10201325641421709",
+                  "name": "Werner Martin"
+               }
+            ],
+            "paging": {
+               "cursors": {
+                  "after": "MTAyMDEzMjU2NDE0MjE3MDk=",
+                  "before": "MTAyMDEzMjU2NDE0MjE3MDk="
+               }
+            }
+         },
+         "comments": {
+            "data": [
+               {
+                  "id": "676793975689567_677201575648807",
+                  "from": {
+                     "id": "1583124131914357",
+                     "name": "Carmen Staudinger"
+                  },
+                  "message": "wer hat denn den text vorgeschrieben? steht da ein medienberater dahinter? :p",
+                  "can_remove": false,
+                  "created_time": "2014-05-08T08:29:30+0000",
+                  "like_count": 3,
+                  "user_likes": false
+               },
+               {
+                  "id": "676793975689567_677599432275688",
+                  "from": {
+                     "id": "10201325641421709",
+                     "name": "Werner Martin"
+                  },
+                  "message": "Wir leben in einer Zeit, in der manche ihr Selbstwertgef\u00fchl einzig dadurch aufm\u00f6beln, in dem sie sich als Retter vermeitler Opfer aufspielen. Wen man sich f\u00fcr jemanden einsetzt, den man vorher zum Opfer gemacht hat, bedeutet das, sich \u00fcber ihn zu stellen und sich damit narzisstisch aufzutanken. Nach diesem Prinzip funktionieren z. B. die ganzen Gutmenschen. Alles lange bekannt und lange durchschaut. Leider wird das von den Medien auch betrieben und wird sich deshalb nicht so schnell \u00e4ndern. Nachdenken war gestern!",
+                  "can_remove": false,
+                  "created_time": "2014-05-09T08:55:22+0000",
+                  "like_count": 1,
+                  "user_likes": false
+               },
+               {
+                  "id": "676793975689567_677906355578329",
+                  "from": {
+                     "id": "10202647790062050",
+                     "name": "Michael Ruttner"
+                  },
+                  "message": "Naja, die die jetzt zum Boykott aufrufen sind ja auch vorher schon nicht hingegangen und die, die hingehen (Touristen und Gesch\u00e4ftsleute) werden auch weiterhin hingehen. So gesehen mache ich mir um die weitere Existenz der Restaurantkette keine Sorgen. Meine pers\u00f6nliche Begeisterung f\u00fcr das Gr\u00fcnspan ist allerdings genauso gering wie f\u00fcr einen Mc Donalds oder ein Starbucks, aber wie die gute Auslastung zeigt, gibt es auch f\u00fcr dieses Gastrokonzept eine Zielgruppe. In 4 Wochen wird der Vorfall hoffentlich Geschichte sein.",
+                  "can_remove": false,
+                  "created_time": "2014-05-10T00:20:38+0000",
+                  "like_count": 0,
+                  "user_likes": false
+               },
+               {
+                  "id": "676793975689567_678099548892343",
+                  "from": {
+                     "id": "797295683627620",
+                     "name": "Felix Piringer"
+                  },
+                  "message": "Lieber Herr Placutta (bzw. seine PR Berater)! Ich bin mir sicher, Ihr Backhenderl schmeckt fantastisch! Ihr Verhalten ist jedoch ungenie\u00dfbar...",
+                  "can_remove": false,
+                  "created_time": "2014-05-10T13:26:10+0000",
+                  "like_count": 4,
+                  "user_likes": false
+               },
+               {
+                  "id": "676793975689567_679301302105501",
+                  "from": {
+                     "id": "10203167881895267",
+                     "name": "Lenka Ske"
+                  },
+                  "message": "Genau! Da geht die arrogante und abgehobene Elite weiterhin!  Es ist traurig, dass man mittels Ausbeutung immer reicher und privilegierter wird.",
+                  "can_remove": false,
+                  "created_time": "2014-05-12T21:49:54+0000",
+                  "like_count": 0,
+                  "user_likes": false
+               },
+               {
+                  "id": "676793975689567_680038522031779",
+                  "from": {
+                     "id": "844164055611941",
+                     "name": "Theodor Seiz"
+                  },
+                  "message": "Stuss, ich geh ja wo anders hin essen!",
+                  "can_remove": false,
+                  "created_time": "2014-05-14T16:35:46+0000",
+                  "like_count": 0,
+                  "user_likes": false
+               }
+            ],
+            "paging": {
+               "cursors": {
+                  "after": "Ng==",
+                  "before": "MQ=="
+               }
+            }
+         }
+      },
+      {
+         "id": "427148870654080_676657262369905",
+         "from": {
+            "id": "10204118648427825",
+            "name": "Marek Vrbka"
+         },
+         "to": {
+            "data": [
+               {
+                  "category": "Food/beverages",
+                  "name": "Plachutta Restaurants Wien (official)",
+                  "id": "427148870654080"
+               }
+            ]
+         },
+         "message": "Wie sind  die  den Mitarbeitern nicht bezahlte Trinkgelder bei 8-st\u00fcndiger Schicht  dann versteuert?\nTiefgefrorenes in so einem Lokal?",
+         "privacy": {
+            "value": ""
+         },
+         "type": "status",
+         "created_time": "2014-05-06T21:56:40+0000",
+         "updated_time": "2014-05-06T21:56:40+0000"
+      },
+      {
+         "id": "427148870654080_676400119062286",
+         "from": {
+            "id": "4213249985790",
+            "name": "Gamze Ve Serhat"
+         },
+         "to": {
+            "data": [
+               {
+                  "category": "Food/beverages",
+                  "name": "Plachutta Restaurants Wien (official)",
+                  "id": "427148870654080"
+               }
+            ]
+         },
+         "message": "Mein Geld werde ich \u00f6konomischer Ausgeben ! Definitiv kein Plachutta mehr !!!!!!!!!!!!!!!!!!!! Bodenlose Frechheit !",
+         "privacy": {
+            "value": ""
+         },
+         "type": "status",
+         "created_time": "2014-05-06T09:05:17+0000",
+         "updated_time": "2014-05-06T09:05:17+0000",
+         "likes": {
+            "data": [
+               {
+                  "id": "10152274835312998",
+                  "name": "Michaela Huber"
+               },
+               {
+                  "id": "589694967814439",
+                  "name": "Anna Maria Nym"
+               },
+               {
+                  "id": "577228335731871",
+                  "name": "Florian Vesely"
+               }
+            ],
+            "paging": {
+               "cursors": {
+                  "after": "NTc3MjI4MzM1NzMxODcx",
+                  "before": "MTAxNTIyNzQ4MzUzMTI5OTg="
+               }
+            }
+         }
+      },
+      {
+         "id": "427148870654080_10202206877914841",
+         "from": {
+            "id": "10202568986247323",
+            "name": "Kerstin Martens"
+         },
+         "to": {
+            "data": [
+               {
+                  "category": "Food/beverages",
+                  "name": "Plachutta Restaurants Wien (official)",
+                  "id": "427148870654080"
+               }
+            ]
+         },
+         "message": "Herr Plachutta, geht man so mit Lebensmitteln um? Die Erdbeeren der Passanten aus der Hand schlagen und auf die Stra\u00dfe sch\u00fctten? http://www.heute.at/leser/cme64245,857302?SORT=DESC",
+         "picture": "https://fbexternal-a.akamaihd.net/safe_image.php?d=AQCNQv7r1iNJbUFX&w=154&h=154&url=http\u00253A\u00252F\u00252Fstatic3.heute.at\u00252Fstorage\u00252Fpic\u00252Fbilder\u00252Fleserreporter-fotos\u00252Fgrantelnder_kellner_beendet_zucker_demo\u00252F857302_1_1.jpg\u00253Fversion\u00253D1399016020",
+         "link": "http://www.heute.at/leser/cme64245,857302?SORT=DESC",
+         "name": "Grantelnder Kellner beendet Zucker-Demo",
+         "caption": "www.heute.at",
+         "description": "Grantelnder Kellner beendet Zucker-Demo",
+         "icon": "https://fbstatic-a.akamaihd.net/rsrc.php/v2/yD/r/aS8ecmYRys0.gif",
+         "privacy": {
+            "value": ""
+         },
+         "type": "link",
+         "created_time": "2014-05-06T00:51:49+0000",
+         "updated_time": "2014-05-21T11:59:19+0000",
+         "likes": {
+            "data": [
+               {
+                  "id": "731090980286060",
+                  "name": "Gerhard Fellmann"
+               },
+               {
+                  "id": "10203876551411798",
+                  "name": "Christoph Appel"
+               }
+            ],
+            "paging": {
+               "cursors": {
+                  "after": "MTAyMDM4NzY1NTE0MTE3OTg=",
+                  "before": "NzMxMDkwOTgwMjg2MDYw"
+               }
+            }
+         },
+         "comments": {
+            "data": [
+               {
+                  "id": "10202206877914841_10202264987487544",
+                  "from": {
+                     "id": "10152953450878098",
+                     "name": "Paulo Wallner"
+                  },
+                  "message": "Es waren nicht blo\u00df ein paar Gramm Zucker, sondern ein halbes Kilo, und \u00fcberhaupt handle es sich bei dem betreffenden Mitarbeiter um einen slowakischen Staatsb\u00fcrger. Niemand, um den sich die AK also scheren sollte. Seither kocht die Volksseele, und der heftig Kritisierte ist auf Tauchstation.",
+                  "can_remove": false,
+                  "created_time": "2014-05-15T13:09:13+0000",
+                  "like_count": 0,
+                  "user_likes": false
+               },
+               {
+                  "id": "10202206877914841_10202301472199639",
+                  "from": {
+                     "id": "457606487717217",
+                     "name": "Petra Hesina"
+                  },
+                  "message": "Was glaubt Ihr warum das meiste Personal in der Gastronomie aus den benachbarten Ausland kommt? Der Chef hatte nur verdammt miese Laune und w\u00e4re nie auf die Idee gekommen, dass der betreffende zur AK geht. Aber in der Richtung haben auch schon andere gepostet.",
+                  "can_remove": false,
+                  "created_time": "2014-05-21T11:59:19+0000",
+                  "like_count": 0,
+                  "user_likes": false
+               }
+            ],
+            "paging": {
+               "cursors": {
+                  "after": "Mg==",
+                  "before": "MQ=="
+               }
+            }
+         }
+      },
+      {
+         "id": "427148870654080_676027185766246",
+         "from": {
+            "id": "587347864719010",
+            "name": "Wolfgang Draxl"
+         },
+         "to": {
+            "data": [
+               {
+                  "category": "Food/beverages",
+                  "name": "Plachutta Restaurants Wien (official)",
+                  "id": "427148870654080"
+               }
+            ]
+         },
+         "message": "Ich hab mir gestern im Betrieb (Ja, am Sonntag) Leitungswasser f\u00fcr ein Anmachsafterl genommen. Ist das ein K\u00fcndigungsgrund? Sie m\u00fcssten sich da ja auskennen.",
+         "privacy": {
+            "value": ""
+         },
+         "type": "status",
+         "created_time": "2014-05-05T11:34:30+0000",
+         "updated_time": "2014-05-05T11:34:30+0000"
+      },
+      {
+         "id": "427148870654080_675980255770939",
+         "from": {
+            "id": "1445620312359354",
+            "name": "Felix GamerGzero"
+         },
+         "to": {
+            "data": [
+               {
+                  "category": "Food/beverages",
+                  "name": "Plachutta Restaurants Wien (official)",
+                  "id": "427148870654080"
+               }
+            ]
+         },
+         "message": "Ich wahr selbst Lehrling beim Herren plachutta 1,5 Jahre lange !! Habe dann aber abgebrochen weil mir mein Tagesablauf sowie die Dienste und die Dienstzeiten nicht zusagten!! Wir mussten in der fr\u00fch zwischen 10-20 kg Kartoffeln sch\u00e4len , TK Spinat runterfaschieren , Palatschinken in unm\u00f6glichen Mengen machen und bekamen zum Mittag nur SCHINKEN K\u00c4SE TOAST !!!!!! Jeden Tag sogar zu weihnachten !!! Ich rufe alle Lehrlinge auf dieser Ungerechtigkeit ein Ende zusetzen !!!!!!",
+         "privacy": {
+            "value": ""
+         },
+         "type": "status",
+         "created_time": "2014-05-05T08:19:33+0000",
+         "updated_time": "2014-05-13T13:38:23+0000",
+         "likes": {
+            "data": [
+               {
+                  "id": "10203167881895267",
+                  "name": "Lenka Ske"
+               },
+               {
+                  "id": "10203876551411798",
+                  "name": "Christoph Appel"
+               },
+               {
+                  "id": "10204316297767023",
+                  "name": "Georgie Dinhobl"
+               },
+               {
+                  "id": "789095447791031",
+                  "name": "Gipsy Bodnarovsky"
+               },
+               {
+                  "id": "10202439766504431",
+                  "name": "Charles Joseph Steiner"
+               },
+               {
+                  "id": "796171180415520",
+                  "name": "Harald Schwarz"
+               },
+               {
+                  "id": "893461810670978",
+                  "name": "Georg Jajus"
+               },
+               {
+                  "id": "1490609454509562",
+                  "name": "Bernd Stauber"
+               }
+            ],
+            "paging": {
+               "cursors": {
+                  "after": "MTQ5MDYwOTQ1NDUwOTU2Mg==",
+                  "before": "MTAyMDMxNjc4ODE4OTUyNjc="
+               }
+            }
+         },
+         "comments": {
+            "data": [
+               {
+                  "id": "675980255770939_675982385770726",
+                  "from": {
+                     "id": "1490609454509562",
+                     "name": "Bernd Stauber"
+                  },
+                  "message": "wehe einer von euch \u201eunbrauchbaren Analphabeten\u201c ( copyright plachutta ) Lehrbuben tunkt seinen toast in das s\u00fcndteure ketchup! der kann gleich zampacken und gehen.",
+                  "can_remove": false,
+                  "created_time": "2014-05-05T08:33:31+0000",
+                  "like_count": 1,
+                  "user_likes": false
+               },
+               {
+                  "id": "675980255770939_675983275770637",
+                  "from": {
+                     "id": "1445620312359354",
+                     "name": "Felix GamerGzero"
+                  },
+                  "message": "So in etwa :) ",
+                  "can_remove": false,
+                  "created_time": "2014-05-05T08:38:19+0000",
+                  "like_count": 0,
+                  "user_likes": false
+               },
+               {
+                  "id": "675980255770939_675983302437301",
+                  "from": {
+                     "id": "1445620312359354",
+                     "name": "Felix GamerGzero"
+                  },
+                  "message": "War echt schlimm ",
+                  "can_remove": false,
+                  "created_time": "2014-05-05T08:38:33+0000",
+                  "like_count": 0,
+                  "user_likes": false
+               },
+               {
+                  "id": "675980255770939_675992642436367",
+                  "from": {
+                     "id": "315987411910866",
+                     "name": "Philipp Pories"
+                  },
+                  "message": "Nach mehreren Flashmobs vor dem Lokal und der medienpr\u00e4senz der Geschichte bringt hier auf fb jetzt den shitstorm weiterzuf\u00fchren gar nichts. Es sind sowohl der \u00d6GB chef als auch Chef der AK an der Sache dran also mal sch\u00f6n am Boden bleiben. Gibt wichtigere Sachen die man auf FB verbreiten kann ;)",
+                  "can_remove": false,
+                  "created_time": "2014-05-05T09:26:47+0000",
+                  "like_count": 0,
+                  "user_likes": false
+               },
+               {
+                  "id": "675980255770939_675996172436014",
+                  "from": {
+                     "id": "1445620312359354",
+                     "name": "Felix GamerGzero"
+                  },
+                  "message": "Oke oke hast recht ",
+                  "can_remove": false,
+                  "created_time": "2014-05-05T09:44:22+0000",
+                  "like_count": 0,
+                  "user_likes": false
+               },
+               {
+                  "id": "675980255770939_676039805764984",
+                  "from": {
+                     "id": "10202459827203499",
+                     "name": "Konrad Meier"
+                  },
+                  "message": "und das fiel dir erst nach 1,5 jahren auf?",
+                  "can_remove": false,
+                  "created_time": "2014-05-05T12:15:22+0000",
+                  "like_count": 1,
+                  "user_likes": false
+               },
+               {
+                  "id": "675980255770939_676069952428636",
+                  "from": {
+                     "id": "10204562441851219",
+                     "name": "Verena Marry Jersey"
+                  },
+                  "message": "Vielleicht hat er versucht durchzuhalten und wollte nicht einfach aufgeben?",
+                  "can_remove": false,
+                  "created_time": "2014-05-05T12:59:26+0000",
+                  "like_count": 1,
+                  "user_likes": false
+               },
+               {
+                  "id": "675980255770939_676074825761482",
+                  "from": {
+                     "id": "1445620312359354",
+                     "name": "Felix GamerGzero"
+                  },
+                  "message": "Genau ",
+                  "can_remove": false,
+                  "created_time": "2014-05-05T13:17:03+0000",
+                  "like_count": 0,
+                  "user_likes": false
+               },
+               {
+                  "id": "675980255770939_676074945761470",
+                  "from": {
+                     "id": "1445620312359354",
+                     "name": "Felix GamerGzero"
+                  },
+                  "message": "Musste durchhalten wegen der Lehre :( ",
+                  "can_remove": false,
+                  "created_time": "2014-05-05T13:17:29+0000",
+                  "like_count": 0,
+                  "user_likes": false
+               },
+               {
+                  "id": "675980255770939_676121149090183",
+                  "from": {
+                     "id": "1445620312359354",
+                     "name": "Felix GamerGzero"
+                  },
+                  "message": "Verena kannst du mir bitte ne Fa schicken :) ",
+                  "can_remove": false,
+                  "created_time": "2014-05-05T15:35:18+0000",
+                  "like_count": 0,
+                  "user_likes": false
+               },
+               {
+                  "id": "675980255770939_676789179023380",
+                  "from": {
+                     "id": "317982631701551",
+                     "name": "La Patria"
+                  },
+                  "message": "Wer in einer k\u00fcche arbeit und hungert, dem ist nicht zu helfen!!",
+                  "can_remove": false,
+                  "created_time": "2014-05-07T07:15:22+0000",
+                  "like_count": 0,
+                  "user_likes": false
+               },
+               {
+                  "id": "675980255770939_676790002356631",
+                  "from": {
+                     "id": "317982631701551",
+                     "name": "La Patria"
+                  },
+                  "message": "In einer anderen Branche m\u00fcssten sie ihre Verpflegung mitbringen, es ist doch toll ein Essen gratis von der Firma zu bekommen und wenn es wie in ihrem fall nur ein Schinken-K\u00e4setaost ist.",
+                  "can_remove": false,
+                  "created_time": "2014-05-07T07:20:50+0000",
+                  "like_count": 1,
+                  "user_likes": false
+               },
+               {
+                  "id": "675980255770939_676790325689932",
+                  "from": {
+                     "id": "317982631701551",
+                     "name": "La Patria"
+                  },
+                  "message": "Lehrnjahre sind keine Herrenjahre und Erd\u00e4pfeln sch\u00e4len geh\u00f6rt zu ihrer Ausbildung, oder glauben sie der K\u00fcchenchef stand von Anbeginn seiner Lehr an vorderster Front!!",
+                  "can_remove": false,
+                  "created_time": "2014-05-07T07:22:44+0000",
+                  "like_count": 0,
+                  "user_likes": false
+               },
+               {
+                  "id": "675980255770939_676798789022419",
+                  "from": {
+                     "id": "1445620312359354",
+                     "name": "Felix GamerGzero"
+                  },
+                  "message": "Nein aber es w\u00e4re doch vlt gut wenn die Firma bei der ich besch\u00e4ftigt bin das Geld daf\u00fcr h\u00e4tte und auch die zeit mir geben w\u00fcrde eine Pause zuhalten bzw. Mir ein gescheites Mittagessen bzw. Was gibt womit Mann mir meinen Tag freudiger macht Wurscht ob Lehrling oder nicht !!! Es ist eine Frechheit auch die Lehrlinge so runterzustufen !! In anderen Branchen z.b it Branche kommt Mann auch schnell und gut voran wenn die Firma nicht so asozial wie in der gastro ist !!! ",
+                  "can_remove": false,
+                  "created_time": "2014-05-07T08:08:44+0000",
+                  "like_count": 0,
+                  "user_likes": false
+               },
+               {
+                  "id": "675980255770939_676809492354682",
+                  "from": {
+                     "id": "317982631701551",
+                     "name": "La Patria"
+                  },
+                  "message": "die aussage \u00fcber Lehrlinge verurteile ich auch, schnell vorankommen geht nur mit st\u00e4tigen Einsatz.",
+                  "can_remove": false,
+                  "created_time": "2014-05-07T09:12:27+0000",
+                  "like_count": 0,
+                  "user_likes": false
+               },
+               {
+                  "id": "675980255770939_676810239021274",
+                  "from": {
+                     "id": "317982631701551",
+                     "name": "La Patria"
+                  },
+                  "message": "das Leben ist ein Lebenswerk das von ganz unten wie ein Haus stufenweise gebaut werden muss. Sie sind ein junger Mensch und glauben sie mir auch ich hatte ein solches Temperament in ihrem Alter. es tut mir f\u00fcr sie leid dass sie es nicht gut empfunden haben und die ganze Gastronomie daf\u00fcr verurteilen, glauben sie mir wenn sie etwas reifer sind werden sie noch oft dankbar sein nicht gleich alles bekommen zu haben.",
+                  "can_remove": false,
+                  "created_time": "2014-05-07T09:17:29+0000",
+                  "like_count": 0,
+                  "user_likes": false
+               },
+               {
+                  "id": "675980255770939_676817909020507",
+                  "from": {
+                     "id": "1445620312359354",
+                     "name": "Felix GamerGzero"
+                  },
+                  "message": "Alles echt bl\u00f6d ich mache was kreativeres Gaming  und Games entwickeln ",
+                  "can_remove": false,
+                  "created_time": "2014-05-07T09:51:46+0000",
+                  "like_count": 0,
+                  "user_likes": false
+               },
+               {
+                  "id": "675980255770939_676922762343355",
+                  "from": {
+                     "id": "479945045475117",
+                     "name": "Michael Muschg"
+                  },
+                  "message": "La Patria, ich wei\u00df ja nicht in welcher Branche sie arbeiten. ich war in meiner Studentenzeit in der Gastronomie t\u00e4tig und in ALLEN!! Betrieben, in denen ich t\u00e4tig war, gab es zu Mittag (nat\u00fcrlich nach dem Mittagsservice) ein Essen, ein richtiges Essen. Meist nat\u00fcrlich mit Waren die aufgebraucht werden mussten. aber niemals (in sechs verschiedenen Betrieben) niemals gab es an zwei aufeinanderfolgenden Tagen das selbe. Und zwar f\u00fcr ALLE Mitarbeiter, Lehrlinge, wie Gesch\u00e4ftsf\u00fchrer, K\u00f6che, Kellner und Reinigungskr\u00e4fte.\n\nim \u00fcbrigen verurteilt niemand die gesamte Gastronomie, aber gewisse Praktiken sind in der Gastro leider weit verbreitet - wie zb dass man sich die office-arbeitskraft ersetzt und die arbeit von einem lehrling machen l\u00e4sst anstatt ihn auszubilden.",
+                  "can_remove": false,
+                  "created_time": "2014-05-07T14:59:59+0000",
+                  "like_count": 1,
+                  "user_likes": false
+               },
+               {
+                  "id": "675980255770939_677003332335298",
+                  "from": {
+                     "id": "1445620312359354",
+                     "name": "Felix GamerGzero"
+                  },
+                  "message": "Genau danke ",
+                  "can_remove": false,
+                  "created_time": "2014-05-07T19:20:46+0000",
+                  "like_count": 0,
+                  "user_likes": false
+               },
+               {
+                  "id": "675980255770939_677173598984938",
+                  "from": {
+                     "id": "489605274504533",
+                     "name": "Elandril DoEndur"
+                  },
+                  "message": "\u0040La Patria: Sie haben scheinbar noch nie etwas mit der Gastronomie au\u00dferhalb des Gastraums zu tun gehabt, oder? Seine Angestellten, seien es Kellner, Koch, Lehrling, Aushilfe oder Reinigungskraft, ordentlich zu behandeln ist ein Muss. Und dazu geh\u00f6rt in der Gastronomie auch das Mittags- oder Abendessen - und zwar ein richtiges, abwechslungsreiches Essen!",
+                  "can_remove": false,
+                  "created_time": "2014-05-08T06:28:02+0000",
+                  "like_count": 2,
+                  "user_likes": false
+               },
+               {
+                  "id": "675980255770939_679536615415303",
+                  "from": {
+                     "id": "10204143729818972",
+                     "name": "Lukas Wagner"
+                  },
+                  "message": "Mimimimi...\nich war auch Lehrling und hab die 4 Jahre \u00fcberstanden. Jetzt mal im Ernst. Lehrjahre sind keine Herrenjahre und das man als Lehrling teils unter dem Praktikanten-Nvieau sich durchschl\u00e4gt sollte klar sein...sp\u00e4testens am Gehalt ist doch der Stellenwert eines Lehrlings bewusst. \n\nJammern is von gestern...",
+                  "can_remove": false,
+                  "created_time": "2014-05-13T11:35:30+0000",
+                  "like_count": 0,
+                  "user_likes": false
+               },
+               {
+                  "id": "675980255770939_679577908744507",
+                  "from": {
+                     "id": "1445620312359354",
+                     "name": "Felix GamerGzero"
+                  },
+                  "message": "Nein die Brosche ist einfach f\u00fcr den Arsch . Punkt und genau solche H\u00fctten wie die vom plachutta tragen dazu bei das es immer weniger Lehrlinge in die Richtung gibt also bitte !! Das hat nichts mit diesem herrnjahre Quatsch zutun !! ",
+                  "can_remove": false,
+                  "created_time": "2014-05-13T13:37:59+0000",
+                  "like_count": 0,
+                  "user_likes": false
+               },
+               {
+                  "id": "675980255770939_679578008744497",
+                  "from": {
+                     "id": "1445620312359354",
+                     "name": "Felix GamerGzero"
+                  },
+                  "message": "4 Jahre als was koch oder koch und Kellner ",
+                  "can_remove": false,
+                  "created_time": "2014-05-13T13:38:23+0000",
+                  "like_count": 0,
+                  "user_likes": false
+               }
+            ],
+            "paging": {
+               "cursors": {
+                  "after": "Mjg=",
+                  "before": "MQ=="
+               }
+            }
+         }
+      },
+      {
+         "id": "427148870654080_675510949151203",
+         "from": {
+            "id": "603402163109946",
+            "name": "Wolfgang Hobiger"
+         },
+         "to": {
+            "data": [
+               {
+                  "category": "Food/beverages",
+                  "name": "Plachutta Restaurants Wien (official)",
+                  "id": "427148870654080"
+               }
+            ]
+         },
+         "message": "Immer einen Umweg wert, schlu\u00df mit dem Zucker-Theater!",
+         "privacy": {
+            "value": ""
+         },
+         "type": "status",
+         "application": {
+            "name": "Facebook for iPad",
+            "namespace": "fbipad_",
+            "id": "173847642670370"
+         },
+         "created_time": "2014-05-04T10:44:37+0000",
+         "updated_time": "2014-05-04T23:56:53+0000",
+         "comments": {
+            "data": [
+               {
+                  "id": "675510949151203_675547232480908",
+                  "from": {
+                     "id": "1436968979902357",
+                     "name": "Hakan Helvaci"
+                  },
+                  "message": "Tut uns leid, wenn es ihnen nicht passt aber wir werden uns weiter machen bis meine kollegen die noch da arbeiten nicht mehr als hunde behandelt werden",
+                  "can_remove": false,
+                  "created_time": "2014-05-04T12:21:48+0000",
+                  "like_count": 0,
+                  "user_likes": false
+               },
+               {
+                  "id": "675510949151203_675687145800250",
+                  "from": {
+                     "id": "10201458140615347",
+                     "name": "Solala Sue"
+                  },
+                  "message": "Werden sie dort mit gewalt festgehalten ?",
+                  "can_remove": false,
+                  "created_time": "2014-05-04T15:51:50+0000",
+                  "like_count": 0,
+                  "user_likes": false
+               },
+               {
+                  "id": "675510949151203_675689442466687",
+                  "from": {
+                     "id": "603402163109946",
+                     "name": "Wolfgang Hobiger"
+                  },
+                  "message": "Wenn ich den Kommentar von Herrn Helvaci lese, glaube ich es fast, bei uns kann ja jeder selbst k\u00fcndigen und sich eine andere und bessere Arbeit suchen!",
+                  "can_remove": false,
+                  "created_time": "2014-05-04T15:59:34+0000",
+                  "like_count": 2,
+                  "user_likes": false
+               },
+               {
+                  "id": "675510949151203_675717582463873",
+                  "from": {
+                     "id": "10202538708973757",
+                     "name": "Marcel Kat"
+                  },
+                  "message": "Genau. K\u00fcndigen is immer gut. Muss man aushalten oder gehen. Ja nicht beschweren. Das hat noch jedes inakzeptables Problem gel\u00f6st.",
+                  "can_remove": false,
+                  "created_time": "2014-05-04T17:29:24+0000",
+                  "like_count": 0,
+                  "user_likes": false
+               },
+               {
+                  "id": "675510949151203_675856015783363",
+                  "from": {
+                     "id": "1436968979902357",
+                     "name": "Hakan Helvaci"
+                  },
+                  "message": "Hab auch getan und hab besseres leben. Ich mach mir keine gedanke mehr um staubzucker",
+                  "can_remove": false,
+                  "created_time": "2014-05-04T23:56:53+0000",
+                  "like_count": 0,
+                  "user_likes": false
+               }
+            ],
+            "paging": {
+               "cursors": {
+                  "after": "Ng==",
+                  "before": "MQ=="
+               }
+            }
+         }
+      },
+      {
+         "id": "427148870654080_675458892489742",
+         "from": {
+            "id": "325272344294613",
+            "name": "Georg Wimmer"
+         },
+         "to": {
+            "data": [
+               {
+                  "category": "Food/beverages",
+                  "name": "Plachutta Restaurants Wien (official)",
+                  "id": "427148870654080"
+               }
+            ]
+         },
+         "message": "Ich finde dieses ganze Theater l\u00e4cherlich. Wer mit den Praktiken bei Plachutta nicht einverstanden ist, soll dort einfach nicht essen gehen.",
+         "privacy": {
+            "value": ""
+         },
+         "type": "status",
+         "application": {
+            "name": "Facebook for iPhone",
+            "namespace": "fbiphone",
+            "id": "6628568379"
+         },
+         "created_time": "2014-05-04T08:53:59+0000",
+         "updated_time": "2014-05-05T07:37:16+0000",
+         "likes": {
+            "data": [
+               {
+                  "id": "10201869809897096",
+                  "name": "Sonja Bauer"
+               },
+               {
+                  "id": "10201458140615347",
+                  "name": "Solala Sue"
+               }
+            ],
+            "paging": {
+               "cursors": {
+                  "after": "MTAyMDE0NTgxNDA2MTUzNDc=",
+                  "before": "MTAyMDE4Njk4MDk4OTcwOTY="
+               }
+            }
+         },
+         "comments": {
+            "data": [
+               {
+                  "id": "675458892489742_675498372485794",
+                  "from": {
+                     "id": "251351271740056",
+                     "name": "Herbert Kr\u00f6ll"
+                  },
+                  "message": "Eine Meinung haben, finden Sie l\u00e4cherlich!? Woher wissen denn Sie von den Arbeitspraktiken bei Plachutta? Abgesehen davon: Das \"Theater\" k\u00f6nnte dazu beitragen, dass sich etwas \u00e4ndert.",
+                  "can_remove": false,
+                  "created_time": "2014-05-04T10:07:30+0000",
+                  "like_count": 0,
+                  "user_likes": false
+               },
+               {
+                  "id": "675458892489742_675528582482773",
+                  "from": {
+                     "id": "325272344294613",
+                     "name": "Georg Wimmer"
+                  },
+                  "message": "Ich finde es ist die Aufgabe der Agestellten und der Gewerkschaft sich um ihre Arbeitsbedingungen zu sorgen, nicht die Aufgabe irgendwelcher selbsternannten \"Aktivisten\".\nGanz nebenbei: der Kellner, hat sich etwas genommen was nicht ihm geh\u00f6rt, ohne den Besitzer oder Verantwortlichen um Erlaubnis zu bitten; sprich er hat es gestohlen. Wenn man sich unerlaubt etwas nimmt was einem nicht geh\u00f6rt hat man es gestohlen. Das wei\u00df jedes Kind. Und da ist es wurscht ob das den Wert von einem Cent oder einer Million Euro hat.\nGegenfrage: Woher kennen sie die Arbeitspraktiken bei Plachutta?",
+                  "can_remove": false,
+                  "created_time": "2014-05-04T11:40:06+0000",
+                  "like_count": 2,
+                  "user_likes": false
+               },
+               {
+                  "id": "675458892489742_675541045814860",
+                  "from": {
+                     "id": "251351271740056",
+                     "name": "Herbert Kr\u00f6ll"
+                  },
+                  "message": "Das Arbeitsgericht ist da anderer Meinung. Ihre Vorstellung von Recht und Ordnung ist aber nicht die, nach der wir in \u00d6sterreich leben. Auch das sollten Sie zur Kenntnis nehmen.",
+                  "can_remove": false,
+                  "created_time": "2014-05-04T12:06:31+0000",
+                  "like_count": 6,
+                  "user_likes": false
+               },
+               {
+                  "id": "675458892489742_675684595800505",
+                  "from": {
+                     "id": "325272344294613",
+                     "name": "Georg Wimmer"
+                  },
+                  "message": "Ich finde dieses Theater gerade deshalb l\u00e4cherlich, weil, wie sie selbst sagen, das Arbeitsgericht die K\u00fcndigung f\u00fcr ung\u00fcltig erkl\u00e4rt hat. Warum regen sich diese \"Aktivisten\" sich dann noch auf? Haben die nichts besseres zu tun? Die sog. Aktivisten sollen das tun, was unter anderen Herr Plachutta macht: Arbeiten, Geld verdienen und Steuern zahlen und nicht sinnlos herum sitzen und \"die Welt gerechter machen\". Glauben sie mir, die Plachutta Angestellten k\u00f6nnen sich selbst um ihre Rechte k\u00fcmmern. Das sind ja auch keine dummen Menschen. \nSie haben im \u00dcbrigen meine Frage noch nicht beantwortet...",
+                  "can_remove": false,
+                  "created_time": "2014-05-04T15:46:14+0000",
+                  "like_count": 2,
+                  "user_likes": false
+               },
+               {
+                  "id": "675458892489742_675697779132520",
+                  "from": {
+                     "id": "10152217791350878",
+                     "name": "Alexander Kuehne"
+                  },
+                  "message": "die aktivisten \"regen ich auf\" weil plachutta sein verhalten mit zynischen und fremdenfeindlichen \u00e4usserungen begr\u00fcndet hat",
+                  "can_remove": false,
+                  "created_time": "2014-05-04T16:24:53+0000",
+                  "like_count": 6,
+                  "user_likes": false
+               },
+               {
+                  "id": "675458892489742_675699905798974",
+                  "from": {
+                     "id": "277398509110050",
+                     "name": "Urs Wyss"
+                  },
+                  "message": "Den offenkundigen Rassismus des Herrn Chef blenden Sie konsequent aus, oder?",
+                  "can_remove": false,
+                  "created_time": "2014-05-04T16:32:59+0000",
+                  "like_count": 9,
+                  "user_likes": false
+               },
+               {
+                  "id": "675458892489742_675972762438355",
+                  "from": {
+                     "id": "1451644475087998",
+                     "name": "Kurt Saghi"
+                  },
+                  "message": "Genau. nicht mehr hin gehen...",
+                  "can_remove": false,
+                  "created_time": "2014-05-05T07:37:16+0000",
+                  "like_count": 0,
+                  "user_likes": false
+               }
+            ],
+            "paging": {
+               "cursors": {
+                  "after": "Nw==",
+                  "before": "MQ=="
+               }
+            }
+         }
+      },
+      {
+         "id": "427148870654080_675425655826399",
+         "from": {
+            "id": "564475173660939",
+            "name": "Olivers Entwicklungshilfeprojekte"
+         },
+         "to": {
+            "data": [
+               {
+                  "category": "Food/beverages",
+                  "name": "Plachutta Restaurants Wien (official)",
+                  "id": "427148870654080"
+               }
+            ]
+         },
+         "message": "Aus \u00f6konomischen Gr\u00fcnden bitten wir unsere G\u00e4ste, den Zucker in Zukunft selbst mitzubringen. Zuckerspenden werden Gerne angenommen. Ihr M.P. Salz und Pfeffer bleibt nat\u00fcrlich weiterhin kostenlos!!!",
+         "privacy": {
+            "value": ""
+         },
+         "type": "status",
+         "created_time": "2014-05-04T07:01:23+0000",
+         "updated_time": "2014-05-04T07:01:23+0000",
+         "likes": {
+            "data": [
+               {
+                  "id": "1589216751304665",
+                  "name": "Konstantin Nachn\u00e1me"
+               },
+               {
+                  "id": "251351271740056",
+                  "name": "Herbert Kr\u00f6ll"
+               },
+               {
+                  "id": "10202413041191263",
+                  "name": "Andreas Honfi"
+               }
+            ],
+            "paging": {
+               "cursors": {
+                  "after": "MTAyMDI0MTMwNDExOTEyNjM=",
+                  "before": "MTU4OTIxNjc1MTMwNDY2NQ=="
+               }
+            }
+         }
+      },
+      {
+         "id": "427148870654080_10201307410122101",
+         "from": {
+            "id": "10201595471643459",
+            "name": "Georg Zimmermann"
+         },
+         "to": {
+            "data": [
+               {
+                  "category": "Food/beverages",
+                  "name": "Plachutta Restaurants Wien (official)",
+                  "id": "427148870654080"
+               }
+            ]
+         },
+         "message": "http://www.virtualnights.com/wien/partybilder/flashmob-gebt-dem-plachutta-wiener-zucker-wir-bauen-einen-zuckerturm-vor-seiner-eingangstuere.2457442.1329073 ;)",
+         "picture": "https://fbexternal-a.akamaihd.net/safe_image.php?d=AQD2_IBiImgTl1SQ&w=154&h=154&url=http\u00253A\u00252F\u00252Fmedia-2.virtualnights.com\u00252Fmedia\u00252F8148e6d97d3789e10edfa5a62b5d0880-980-650-0-1\u00252Fflashmob-gebt-dem-plachutta-wiener-zucker-wir-bauen-einen-zuckerturm-vor-seiner-eingangstuere-wien.jpg",
+         "link": "http://www.virtualnights.com/wien/partybilder/flashmob-gebt-dem-plachutta-wiener-zucker-wir-bauen-einen-zuckerturm-vor-seiner-eingangstuere.2457442.1329073",
+         "name": "Wien 03.05.2014 - FLASHMOB Gebt dem PLACHUTTA Wiener Zucker! Wir bauen einen Zuckerturm vor...",
+         "caption": "www.virtualnights.com",
+         "description": "FLASHMOB Gebt dem PLACHUTTA Wiener Zucker! Wir bauen einen Zuckerturm vor seiner Eingangst\u00fcre! vom 03.05.2014, Wien in Wien. Bild 6 von 2.",
+         "icon": "https://fbstatic-a.akamaihd.net/rsrc.php/v2/yD/r/aS8ecmYRys0.gif",
+         "privacy": {
+            "value": ""
+         },
+         "type": "link",
+         "created_time": "2014-05-03T20:05:05+0000",
+         "updated_time": "2014-05-03T20:05:05+0000",
+         "likes": {
+            "data": [
+               {
+                  "id": "731090980286060",
+                  "name": "Gerhard Fellmann"
+               }
+            ],
+            "paging": {
+               "cursors": {
+                  "after": "NzMxMDkwOTgwMjg2MDYw",
+                  "before": "NzMxMDkwOTgwMjg2MDYw"
+               }
+            }
+         }
+      },
+      {
+         "id": "427148870654080_710446802331052",
+         "from": {
+            "id": "744302522278813",
+            "name": "Rob Schi"
+         },
+         "to": {
+            "data": [
+               {
+                  "category": "Food/beverages",
+                  "name": "Plachutta Restaurants Wien (official)",
+                  "id": "427148870654080"
+               }
+            ]
+         },
+         "message": "Herr Plachutta prangerte in seiner schriftlichen Stellungnahme die \"Verschwendung\" in Hinblick auf den Welthunger an.\nBeim heutigen Zucker-Flashmob vor einem seiner Lokale warf einer seiner Kellner absichtlich ein Tablett Erdbeeren auf den Boden. Wenn Herr Plachutta konsequent w\u00e4re, m\u00fcsste er auch diesen Mitarbeiter entlassen...",
+         "picture": "https://scontent-a.xx.fbcdn.net/hphotos-xap1/t1.0-9/q71/s480x480/1534994_710446802331052_6908139366531442989_n.jpg",
+         "link": "https://www.facebook.com/photo.php?fbid=710446802331052&set=o.427148870654080&type=1",
+         "icon": "https://fbstatic-a.akamaihd.net/rsrc.php/v2/yz/r/StEh3RhPvjk.gif",
+         "privacy": {
+            "value": ""
+         },
+         "type": "photo",
+         "object_id": "710446802331052",
+         "application": {
+            "name": "Photos",
+            "id": "2305272732"
+         },
+         "created_time": "2014-05-03T19:21:34+0000",
+         "updated_time": "2014-05-03T19:21:34+0000",
+         "likes": {
+            "data": [
+               {
+                  "id": "731090980286060",
+                  "name": "Gerhard Fellmann"
+               },
+               {
+                  "id": "10201168508415144",
+                  "name": "Karl Pri"
+               },
+               {
+                  "id": "880379318657418",
+                  "name": "Rusty Nail"
+               },
+               {
+                  "id": "10201426236137583",
+                  "name": "Robert M\u00fcller"
+               },
+               {
+                  "id": "798992293453221",
+                  "name": "Andrea Pils"
+               },
+               {
+                  "id": "729198160470595",
+                  "name": "Andrea Neumannova"
+               },
+               {
+                  "id": "10202413041191263",
+                  "name": "Andreas Honfi"
+               }
+            ],
+            "paging": {
+               "cursors": {
+                  "after": "MTAyMDI0MTMwNDExOTEyNjM=",
+                  "before": "NzMxMDkwOTgwMjg2MDYw"
+               }
+            }
+         }
+      },
+      {
+         "id": "427148870654080_675093045859660",
+         "from": {
+            "id": "897204480293300",
+            "name": "Kurt B\u00fcger"
+         },
+         "to": {
+            "data": [
+               {
+                  "category": "Food/beverages",
+                  "name": "Plachutta Restaurants Wien (official)",
+                  "id": "427148870654080"
+               }
+            ]
+         },
+         "message": "Also dieser Arbeitger sollte mal seine Kriterien mal \u00fcberlegen und mal \u00fcberlegen wie er Personal kriegen k\u00f6nnte wenn mann wegen jeder Kleinigkeit gefeuert wird. Und wenn mann schon so \u00f6kologisch tut sollte offengelgt werden ob z.B. Mitarbeiter f\u00fcr die \u00f6ffis Karten bekommen und ob der Chef mit einem Strom auto fahrt oder mit einem dicken Schlitten. Meine Meinung ist ganz klar Restaurant meiden und in eines gehn wo der Chef weiss wie er mit Mitarbeiter umgeht und diese auch zu sch\u00e4tzen weiss!!! Mit freundlichen gr\u00fc\u00dfen ein Diplomierter Barkeeper",
+         "privacy": {
+            "value": ""
+         },
+         "type": "status",
+         "application": {
+            "name": "Facebook for Android",
+            "namespace": "fbandroid",
+            "id": "350685531728"
+         },
+         "created_time": "2014-05-03T19:04:22+0000",
+         "updated_time": "2014-05-03T19:04:22+0000"
+      },
+      {
+         "id": "427148870654080_675077829194515",
+         "from": {
+            "id": "720639167982884",
+            "name": "Hans J\u00f6rg Stichauner"
+         },
+         "to": {
+            "data": [
+               {
+                  "category": "Food/beverages",
+                  "name": "Plachutta Restaurants Wien (official)",
+                  "id": "427148870654080"
+               }
+            ]
+         },
+         "message": "Hallo liebe Leute !\n\n               ich glaube, man sollte \u00fcber die \"Staubzuckerdiskussion\" die Kirche im Dorf lassen. Ich m\u00f6chte hier\" keine Schleichwerbung anbringen, aber das Ambiente und die Gastronomie bei Plachutta ist erstklassig. Dar\u00fcber hinaus ist dieses Wiener \"Gasthaus\" weltbekannt und ein St\u00fcck Wiener Traditionsk\u00fcche. \n\n               Dazu geh\u00f6ren aber u.a. auch Regeln f\u00fcr das Personal. Plachutta hat v\u00f6llig Recht, wenn er Regeln f\u00fcr eine kontrollierte Warenentnahme aus dem Lebensmittellager aufgestellt hat. \n\n               Erfolg verleitet aber auch zu Handlungen, die manchen unverst\u00e4ndlich sind und dazu f\u00fchren, dass das Ansehen und die Ehre angekratzt wird. Eine solche Handlung ist die Entlassung des betreffenden Mitarbeiters, die vom Arbeits- und Sozialgericht aufgehoben wurde. Die \u00d6ffentlichkeitsstrategie  die nunmehr an den Tag gelegt wird, f\u00fchrt nur dazu, dass das Unternehmen \u00f6ffentlich in eine Position ger\u00fcckt wird, das es nicht verdient. \n\nDie unten stehende Stellungnahme ist kontraproduktiv. Diese tr\u00e4gt nicht dazu bei, die Situation zu harmonisieren, sondern eher dazu, das Unternehmen abgehoben erscheinen zu lassen. \n\nBesser w\u00e4re z. B. bei der Aktion der Aktivisten gewesen, diese nicht zu beschimpfen oder gar handgreiflich zu werden, sondern  medienwirksam Staubzucker an die Aktivisten und an die (dort anwesenden) G\u00e4ste und Journalisten  zu verteilen. Da h\u00e4tte alle bl\u00f6d geschaut.........\n\nAlso liebes Plachutta - Team, kommt schnell zur\u00fcck auf den Boden der Realit\u00e4t und l\u00e4sst euch was gutes einfallen, damit diese Angelegenheit in eurem Sinne bereinigt werden kann.  \n\nLiebe Gr\u00fc\u00dfe",
+         "privacy": {
+            "value": ""
+         },
+         "type": "status",
+         "created_time": "2014-05-03T18:09:49+0000",
+         "updated_time": "2014-05-05T12:17:34+0000",
+         "likes": {
+            "data": [
+               {
+                  "id": "10201869809897096",
+                  "name": "Sonja Bauer"
+               }
+            ],
+            "paging": {
+               "cursors": {
+                  "after": "MTAyMDE4Njk4MDk4OTcwOTY=",
+                  "before": "MTAyMDE4Njk4MDk4OTcwOTY="
+               }
+            }
+         },
+         "comments": {
+            "data": [
+               {
+                  "id": "675077829194515_675099282525703",
+                  "from": {
+                     "id": "516972661763982",
+                     "name": "Mario Hatori"
+                  },
+                  "message": "Ich glaube nicht, dass die Werbung ankommt. ;-)",
+                  "can_remove": false,
+                  "created_time": "2014-05-03T19:24:45+0000",
+                  "like_count": 1,
+                  "user_likes": false
+               },
+               {
+                  "id": "675077829194515_676040315764933",
+                  "from": {
+                     "id": "10202459827203499",
+                     "name": "Konrad Meier"
+                  },
+                  "message": "Es wurde keine Entlassung aufgehoben. Es wurde nur die fristlose Entlassung f\u00fcr ungerechtfertigt erkl\u00e4rt. Der Mitarbeiter ist trotzdem weg. kriegt halt 2 Wochen Lohn nachgezahlt.",
+                  "can_remove": false,
+                  "created_time": "2014-05-05T12:17:34+0000",
+                  "like_count": 0,
+                  "user_likes": false
+               }
+            ],
+            "paging": {
+               "cursors": {
+                  "after": "Mg==",
+                  "before": "MQ=="
+               }
+            }
+         }
+      },
+      {
+         "id": "427148870654080_675054135863551",
+         "from": {
+            "id": "489605274504533",
+            "name": "Elandril DoEndur"
+         },
+         "to": {
+            "data": [
+               {
+                  "category": "Food/beverages",
+                  "name": "Plachutta Restaurants Wien (official)",
+                  "id": "427148870654080"
+               }
+            ]
+         },
+         "message": "Ich w\u00e4r' ja daf\u00fcr, dass alle Plachutta Restaurants mal so richtig hart von den Beh\u00f6rden (Lebensmittelkontrolle, Hygieneamt, Arbeitsinspektorat, Finanzamt,...) rangenommen werden. Mal schaun, wie's Herrn Plachutta dann geht. :-)",
+         "privacy": {
+            "value": ""
+         },
+         "type": "status",
+         "created_time": "2014-05-03T17:33:02+0000",
+         "updated_time": "2014-05-03T17:33:02+0000",
+         "likes": {
+            "data": [
+               {
+                  "id": "880379318657418",
+                  "name": "Rusty Nail"
+               },
+               {
+                  "id": "893461810670978",
+                  "name": "Georg Jajus"
+               },
+               {
+                  "id": "805541086133238",
+                  "name": "Nina Rumel"
+               },
+               {
+                  "id": "10202195959848531",
+                  "name": "Michael Gutsch"
+               },
+               {
+                  "id": "10203394885104423",
+                  "name": "Edgar Ehlers"
+               },
+               {
+                  "id": "10202000516085127",
+                  "name": "Stefan Neunzehnhundertneun"
+               }
+            ],
+            "paging": {
+               "cursors": {
+                  "after": "MTAyMDIwMDA1MTYwODUxMjc=",
+                  "before": "ODgwMzc5MzE4NjU3NDE4"
+               }
+            }
+         }
+      },
+      {
+         "id": "427148870654080_675049592530672",
+         "from": {
+            "id": "10204145752149915",
+            "name": "Sepp Berna"
+         },
+         "to": {
+            "data": [
+               {
+                  "category": "Food/beverages",
+                  "name": "Plachutta Restaurants Wien (official)",
+                  "id": "427148870654080"
+               }
+            ]
+         },
+         "message": "Alle Hier ham offensichtlich noch nie in der Gastro gackelt.\nDeppate Kommentare und keine Ahnung....Es gibt so viele vertrottelte Hackler, und man kann sich ned von jedem am Sch\u00e4del scheissn lasen. Weiter so Herr Plachutta",
+         "privacy": {
+            "value": ""
+         },
+         "type": "status",
+         "created_time": "2014-05-03T17:18:07+0000",
+         "updated_time": "2014-05-05T20:31:22+0000",
+         "likes": {
+            "data": [
+               {
+                  "id": "10201869809897096",
+                  "name": "Sonja Bauer"
+               }
+            ],
+            "paging": {
+               "cursors": {
+                  "after": "MTAyMDE4Njk4MDk4OTcwOTY=",
+                  "before": "MTAyMDE4Njk4MDk4OTcwOTY="
+               }
+            }
+         },
+         "comments": {
+            "data": [
+               {
+                  "id": "675049592530672_675099962525635",
+                  "from": {
+                     "id": "516972661763982",
+                     "name": "Mario Hatori"
+                  },
+                  "message": "Ja weiter so, dann wird er bald alleine dastehen.",
+                  "can_remove": false,
+                  "created_time": "2014-05-03T19:27:04+0000",
+                  "like_count": 0,
+                  "user_likes": false
+               },
+               {
+                  "id": "675049592530672_675135899188708",
+                  "from": {
+                     "id": "10202894229729534",
+                     "name": "Roland Videomar"
+                  },
+                  "message": "Ich komme nicht aus der Branche, aber ich bin \u00fcberrascht, dass so getan wird als sei es normal, dass der gr\u00f6\u00dfte Depp der Chef sein muss.",
+                  "can_remove": false,
+                  "created_time": "2014-05-03T20:58:02+0000",
+                  "like_count": 4,
+                  "user_likes": false
+               },
+               {
+                  "id": "675049592530672_676220239080274",
+                  "from": {
+                     "id": "10201168508415144",
+                     "name": "Karl Pri"
+                  },
+                  "message": "Sepp... ich bin Branchenkenner und sicher, es wird jetzt viel Wirbel um den Plachutta gemacht, aber er hat sich selber in die Schei*e geritten... und wegen 50g Zucker eine K\u00fcndigung dann mit der Wortwahl wie der Chef getan hat begr\u00fcnden... L\u00c4CHERLICH und bissl komisch... naja... w\u00fcrde gern wissen ob SIE denn schon in der Gastro gearbeitet haben... bzw. eine entsprechende Ausbildung in den Bereichen besitzen... kenne genug Betrieben wo es eben genau anders rum l\u00e4uft... nur eines sei gewiss, mein Geld landet sicher nicht mehr beim Plachutta in der Kasse... egal wie gut sein Rindfleich sein mag... weil die Einstellung von ihm ist mir nicht recht... bezogen auf die fremdenfeindliche Betitelung des gek\u00fcndigten",
+                  "can_remove": false,
+                  "created_time": "2014-05-05T20:31:22+0000",
+                  "like_count": 0,
+                  "user_likes": false
+               }
+            ],
+            "paging": {
+               "cursors": {
+                  "after": "NA==",
+                  "before": "MQ=="
+               }
+            }
+         }
+      },
+      {
+         "id": "427148870654080_674993705869594",
+         "from": {
+            "id": "701245816579130",
+            "name": "Maxim von Stierlitz"
+         },
+         "to": {
+            "data": [
+               {
+                  "category": "Food/beverages",
+                  "name": "Plachutta Restaurants Wien (official)",
+                  "id": "427148870654080"
+               }
+            ]
+         },
+         "message": "Ich war auf jeden Fall das letzte Mal bei Plachutta zum Essen!",
+         "privacy": {
+            "value": ""
+         },
+         "type": "status",
+         "created_time": "2014-05-03T14:40:31+0000",
+         "updated_time": "2014-05-03T14:40:31+0000"
+      },
+      {
+         "id": "427148870654080_674979072537724",
+         "from": {
+            "id": "1447331202199014",
+            "name": "Karl Rater"
+         },
+         "to": {
+            "data": [
+               {
+                  "category": "Food/beverages",
+                  "name": "Plachutta Restaurants Wien (official)",
+                  "id": "427148870654080"
+               }
+            ]
+         },
+         "message": "Hallo,\n\nich finde es mehr als befremdlich, was hier (und woanders) f\u00fcr eine Hexenjagd betrieben wird. \n\nMan schlie\u00dft sich blind dem tobenden Mob an und johlt kr\u00e4ftig mit, wenn das Opfer zu Boden geht.\n\nDas ist mental finsterstes Mittelalter. \nGeistlose kann man fanatisieren.\n\nUnd nebenbei: Wer seinen Arbeitgeber bestiehlt (und sei es nur ein Radiergummi oder das Gramm Zucker), der darf kraft Gesetz entlassen werden, weil das Vertrauensverh\u00e4ltnis gest\u00f6rt ist. Jeder Arbeitsrichter w\u00fcrde da zustimmen. Und das ist gut so.\n\nEinen sch\u00f6nen Tag noch.\n\nEuer Karl",
+         "privacy": {
+            "value": ""
+         },
+         "type": "status",
+         "created_time": "2014-05-03T13:53:20+0000",
+         "updated_time": "2014-05-03T21:43:58+0000",
+         "likes": {
+            "data": [
+               {
+                  "id": "10201869809897096",
+                  "name": "Sonja Bauer"
+               }
+            ],
+            "paging": {
+               "cursors": {
+                  "after": "MTAyMDE4Njk4MDk4OTcwOTY=",
+                  "before": "MTAyMDE4Njk4MDk4OTcwOTY="
+               }
+            }
+         },
+         "comments": {
+            "data": [
+               {
+                  "id": "674979072537724_674982322537399",
+                  "from": {
+                     "id": "1472864589624898",
+                     "name": "Gert Thomaser"
+                  },
+                  "message": "Super Karli aber wieso hat dann der Arbeitsrichter dem nicht zugestimmt?  Die EAV hat es schon richtig besungen seinerzeit: Go Karli Go....",
+                  "can_remove": false,
+                  "created_time": "2014-05-03T14:05:02+0000",
+                  "like_count": 4,
+                  "user_likes": false
+               },
+               {
+                  "id": "674979072537724_674985682537063",
+                  "from": {
+                     "id": "1447331202199014",
+                     "name": "Karl Rater"
+                  },
+                  "message": "Vielleicht, weil der Entlassene zum Kreis der 'Kulturbereicherer' geh\u00f6rt und eine Zustimmung zur Entlassung wieder eine alberne Rassismusdebatte zum rollen gebracht h\u00e4tte - initiiert von Gutmenschen.",
+                  "can_remove": false,
+                  "created_time": "2014-05-03T14:17:50+0000",
+                  "like_count": 1,
+                  "user_likes": false
+               },
+               {
+                  "id": "674979072537724_674987142536917",
+                  "from": {
+                     "id": "1472864589624898",
+                     "name": "Gert Thomaser"
+                  },
+                  "message": "Geh bitte..... ",
+                  "can_remove": false,
+                  "created_time": "2014-05-03T14:23:19+0000",
+                  "like_count": 1,
+                  "user_likes": false
+               },
+               {
+                  "id": "674979072537724_674989845869980",
+                  "from": {
+                     "id": "1447331202199014",
+                     "name": "Karl Rater"
+                  },
+                  "message": "So abwegig, wie die Hexenjagd, gell?",
+                  "can_remove": false,
+                  "created_time": "2014-05-03T14:26:59+0000",
+                  "like_count": 0,
+                  "user_likes": false
+               },
+               {
+                  "id": "674979072537724_675037209198577",
+                  "from": {
+                     "id": "10204235831996735",
+                     "name": "Alan Loy"
+                  },
+                  "message": "Kennen Sie die Bedeutung des Begriffs Hexenjagd und deren Geschichte? \n\nMario Plachutta ist doch keine Hexe sondern ein erfolgreicher Unternehmer - welcher nur durch seine Angestellten so erfolgreich werden konnte. Daher ist doch ein bisschen Respekt und Achtung seinen Angestellten gegen\u00fcber nicht wirklich viel verlangt. Sein Vater Ewald Plachutta hatte diese Achtung gegen\u00fcber seinen Angestellten, obwohl es mitunter auch ziemlich rau zu ging.\n\nWenn man die OTS Aussendung von Herrn Mario Plachutta liest bekommt man nicht wirklich den Eindruck das man auf Respekt, Achtung und Wertsch\u00e4tzung einen so grossen Wert legt. \n\nDer ehemalige Angestellte wird herablassend als \"slowakischen Staatsb\u00fcrger\" bezeichnet und als Draufgabe ist man noch verwundert das man solche Menschen auch noch vertritt.\n\nDie Verschwendung von Lebensmittel anzuprangern, gerade in einem Nobelrestaurant, ist auch ein Hohn. Denn gerade in der Gastronomie wird sehr viel in den Abfall entsorgt, und bei einen Nobelrestaurant noch mehr. .",
+                  "can_remove": false,
+                  "created_time": "2014-05-03T16:47:21+0000",
+                  "like_count": 3,
+                  "user_likes": false
+               },
+               {
+                  "id": "674979072537724_675083275860637",
+                  "from": {
+                     "id": "10203394885104423",
+                     "name": "Edgar Ehlers"
+                  },
+                  "message": "Was f\u00fcr ein Opfer ?? Ein Ausbeuter ist der Plachutta !!",
+                  "can_remove": false,
+                  "created_time": "2014-05-03T18:28:27+0000",
+                  "like_count": 2,
+                  "user_likes": false
+               },
+               {
+                  "id": "674979072537724_675083995860565",
+                  "from": {
+                     "id": "1447331202199014",
+                     "name": "Karl Rater"
+                  },
+                  "message": "\u0040Edgar Ehlers, Sie wissen schon, dass Sie jetzt eine strafrechtlich relevante Aussage \u00f6ffentlich gemacht haben.",
+                  "can_remove": false,
+                  "created_time": "2014-05-03T18:31:18+0000",
+                  "like_count": 1,
+                  "user_likes": false
+               },
+               {
+                  "id": "674979072537724_675101959192102",
+                  "from": {
+                     "id": "516972661763982",
+                     "name": "Mario Hatori"
+                  },
+                  "message": "Strafrechtlich? Wer wei\u00df was der Plachutta alles strafrechtlich relevantes herumbr\u00fcllt. Kulturbereicherer? Der p. holt bewusst Leute aus dem Ausland. Da kann der Kellner nichts daf\u00fcr. Aber besser ein Gutmensch als ein Schlechtmensch.",
+                  "can_remove": false,
+                  "created_time": "2014-05-03T19:34:02+0000",
+                  "like_count": 0,
+                  "user_likes": false
+               },
+               {
+                  "id": "674979072537724_675149049187393",
+                  "from": {
+                     "id": "10202195959848531",
+                     "name": "Michael Gutsch"
+                  },
+                  "message": "Darf man eben nicht, wie das Arbeits- und Sozialgericht festgestellt hat. Deswegen hat der Herr Plachutta auch den Prozess verloren. - Aber weder der Herr Plachutta noch Sie wollen anscheinend Urteilsspr\u00fcche anerkennen die nicht ihrem wirren Rechtsgef\u00fchl entsprechen.",
+                  "can_remove": false,
+                  "created_time": "2014-05-03T21:43:58+0000",
+                  "like_count": 2,
+                  "user_likes": false
+               }
+            ],
+            "paging": {
+               "cursors": {
+                  "after": "OQ==",
+                  "before": "MQ=="
+               }
+            }
+         }
+      },
+      {
+         "id": "427148870654080_674880509214247",
+         "from": {
+            "id": "251351271740056",
+            "name": "Herbert Kr\u00f6ll"
+         },
+         "to": {
+            "data": [
+               {
+                  "category": "Food/beverages",
+                  "name": "Plachutta Restaurants Wien (official)",
+                  "id": "427148870654080"
+               }
+            ]
+         },
+         "message": "Sentenced by the court. Austria's worst employers. Boycott them Plachutta.\n\nVom Gericht verurteilt. \u00d6sterreichs schlechtester Arbeitgeber. Boykottieren sie Plachutta",
+         "privacy": {
+            "value": ""
+         },
+         "type": "status",
+         "created_time": "2014-05-03T08:07:59+0000",
+         "updated_time": "2014-05-03T08:07:59+0000",
+         "likes": {
+            "data": [
+               {
+                  "id": "880379318657418",
+                  "name": "Rusty Nail"
+               },
+               {
+                  "id": "715896721801869",
+                  "name": "Markus Schmickler"
+               },
+               {
+                  "id": "332674933547162",
+                  "name": "Dieter Gratzer"
+               },
+               {
+                  "id": "10202439766504431",
+                  "name": "Charles Joseph Steiner"
+               },
+               {
+                  "id": "4147854830558",
+                  "name": "Kenshin Himura"
+               },
+               {
+                  "id": "893461810670978",
+                  "name": "Georg Jajus"
+               },
+               {
+                  "id": "272748739584460",
+                  "name": "Alfons Henry"
+               },
+               {
+                  "id": "305269179632956",
+                  "name": "Markus Fridrich"
+               },
+               {
+                  "id": "516972661763982",
+                  "name": "Mario Hatori"
+               },
+               {
+                  "id": "1472864589624898",
+                  "name": "Gert Thomaser"
+               }
+            ],
+            "paging": {
+               "cursors": {
+                  "after": "MTQ3Mjg2NDU4OTYyNDg5OA==",
+                  "before": "ODgwMzc5MzE4NjU3NDE4"
+               }
+            }
+         }
+      },
+      {
+         "id": "427148870654080_674821355886829",
+         "from": {
+            "id": "270718969779414",
+            "name": "Alexander Haselmayer"
+         },
+         "to": {
+            "data": [
+               {
+                  "category": "Food/beverages",
+                  "name": "Plachutta Restaurants Wien (official)",
+                  "id": "427148870654080"
+               }
+            ]
+         },
+         "message": "http://kurier.at/chronik/wien/plachuttas-kellner-nach-aus-zucker-bei-erdbeer-flashmob-angezeigt/63.556.750",
+         "privacy": {
+            "value": ""
+         },
+         "type": "status",
+         "created_time": "2014-05-03T04:22:07+0000",
+         "updated_time": "2014-05-03T04:22:07+0000",
+         "likes": {
+            "data": [
+               {
+                  "id": "731090980286060",
+                  "name": "Gerhard Fellmann"
+               },
+               {
+                  "id": "261310430741135",
+                  "name": "Micha El"
+               },
+               {
+                  "id": "4147854830558",
+                  "name": "Kenshin Himura"
+               },
+               {
+                  "id": "305269179632956",
+                  "name": "Markus Fridrich"
+               },
+               {
+                  "id": "1472864589624898",
+                  "name": "Gert Thomaser"
+               }
+            ],
+            "paging": {
+               "cursors": {
+                  "after": "MTQ3Mjg2NDU4OTYyNDg5OA==",
+                  "before": "NzMxMDkwOTgwMjg2MDYw"
+               }
+            }
+         }
+      },
+      {
+         "id": "427148870654080_729026430453137",
+         "from": {
+            "id": "757600930929020",
+            "name": "Peter St\u00f6ckl"
+         },
+         "to": {
+            "data": [
+               {
+                  "category": "Food/beverages",
+                  "name": "Plachutta Restaurants Wien (official)",
+                  "id": "427148870654080"
+               }
+            ]
+         },
+         "story": "Peter St\u00f6ckl posted an event to Plachutta Restaurants Wien (official)'s timeline.",
+         "story_tags": {
+            "0": [
+               {
+                  "id": "757600930929020",
+                  "name": "Peter St\u00f6ckl",
+                  "offset": 0,
+                  "length": 12,
+                  "type": "user"
+               }
+            ],
+            "32": [
+               {
+                  "id": "427148870654080",
+                  "name": "Plachutta Restaurants Wien (official)",
+                  "offset": 32,
+                  "length": 37,
+                  "type": "page"
+               }
+            ]
+         },
+         "link": "https://www.facebook.com/events/704065976322565/",
+         "privacy": {
+            "value": ""
+         },
+         "type": "link",
+         "created_time": "2014-05-02T21:14:17+0000",
+         "updated_time": "2014-05-03T16:06:23+0000",
+         "likes": {
+            "data": [
+               {
+                  "id": "332674933547162",
+                  "name": "Dieter Gratzer"
+               },
+               {
+                  "id": "4147854830558",
+                  "name": "Kenshin Himura"
+               },
+               {
+                  "id": "789095447791031",
+                  "name": "Gipsy Bodnarovsky"
+               },
+               {
+                  "id": "808548952503006",
+                  "name": "Compot Julian"
+               }
+            ],
+            "paging": {
+               "cursors": {
+                  "after": "ODA4NTQ4OTUyNTAzMDA2",
+                  "before": "MzMyNjc0OTMzNTQ3MTYy"
+               }
+            }
+         },
+         "comments": {
+            "data": [
+               {
+                  "id": "729026430453137_729346873754426",
+                  "from": {
+                     "id": "10201869809897096",
+                     "name": "Sonja Bauer"
+                  },
+                  "message": "Starke Leistung, alle Achtung",
+                  "can_remove": false,
+                  "created_time": "2014-05-03T16:06:23+0000",
+                  "like_count": 0,
+                  "user_likes": false
+               }
+            ],
+            "paging": {
+               "cursors": {
+                  "after": "MQ==",
+                  "before": "MQ=="
+               }
+            }
+         }
+      },
+      {
+         "id": "427148870654080_249657925218852",
+         "from": {
+            "id": "270718969779414",
+            "name": "Alexander Haselmayer"
+         },
+         "to": {
+            "data": [
+               {
+                  "category": "Food/beverages",
+                  "name": "Plachutta Restaurants Wien (official)",
+                  "id": "427148870654080"
+               }
+            ]
+         },
+         "message": "Starkoch Mario Plachutta h\u00e4lt von Schutzma\u00dfnahmen wenig. Er nennt \u00d6sterreichs Lehrlinge \"unbrauchbare Analphabeten\". Betriebsinterne Diebst\u00e4hle gingen zu 90 Prozent auf ihr Konto. Sie seien \"das Spiegelbild der verrotteten Gesellschaft\". Dass sie bis vier Uhr fr\u00fch in Discos herumz\u00f6gen, interessiere keinen. \"Wehe aber, sie arbeiten bis f\u00fcnf nach elf im Betrieb.\" quelle: http://derstandard.at/1350260366714/Mitarbeiter-bis-aufs-Letzte-ausquetschen",
+         "picture": "https://fbexternal-a.akamaihd.net/safe_image.php?d=AQA911_KCtR-vTsK&w=154&h=154&url=http\u00253A\u00252F\u00252Fimages.derstandard.at\u00252F2012\u00252F11\u00252F05\u00252F1350332175224.gif",
+         "link": "http://derstandard.at/1350260366714/Mitarbeiter-bis-aufs-Letzte-ausquetschen",
+         "name": "\"Mitarbeiter bis aufs Letzte ausquetschen\"",
+         "caption": "derstandard.at",
+         "description": "Die Suche nach Jungk\u00f6chen in Krisenl\u00e4ndern emp\u00f6rt die Branche. \u00d6sterreichs Lehrlingsmangel ist laut Gewerkschaft selbst verschuldet",
+         "icon": "https://fbstatic-a.akamaihd.net/rsrc.php/v2/y5/r/sXJx2UP7quc.png",
+         "privacy": {
+            "value": ""
+         },
+         "type": "link",
+         "created_time": "2014-05-02T19:27:18+0000",
+         "updated_time": "2014-05-02T19:27:18+0000",
+         "likes": {
+            "data": [
+               {
+                  "id": "332674933547162",
+                  "name": "Dieter Gratzer"
+               },
+               {
+                  "id": "898669503493330",
+                  "name": "Markus Flo\u00df"
+               }
+            ],
+            "paging": {
+               "cursors": {
+                  "after": "ODk4NjY5NTAzNDkzMzMw",
+                  "before": "MzMyNjc0OTMzNTQ3MTYy"
+               }
+            }
+         }
+      },
+      {
+         "id": "427148870654080_770319032998376",
+         "from": {
+            "id": "802529433110669",
+            "name": "Robert Gabriel"
+         },
+         "to": {
+            "data": [
+               {
+                  "category": "Food/beverages",
+                  "name": "Plachutta Restaurants Wien (official)",
+                  "id": "427148870654080"
+               }
+            ]
+         },
+         "picture": "https://scontent-b.xx.fbcdn.net/hphotos-xfp1/l/t1.0-9/q71/s480x480/10155524_770319032998376_3643219010318952707_n.jpg",
+         "link": "https://www.facebook.com/photo.php?fbid=770319032998376&set=o.427148870654080&type=1",
+         "icon": "https://fbstatic-a.akamaihd.net/rsrc.php/v2/yz/r/StEh3RhPvjk.gif",
+         "privacy": {
+            "value": ""
+         },
+         "type": "photo",
+         "object_id": "770319032998376",
+         "application": {
+            "name": "Facebook for iPhone",
+            "namespace": "fbiphone",
+            "id": "6628568379"
+         },
+         "created_time": "2014-05-02T18:18:08+0000",
+         "updated_time": "2014-05-02T18:18:08+0000",
+         "likes": {
+            "data": [
+               {
+                  "id": "910240602335006",
+                  "name": "Mato Mikic"
+               },
+               {
+                  "id": "10202353837153337",
+                  "name": "Charly Firpo"
+               },
+               {
+                  "id": "10203307955472616",
+                  "name": "Thomas Piesch"
+               },
+               {
+                  "id": "10204214014167400",
+                  "name": "Manfred St\u00fcfler"
+               },
+               {
+                  "id": "802529433110669",
+                  "name": "Robert Gabriel"
+               }
+            ],
+            "paging": {
+               "cursors": {
+                  "after": "ODAyNTI5NDMzMTEwNjY5",
+                  "before": "OTEwMjQwNjAyMzM1MDA2"
+               }
+            }
+         }
+      }
+   ],
+   "paging": {
+      "previous": "https://graph.facebook.com/v2.0/427148870654080/tagged?access_token=329502517197810|7282801ff5f470986a1db0776f866622&limit=25&since=1403160169&__previous=1",
+      "next": "https://graph.facebook.com/v2.0/427148870654080/tagged?access_token=329502517197810|7282801ff5f470986a1db0776f866622&limit=25&until=1399054687"
+   }
+}

@@ -119,4 +119,6 @@
     <bean id="properties" class="org.apache.camel.component.properties.PropertiesComponent">
     	<property name="location" value="config.properties"/>
 	</bean>
+	<bean id="facebookParser" class="at.tuwien.sentimentanalyzer.beans.FacebookParser"/>
+    
 </beans>

@@ -14,6 +14,7 @@ import org.apache.log4j.Logger;
  */
 @Converter
 public class Message {
+	private String id = null;
 	/**
 	 * Defines a Source for a Message Object
 	 * @author CLF
@@ -235,6 +236,12 @@ public class Message {
 	}
 	public void setWordcounts(HashMap<String, Integer> wordcounts) {
 		this.wordcounts = wordcounts;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
 	}
 	
 }
