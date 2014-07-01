@@ -10,7 +10,7 @@
 		<!-- only returns the feed of the plachutta page -->
         <route id="facebookSearchPlachutta">
 			<from uri="timer:FacebookTimer?period={{facebook.period}}"/>
-			<to uri="https://graph.facebook.com/v2.0//123939137654782/feed?access_token={{facebook.AppID}}|{{facebook.AppSecret}}" />
+			<to uri="https://graph.facebook.com/v2.0//{{facebook.client}}/feed?access_token={{facebook.AppID}}|{{facebook.AppSecret}}" />
 			<convertBodyTo type="java.lang.String" />
  			<to uri="log:facebook" /> 
  			<to uri="direct:incomingMessages" />

@@ -1,13 +1,8 @@
 package at.tuwien.sentimentanalyzer.beans;
 
-import java.io.BufferedInputStream;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Properties;
-
+import at.tuwien.sentimentanalyzer.PropertiesLoader;
 import at.tuwien.sentimentanalyzer.entities.Message;
 
 /*
@@ -50,22 +45,14 @@ public class CommentsFilter {
 //			if ( entry.getValue().get(0).equals("") ) //TODO: add clientname
 //				csv.remove(entry.getKey());
 //		}
-		Properties properties = new Properties();
-		BufferedInputStream stream;
-		try {
-			stream = new BufferedInputStream(new FileInputStream("client.properties"));
-			properties.load(stream);
-			stream.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		String client = properties.getProperty("reddit.client");
+		//PropertiesLoader TODO
 		
 		boolean isNotClient = true;
 		
-		//if (msg.getSource())
-		if (msg.getAuthor().equals(client))
+		if (msg.getSource().equals("facebook")) {
+		if (msg.getAuthor().equals("test"))
 			isNotClient = false;
+		}
 		
 		return isNotClient;	
 	}

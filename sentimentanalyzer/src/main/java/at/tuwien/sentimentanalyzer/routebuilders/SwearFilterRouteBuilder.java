@@ -12,6 +12,10 @@ public class SwearFilterRouteBuilder extends RouteBuilder{
 			log(LoggingLevel.DEBUG,"beforeFilter").
 			filter(method("swearChecker", "isUserBlocked").isNotEqualTo(true)).
 				log(LoggingLevel.DEBUG,"inFilter").
+			filter(method("commentsFilter", "filterClient")).
+				log(LoggingLevel.DEBUG,"inFilterClient").
+		    filter(method("commentsFilter", "filterURL").isNotEqualTo(true)).
+		    	log(LoggingLevel.DEBUG,"inFilterURL").
 				to("direct:filteredMessages");
 	}
 }
